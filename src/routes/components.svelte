@@ -2,11 +2,16 @@
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import SampleComponent1 from '$lib/components/TabMenu/SampleComponent1.svelte';
 	import SampleComponent2 from '$lib/components/TabMenu/SampleComponent2.svelte';
+	import SampleComponent3 from '$lib/components/TabMenu/SampleComponent3.svelte';
 
 	let menuOptions = [
 		{
 			title: 'Table',
 			component: SampleComponent1
+		},
+		{
+			title: 'Graph',
+			component: SampleComponent3
 		},
 		{
 			title: 'Empty',
