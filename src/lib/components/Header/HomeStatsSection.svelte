@@ -1,3 +1,7 @@
+<script>
+	import HeaderChart from '../Charts/HeaderChart.svelte';
+</script>
+
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="top">
@@ -66,7 +70,7 @@
 	<div class="vt" />
 
 	<div class="graph">
-		<!-- Graph goes here -->
+		<HeaderChart />
 	</div>
 </div>
 
@@ -107,5 +111,10 @@
 
 	.detail {
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-white;
+	}
+
+	.graph {
+		@apply flex-grow h-full;
+		@apply pb-[1.75vw] px-[1vw];
 	}
 </style>
