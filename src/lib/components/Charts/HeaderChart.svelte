@@ -1,5 +1,59 @@
 <script>
-	import { Chart } from 'chart.js';
+	import {
+		Chart,
+		ArcElement,
+		LineElement,
+		BarElement,
+		PointElement,
+		BarController,
+		BubbleController,
+		DoughnutController,
+		LineController,
+		PieController,
+		PolarAreaController,
+		RadarController,
+		ScatterController,
+		CategoryScale,
+		LinearScale,
+		LogarithmicScale,
+		RadialLinearScale,
+		TimeScale,
+		TimeSeriesScale,
+		Decimation,
+		Filler,
+		Legend,
+		Title,
+		Tooltip,
+		SubTitle
+	} from 'chart.js';
+
+	Chart.register(
+		ArcElement,
+		LineElement,
+		BarElement,
+		PointElement,
+		BarController,
+		BubbleController,
+		DoughnutController,
+		LineController,
+		PieController,
+		PolarAreaController,
+		RadarController,
+		ScatterController,
+		CategoryScale,
+		LinearScale,
+		LogarithmicScale,
+		RadialLinearScale,
+		TimeScale,
+		TimeSeriesScale,
+		Decimation,
+		Filler,
+		Legend,
+		Title,
+		Tooltip,
+		SubTitle
+	);
+
 	import { onMount } from 'svelte';
 
 	let chartElement, myChart;
@@ -114,9 +168,22 @@
 </div>
 
 <style lang="postcss">
+	.main {
+		@apply h-full;
+		@apply text-white text-[0.73vw];
+	}
+
 	.title {
 		@apply flex justify-between;
 		@apply mb-[1.19vw];
+	}
+
+	.title > .text {
+		@apply text-[0.83vw] font-medium;
+	}
+
+	.title > .value {
+		@apply text-[0.67vw];
 	}
 
 	.chart-wrapper {
@@ -156,10 +223,5 @@
 		@apply flex flex-col;
 		@apply h-full;
 		@apply w-[15vw];
-	}
-
-	.main {
-		@apply h-full;
-		@apply text-white;
 	}
 </style>
