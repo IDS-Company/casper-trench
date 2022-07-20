@@ -1,25 +1,18 @@
 <script>
-	export let cspr = 31821243;
-	export let cashValue = 921232.02;
-	export let percentageFooter = false;
+	export let cspr = '31,821,243';
+	export let cashValue = '921,232.02';
 </script>
 
 <div class="crypto-cash">
 	<div class="value-crypto">
 		<div class="crypto">
-			{cspr.toLocaleString()}
+			{cspr}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
-	{#if percentageFooter}
-		<div class="value-cash">
-			${(cashValue * 100)}%
-		</div>
-	{:else}
-		<div class="value-cash">
-			${cashValue.toLocaleString()}
-		</div>
-	{/if}
+	<div class="value-cash">
+		${cashValue}
+	</div>
 </div>
 
 <style lang="postcss">
