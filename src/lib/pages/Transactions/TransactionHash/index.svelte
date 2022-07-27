@@ -14,7 +14,6 @@
 		timeAgo
 	} from '$utils/converters';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
-	import { sampleJsonData } from '$utils/sampleData';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
 	import { onMount } from 'svelte';
@@ -22,26 +21,6 @@
 	import { isLoading } from '$stores/loading';
 	import { getDeploy } from '$utils/api';
 	import { page } from '$app/stores';
-	import Validator from '$lib/components/TableData/Validator.svelte';
-
-	let transactionStatus = 'success';
-	let transactionHash = '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31';
-	let blockHeight = 928323;
-	let timestamp = Date.parse('July 22, 2022 14:46');
-	let from = {
-		imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-		name: 'Ghost Staking',
-		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-	};
-	let to = {
-		imgUrl: 'https://ghoststaking.com/wp-content/uploads/2021/08/qymt4x.jpg',
-		name: 'Ghost Staking',
-		hash: '01c60fe433d3a22ec5e30a8341f4bda978fa81c2b94e5a95f745723f9a019a3c31'
-	};
-	let value = 9231.03423;
-	let fee = 9231.03423;
-	let gasPrice = 1;
-	let ttl = 30;
 
 	let showRawData = false;
 	let transaction: TransactionDetail;
@@ -71,7 +50,6 @@
 
 			<div class="status">
 				<div class="icon">
-					<!-- {#if transactionStatus.toLowerCase() === 'success'} -->
 					{#if transaction.deploy?.approvals?.length > 0}
 						<TransactionDetailsSuccessIcon />
 					{:else}
@@ -79,9 +57,7 @@
 					{/if}
 				</div>
 				<div class="status-text" class:success={transaction.deploy?.approvals?.length > 0}>
-					{transactionStatus.toLowerCase() === 'success'
-						? 'TRANSFER SUCCESS'
-						: transactionStatus.toUpperCase()}
+					{#if transaction.deploy?.approvals?.length > 0} TRANSFER SUCCESS {/if}
 				</div>
 				<div class="amount">
 					<div class="value">
@@ -264,7 +240,6 @@
 		</div>
 	{/if}
 </div>
-
 
 <style lang="postcss">
 	.transaction-details {
