@@ -121,7 +121,7 @@
 						<td class="label">From (Public Key)</td>
 						<td class="value">
 							{#await getValidatorDetails(transaction.deploy?.header?.account)}
-							<div class="validator validator-placeholder"></div>
+								<div class="validator validator-placeholder" />
 							{:then validator}
 								<div class="validator">
 									<div class="logo">
@@ -134,7 +134,7 @@
 										{/if}
 									</div>
 									<div class="dets">
-										<div class="name {validator.name?'gap-[clamp(8px,0.5vw,0.5vw)]':''}">
+										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 											<div class="text">
 												{validator.name || ''}
 											</div>
@@ -155,7 +155,7 @@
 						<td class="label">To (Public Key)</td>
 						<td class="value">
 							{#await getValidatorDetails(transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed)}
-								<div class="validator validator-placeholder"></div>
+								<div class="validator validator-placeholder" />
 							{:then validator}
 								<div class="validator">
 									<div class="logo">
@@ -168,7 +168,7 @@
 										{/if}
 									</div>
 									<div class="dets">
-										<div class="name {validator.name?'gap-[clamp(8px,0.5vw,0.5vw)]':''}">
+										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 											<div class="text">
 												{validator.name || ''}
 											</div>
@@ -187,12 +187,20 @@
 
 					<tr>
 						<td class="label">Value</td>
-						<td class="value"><BalanceTransferrable cspr={parseStringValue(transaction.deploy?.session?.Transfer?.args[0]?.[1]?.parsed)} /></td>
+						<td class="value"
+							><BalanceTransferrable
+								cspr={parseStringValue(transaction.deploy?.session?.Transfer?.args[0]?.[1]?.parsed)}
+							/></td
+						>
 					</tr>
 
 					<tr>
 						<td class="label">Transaction Fee</td>
-						<td class="value"><BalanceTransferrable cspr={parseStringValue(transaction.deploy?.header?.cost)} /></td>
+						<td class="value"
+							><BalanceTransferrable
+								cspr={parseStringValue(transaction.deploy?.header?.cost)}
+							/></td
+						>
 					</tr>
 
 					<tr>
@@ -257,6 +265,7 @@
 	{/if}
 </div>
 
+
 <style lang="postcss">
 	.transaction-details {
 		@apply text-color-table-header text-[clamp(12px,1.07vw,1.07vw)];
@@ -300,7 +309,6 @@
 		@apply flex flex-col gap-[0.24vw];
 		@apply w-full;
 	}
-	
 
 	td {
 		@apply pb-[clamp(16px,2.2vw,2.2vw)];
@@ -321,7 +329,7 @@
 		@apply rounded-[0.6vh] md:rounded-[0.6vw];
 		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
 	}
-	.validator-placeholder{
+	.validator-placeholder {
 		@apply animate-pulse;
 		@apply bg-gradient-to-tr from-gray-100 to-gray-50;
 		@apply h-[clamp(16px,1.19vw,1.19vw)];
@@ -340,12 +348,12 @@
 		@apply flex items-center justify-center;
 		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
 	}
-	.image-placeholder>img{
+	.image-placeholder > img {
 		@applt w-1/3;
 	}
 
 	.name {
-		@apply flex items-center ;
+		@apply flex items-center;
 	}
 
 	.verified-icon {
