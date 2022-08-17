@@ -76,7 +76,7 @@
 	}
 
 	td {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] md:h-[2.38vw] lg:h-[3.5vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] min-w-max;
 	}
 
