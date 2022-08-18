@@ -11,14 +11,16 @@ export type AccountTransaction = {
 	amount: string;
 };
 export type Transaction = {
-	deploy_hash: string;
-	timestamp: string;
-	from_address: string;
-	to_address: string;
-	value: string;
-	fee: string;
-	from_balance: string;
-	to_balance: string;
+	deployHash: string;
+	timestamp: number;
+	fromAddress: string;
+	toAddress: string;
+	value: number;
+	fee: number;
+	fromBalance: number;
+	toBalance: number;
+	blockHash: string;
+	publicKey: string;
 };
 
 export type TransactionDetail = {

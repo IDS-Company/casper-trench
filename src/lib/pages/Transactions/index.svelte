@@ -12,6 +12,7 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 	import type { Transaction } from '$utils/types/transaction';
+	import { getAllTransactions } from '$utils/chain/transactions';
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 0;
@@ -23,7 +24,8 @@
 	};
 	$: if (transactionsPerPage) {
 		setTimeout(async () => {
-			await fetchTransactions();
+			// await fetchTransactions();
+			transactions = await getAllTransactions();
 		}, 1);
 	}
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
@@ -55,12 +57,12 @@
 				<tr>
 					<td class="block">
 						<div class="wrapper-center">
-							<a href="/transactions/{transaction.deploy_hash}">
-								<TxHash hash={transaction.deploy_hash} right />
+							<a href="/transactions/{transaction.deployHash}">
+								<TxHash hash={transaction.deployHash} right />
 							</a>
 						</div>
 					</td>
-					{#await getDeploy(transaction.deploy_hash)}
+					<!-- {#await getDeploy(transaction.deployHash)}
 						<td>
 							<div class="loader" />
 						</td>
@@ -78,9 +80,17 @@
 								<Hash hash={tx.deploy.header.account} />
 							</a>
 						</td>
-					{/await}
+					{/await} -->
+					<td>
+						<a href="/blocks/{transaction.blockHash}"> <Hash hash={transaction.blockHash} /></a>
+					</td>
+					<td>
+						<a href="/accounts/{transaction.publicKey}">
+							<Hash hash={transaction.publicKey} />
+						</a>
+					</td>
 					<td class="center age">
-						{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}
+						{`${timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago`}
 					</td>
 					<!-- TODO remove placeholder for contract -->
 					<td>
