@@ -84,5 +84,6 @@
 		@apply w-full;
 		@apply flex justify-center;
 		@apply mt-[clamp(14px,1.6vw,1.6vw)];
+		@apply transform md:translate-y-[-0.4vw] lg:translate-y-[0];
 	}
 </style>
