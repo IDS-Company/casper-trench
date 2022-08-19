@@ -1,6 +1,7 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
+	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import Hash from '../../../components/TableData/Hash.svelte';
 	import TransactionStatus from '../../../components/TableData/TransactionStatus.svelte';
@@ -106,7 +107,18 @@
 			</tr>
 		{/each}
 	</table>
-	<Paginator />
+	{#if tokens && tokens.length > 0}
+		<Paginator />
+	{:else}
+		<div class="empty">
+			<div class="content">
+				<div class="empty-icon">
+					<EmptyIcon />
+				</div>
+				<div class="text">Empty</div>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -155,5 +167,19 @@
 
 	.desc {
 		@apply text-color-grey-footer-label;
+	}
+
+	.empty-icon {
+		@apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
+	}
+
+	.empty {
+		@apply h-[23.81vh] md:h-[23.81vw] w-full;
+		@apply flex items-center justify-center;
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+	}
+
+	.empty > div {
+		@apply flex flex-col items-center justify-center;
 	}
 </style>

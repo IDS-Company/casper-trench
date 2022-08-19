@@ -7,6 +7,7 @@
 	import { parseStringValue } from '$utils/converters';
 	import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 	import { price } from '$stores/price';
+	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 
 	let earnings: Reward[];
 	let eraRewards = [];
@@ -69,14 +70,25 @@
 				{/each}
 			{/if}
 		</table>
-		<Paginator
-			showTotalRows={false}
-			bind:itemsPerPage={earningsPerPage}
-			apiPaginator
-			bind:items={earnings}
-			bind:startIndex
-			on:load-page={async () => await fetchRewards()}
-		/>
+		{#if earnings && earnings.length > 0}
+			<Paginator
+				showTotalRows={false}
+				bind:itemsPerPage={earningsPerPage}
+				apiPaginator
+				bind:items={earnings}
+				bind:startIndex
+				on:load-page={async () => await fetchRewards()}
+			/>
+		{:else}
+			<div class="empty">
+				<div class="content">
+					<div class="empty-icon">
+						<EmptyIcon />
+					</div>
+					<div class="text">Empty</div>
+				</div>
+			</div>
+		{/if}
 	</div>
 	<EarningChart {data} isLoading={$isLoading} />
 </div>
@@ -129,5 +141,19 @@
 	.cspr {
 		@apply text-color-grey-footer-label;
 		@apply mr-[clamp(4px,0.71vw,0.71vw)];
+	}
+
+	.empty-icon {
+		@apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
+	}
+
+	.empty {
+		@apply h-[23.81vh] md:h-[23.81vw] w-full;
+		@apply flex items-center justify-center;
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+	}
+
+	.empty > div {
+		@apply flex flex-col items-center justify-center;
 	}
 </style>
