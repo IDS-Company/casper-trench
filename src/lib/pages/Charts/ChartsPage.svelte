@@ -66,6 +66,7 @@
 		@apply border-color-tooltip-border border-[clamp(1px,0.06vw,0.06vw)];
 		@apply rounded-[1.19vh] md:rounded-[1.19vw];
 		@apply mb-[clamp(16px,2.38vw,2.38vw)];
+		@apply flex items-center justify-center;
 	}
 	.loading {
 		@apply bg-gray-50;
