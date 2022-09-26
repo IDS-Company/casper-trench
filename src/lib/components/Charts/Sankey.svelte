@@ -202,7 +202,7 @@
 	}
 
 	.container {
-		@apply min-w-max;
+		@apply max-w-full;
 		@apply flex flex-col items-center justify-center;
 		@apply my-[clamp(16px,0.95vw,0.95vw)];
 	}
