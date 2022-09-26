@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
 	import DownloadIcon from '$lib/icons/DownloadIcon.svelte';
 	import TransactionDetailsSuccessIcon from '$lib/icons/TransactionDetailsSuccessIcon.svelte';
-
 	import {
 		getValidatorDetails,
 		millisToFormat,
@@ -14,26 +12,22 @@
 		timeAgo
 	} from '$utils/converters';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
-	import { sampleJsonData } from '$utils/sampleData';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
 	import { onMount } from 'svelte';
-	import type { TransactionDetail } from '$utils/types/transaction';
 	import { isLoading } from '$stores/loading';
-	import { getDeploy } from '$utils/api';
+	import { getDeploy } from '$utils/chain/transactions';
 	import { page } from '$app/stores';
 
-	let transactionStatus = 'success';
-
 	let showRawData = false;
-	let transaction: TransactionDetail;
+	let deployResult;
+	let toDownload;
+
 	onMount(async () => {
 		$isLoading = true;
-		transaction = await getDeploy($page.params.hash);
+		deployResult = await getDeploy($page.params.hash);
 		$isLoading = false;
 	});
-
-	let toDownload;
 </script>
 
 <svelte:head>
@@ -48,7 +42,7 @@
 	<div class="top">
 		<span class="green">Transaction</span> / Transaction Details
 	</div>
-	{#if transaction}
+	{#if deployResult}
 		<div class="wrapper" bind:this={toDownload}>
 			<button
 				class="download-button"
@@ -56,7 +50,7 @@
 				on:click={() => {
 					var opt = {
 						margin: 1,
-						filename: `${transaction.deploy.hash}.pdf`,
+						filename: `${deployResult?.deploy.hash}.pdf`,
 						image: { type: 'jpeg', quality: 1 },
 						html2canvas: { scale: 2, width: '2800', height: '1920' },
 						jsPDF: { unit: 'px', format: 'a4', orientation: 'portrait' }
@@ -71,21 +65,28 @@
 
 			<div class="status">
 				<div class="icon">
-					{#if transaction.deploy?.approvals?.length > 0}
+					{#if deployResult?.deploy?.approvals?.length > 0}
 						<TransactionDetailsSuccessIcon />
 					{:else}
 						<!-- TODO Fail Icon -->
 					{/if}
 				</div>
-				<div class="status-text" class:success={transaction.deploy?.approvals?.length > 0}>
-					{transactionStatus.toLowerCase() === 'success'
-						? 'TRANSFER SUCCESS'
-						: transactionStatus.toUpperCase()}
+				<div class="status-text" class:success={deployResult?.deploy?.approvals?.length > 0}>
+					{#if deployResult?.deploy?.session.StoredContractByHash}
+						{deployResult?.deploy?.session.StoredContractByHash.entry_point}
+					{:else if deployResult.deploy?.session?.Transfer}
+						Transfer
+					{:else if deployResult.deploy?.session?.ModuleBytes}
+						Deploy
+					{/if} SUCCESS
 				</div>
 				<div class="amount">
 					<div class="value">
 						{parseStringValue(
-							transaction.deploy?.session?.Transfer?.args[0]?.[1]?.parsed
+							deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+								deployResult.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
+								deployResult.deploy?.session?.ModuleBytes?.args[0]?.[1]?.parsed ||
+								0
 						).toLocaleString('en')}
 					</div>
 					<div class="cspr">CSPR</div>
@@ -96,21 +97,23 @@
 				<table class="extras">
 					<tr>
 						<td class="label">Transactions Hash</td>
-						<td class="value">{transaction.deploy?.hash}</td>
+						<td class="value">{deployResult?.deploy?.hash}</td>
 					</tr>
 
 					<tr>
-						<td class="label">Block Height</td>
-						<td class="value green">{transaction.deploy?.header?.block_height}</td>
+						<td class="label">Block Hash</td>
+						<td class="value green">{deployResult?.execution_results[0]?.block_hash}</td>
+						<!-- TODO remove placeholder -->
+						<!-- <PlaceHolderIndicator /> -->
 					</tr>
 
 					<tr>
 						<td class="label">Timestamp</td>
 						<td class="value">
-							<div class="time">{new Date(transaction.deploy?.header?.timestamp)}</div>
+							<div class="time">{new Date(deployResult?.deploy?.header?.timestamp)}</div>
 							<div class="ago">
 								{`${timeAgo(
-									millisToFormat(Date.now() - Date.parse(transaction.deploy?.header?.timestamp))
+									millisToFormat(Date.now() - Date.parse(deployResult?.deploy?.header?.timestamp))
 								)} ago`}
 							</div>
 						</td>
@@ -119,13 +122,13 @@
 					<tr>
 						<td class="label">From (Public Key)</td>
 						<td class="value">
-							{#await getValidatorDetails(transaction.deploy?.header?.account)}
+							{#await getValidatorDetails(deployResult?.deploy?.header?.account)}
 								<div class="validator validator-placeholder" />
 							{:then validator}
 								<div class="validator">
 									<div class="logo">
-										{#if validator.name}
-											<img src={validator.icon} alt="validator-icon" />
+										{#if validator?.name}
+											<img src={validator?.icon} alt="validator-icon" />
 										{:else}
 											<div class="image-placeholder">
 												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
@@ -133,20 +136,20 @@
 										{/if}
 									</div>
 									<div class="dets">
-										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+										<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 											<div class="text">
-												{validator.name || ''}
+												{validator?.name || ''}
 											</div>
 											<div class="verified-icon">
 												<VerifiedIcon />
 											</div>
 										</div>
 										<div class="hash">
-											<a href="/validator/{transaction.deploy?.header?.account}">
-												{transaction.deploy?.header?.account}
+											<a href="/validators/{deployResult?.deploy?.header?.account}">
+												{deployResult?.deploy?.header?.account}
 											</a>
 											<div>
-												<CopyIcon text={transaction.deploy?.header?.account} />
+												<CopyIcon text={deployResult?.deploy?.header?.account} />
 											</div>
 										</div>
 									</div>
@@ -158,52 +161,63 @@
 					<tr>
 						<td class="label">To (Public Key)</td>
 						<td class="value">
-							{#await getValidatorDetails(transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed)}
-								<div class="validator validator-placeholder" />
-							{:then validator}
-								<div class="validator">
-									<div class="logo">
-										{#if validator.icon}
-											<img src={validator.icon} alt="validator-icon" />
-										{:else}
-											<div class="image-placeholder">
-												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+							{#if deployResult?.deploy?.session?.Transfer}
+								{#await getValidatorDetails(deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed)}
+									<div class="validator validator-placeholder" />
+								{:then validator}
+									<div class="validator">
+										<div class="logo">
+											{#if validator?.icon}
+												<img src={validator?.icon} alt="validator-icon" />
+											{:else}
+												<div class="image-placeholder">
+													<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+												</div>
+											{/if}
+										</div>
+										<div class="dets">
+											<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+												<div class="text">
+													{validator?.name || ''}
+												</div>
+												<div class="verified-icon">
+													<VerifiedIcon />
+												</div>
 											</div>
-										{/if}
-									</div>
-									<div class="dets">
-										<div class="name {validator.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
-											<div class="text">
-												{validator.name || ''}
-											</div>
-											<div class="verified-icon">
-												<VerifiedIcon />
+											<div class="hash">
+												<a
+													href="/validators/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
+														?.parsed}"
+												>
+													{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}</a
+												>
+												<div>
+													<CopyIcon
+														text={deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}
+													/>
+												</div>
 											</div>
 										</div>
-										<div class="hash">
-											<a
-												href="/validators/{transaction.deploy?.session?.Transfer?.args[1]?.[1]
-													?.parsed}"
-											>
-												{transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}</a
-											>
-											<div>
-												<CopyIcon
-													text={transaction.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}
-												/>
-											</div>
-										</div>
 									</div>
-								</div>
-							{/await}
+								{/await}
+							{:else}
+								<!-- <div class="px-[clamp(5px)]">Contract</div> -->
+								<div class="contract-placeholder">Contract</div>
+							{/if}
 						</td>
 					</tr>
 
 					<tr>
 						<td class="label">Value</td>
-						<td class="value"
-							><BalanceTransferrable
-								cspr={parseStringValue(transaction.deploy?.session?.Transfer?.args[0]?.[1]?.parsed)}
+						<td class="value">
+							<!-- deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed) || -->
+							<BalanceTransferrable
+								cspr={parseStringValue(
+									deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+										deployResult?.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
+										deployResult.deploy?.session?.ModuleBytes?.args[7]?.[1]?.parsed ||
+										0
+								)}
 							/></td
 						>
 					</tr>
@@ -212,19 +226,19 @@
 						<td class="label">Transaction Fee</td>
 						<td class="value"
 							><BalanceTransferrable
-								cspr={parseStringValue(transaction.deploy?.header?.cost)}
+								cspr={parseStringValue(deployResult?.execution_results[0].result.Success.cost)}
 							/></td
 						>
 					</tr>
 
 					<tr>
 						<td class="label">Gas Price</td>
-						<td class="value">{transaction.deploy?.header?.gas_price} motes</td>
+						<td class="value">{deployResult?.deploy?.header?.gas_price} motes</td>
 					</tr>
 
 					<tr>
 						<td class="label">TTL</td>
-						<td class="value">{transaction.deploy?.header?.ttl}</td>
+						<td class="value">{deployResult?.deploy?.header?.ttl}</td>
 					</tr>
 
 					<tr>
@@ -255,7 +269,7 @@
 										type="button"
 										on:click={() => {
 											navigator.clipboard &&
-												navigator.clipboard.writeText(JSON.stringify(transaction, null, 2));
+												navigator.clipboard.writeText(JSON.stringify(deployResult, null, 2));
 										}}
 										class="copy-button"
 									>
@@ -266,9 +280,9 @@
 									</button>
 								{/if}
 							</div>
-							{#if transaction && showRawData}
+							{#if deployResult && showRawData}
 								<div class="raw-data" transition:slide>
-									<TreeToggle text="" data={transaction} />
+									<TreeToggle text="" data={deployResult} />
 								</div>
 							{/if}
 						</td>
@@ -348,6 +362,16 @@
 		@apply h-[clamp(16px,1.19vw,1.19vw)];
 	}
 
+	.contract-placeholder {
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
+		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
+		@apply p-[clamp(16px,1.19vw,1.19vw)];
+		@apply rounded-[0.6vh] md:rounded-[0.6vw];
+		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
+		@apply bg-gradient-to-tr from-gray-100 to-gray-50;
+		@apply h-[clamp(16px,1.19vw,1.19vw)];
+		@apply max-w-min;
+	}
 	.logo {
 		@apply w-[2.98vh] h-[2.98vh] md:w-[2.98vw] md:h-[2.98vw];
 	}
@@ -407,7 +431,7 @@
 	}
 
 	.status-text {
-		@apply text-color-arcadia-red font-bold text-[clamp(16px,1.43vw,1.43vw)];
+		@apply uppercase text-color-arcadia-red font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(8px,0.71vw,0.71vw)];
 	}
 
