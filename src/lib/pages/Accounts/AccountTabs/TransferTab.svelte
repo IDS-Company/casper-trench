@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { parseStringValue } from '$utils/converters';
+	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	let transfers: Transfer[];
 	let transfersPerPage = 10;
 	let startIndex = 0;
@@ -80,14 +81,25 @@
 			{/each}
 		{/if}
 	</table>
-	<Paginator
-		showTotalRows={false}
-		bind:itemsPerPage={transfersPerPage}
-		apiPaginator
-		bind:items={transfers}
-		bind:startIndex
-		on:load-page={async () => await fetchTransfers()}
-	/>
+	{#if transfers && transfers.length > 0}
+		<Paginator
+			showTotalRows={false}
+			bind:itemsPerPage={transfersPerPage}
+			apiPaginator
+			bind:items={transfers}
+			bind:startIndex
+			on:load-page={async () => await fetchTransfers()}
+		/>
+	{:else}
+		<div class="empty">
+			<div class="content">
+				<div class="empty-icon">
+					<EmptyIcon />
+				</div>
+				<div class="text">Empty</div>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -135,5 +147,19 @@
 
 	.right-flex {
 		@apply flex justify-end;
+	}
+
+	.empty-icon {
+		@apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
+	}
+
+	.empty {
+		@apply h-[23.81vh] md:h-[23.81vw] w-full;
+		@apply flex items-center justify-center;
+		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+	}
+
+	.empty > div {
+		@apply flex flex-col items-center justify-center;
 	}
 </style>

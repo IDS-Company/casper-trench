@@ -58,7 +58,7 @@
 				</div>
 			</th>
 			<th>
-				<div class="sorter">
+				<div class="sorter right-div">
 					<div>Staked</div>
 					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'staked_amount')} />
 				</div>
@@ -85,8 +85,8 @@
 							><Hash hash={account.accountHash} noOfCharacters={10} /></a
 						></td
 					>
-					<td><BalanceTransferrable cspr={account.balance} /></td>
-					<td><BalanceTransferrable cspr={account.transferrable} /></td>
+					<td><div class="right-div"><BalanceTransferrable cspr={account.balance} /></div></td>
+					<td><div class="right-div"><BalanceTransferrable cspr={account.transferrable} /></div></td>
 					<!-- TODO geadd actual txnCount -->
 					<td>{account.txnCount?.toLocaleString('en') || 0}</td>
 					<td class="right">{account.stakedAmount.toLocaleString('en')}</td>
@@ -119,14 +119,14 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2.4vw,2.4vw)];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 		/* @apply flex flex-row; */
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2.4vw,2.4vw)];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header align-top;
 		@apply min-w-max h-full;
 	}
@@ -137,6 +137,10 @@
 
 	.right {
 		@apply text-right;
+	}
+
+	.right-div {
+		@apply flex justify-end;
 	}
 
 	.wrapper {

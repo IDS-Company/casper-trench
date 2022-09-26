@@ -9,7 +9,6 @@
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import TrustedIcon from '$lib/icons/TrustedIcon.svelte';
 	import { onMount } from 'svelte';
 	import type { Account } from '$utils/types/account';
 	import { getAccount, getType } from '$utils/api';
@@ -101,10 +100,6 @@
 	.copy-icon {
 		@apply w-[clamp(16px,1.96vw,1.96vw)] h-[clamp(16px,1.96vw,1.96vw)];
 		@apply cursor-pointer;
-	}
-
-	.trusted-icon {
-		@apply h-[clamp(12px,0.95vw,0.95vw)] w-[clamp(12px,0.95vw,0.95vw)];
 	}
 
 	.header {
