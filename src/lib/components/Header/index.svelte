@@ -1,21 +1,30 @@
-<script>
+<script lang="ts">
 	import OtherStatsSection from './OtherStatsSection.svelte';
 	import Navbar from './Navbar.svelte';
 	import Filter from '$lib/components/Header/Filter.svelte';
 	import HomeStatsSection from './HomeStatsSection.svelte';
 	import { page } from '$app/stores';
-
+	import { onMount } from 'svelte';
+	import { getStats } from '$utils/api';
+	import type { Stats } from '$utils/types/stats';
+	let isLoading = true;
 	$: isHome = $page.url.pathname === '/';
+	let stats: Stats;
+	onMount(async () => {
+		stats = await getStats();
+		stats && console.log('Stats', stats);
+		isLoading = false;
+	});
 </script>
 
 <div class="header">
 	<Navbar />
 	{#if isHome}
 		<Filter />
-		<!-- <HomeStatsSection /> -->
+		<HomeStatsSection bind:stats bind:isLoading />
 	{:else}
 		<div class="header-flex">
-			<!-- <OtherStatsSection /> -->
+			<OtherStatsSection bind:stats bind:isLoading />
 			<Filter />
 		</div>
 	{/if}

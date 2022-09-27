@@ -16,7 +16,7 @@
 	<input
 		type="text"
 		name="filter"
-		placeholder="Search by Address / Txn Hash / Block / Token / Ens"
+		placeholder="Search by Address /Hash / Block / Public Key"
 		bind:value
 	/>
 

@@ -1,38 +1,10 @@
 <script lang="ts">
-	import { getAuctionBids, getEconomics, getLatestBlocks, getStats } from '$utils/api';
-	import { onMount } from 'svelte';
-	import type { Economics } from '$utils/types/economics';
 	import type { Stats } from '$utils/types/stats';
-	import { aTimeAgo, parseStringValue } from '$utils/converters';
+	import { aTimeAgo } from '$utils/converters';
 	import HomePageChart from '$lib/components/Charts/HomePageChart.svelte';
-	import type { Block } from '$utils/types/block';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
-	import PlaceHolderIndicator from '../PlaceHolderIndicator.svelte';
-	let economics: Economics;
-	let stats: Stats;
-	let totalTransfers = 0;
-	let blocks: Block[];
-	let totalStakeBonded = 0;
-	let isLoading = true;
-	onMount(async () => {
-		economics = await getEconomics();
-		stats = await getStats();
-		blocks = await getLatestBlocks(1);
-
-		// Calculate total transfers
-		if (stats && stats.transfers.length > 0) {
-			stats.transfers.forEach((transfer) => {
-				totalTransfers += transfer[1];
-			});
-		}
-		// TODO update total stake bonded
-		// const bidValidators: ValidatorAuction = await getAuctionBids();
-		// bidValidators &&
-		// 	bidValidators.auction_state.bids.forEach((bid) => {
-		// 		totalStakeBonded += parseFloat(bid.bid.staked_amount);
-		// 	});
-		isLoading = false;
-	});
+	export let stats: Stats;
+	export let isLoading = true;
 </script>
 
 {#if isLoading}
@@ -42,27 +14,21 @@
 	<div class="stat-column">
 		<div class="top">
 			<div class="title">BLOCK HEIGHT</div>
-			{#if !isLoading && blocks}
-				<div class="value">
-					{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
-				</div>
-				<div class="detail flex">
-					{`${aTimeAgo(
-						Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
-					)} ` || '0 seconds '} ago
-				</div>
-			{:else}
-				<div class="value">0</div>
-				<div class="detail flex">0</div>
-			{/if}
+			<div class="value">
+				{(stats && stats.currentBlockHeight.toLocaleString('en')) || '0 seconds'}
+			</div>
+			<div class="detail flex">
+				{`${aTimeAgo(Date.now() - Date.parse(stats && stats.currentBlockTime))} ` || '0 seconds '}
+				ago
+			</div>
 		</div>
 		<div class="bottom">
 			<div class="title">CSPR PRICE</div>
 			<div class="value">
-				${Math.floor(stats && stats.price * 10000) / 10000 || ''}
+				${Math.floor(stats && stats.currentPrice * 10000) / 10000 || ''}
 			</div>
 			<div class="detail">
-				${(stats && stats.marketcap.toLocaleString('en')) || ''} Market Cap
+				${(stats && stats.marketCap.toLocaleString('en')) || ''} Market Cap
 			</div>
 		</div>
 	</div>
@@ -73,27 +39,21 @@
 		<div class="top">
 			<div class="title">ACTIVE VALIDATORS</div>
 			<div class="value">
-				{(economics && economics.total_active_validators) || ''}
+				{(stats && stats.activeValidators) || ''}
 			</div>
 			<div class="detail">
-				out of {(economics && economics.total_bid_validators) || ''} active bids
+				out of {(stats && stats.activeBids) || ''} active bids
 			</div>
 		</div>
 		<div class="bottom">
 			<div class="title">CIRCULATING SUPPLY</div>
 			<div class="value">
-				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
-					'en'
-				) || ''}
+				{(stats && stats.circulatingSupply.toLocaleString('en')) || ''}
 			</div>
 			<div class="detail">
-				{(
-					(parseFloat(economics && economics.circulating_supply) /
-						parseFloat(economics && economics.total_supply)) *
-					100
-				).toFixed(2)}% of {parseFloat(
-					economics && economics.total_supply.substring(0, 11)
-				).toLocaleString('en') || ''}
+				{((stats && stats.circulatingSupply / stats.totalSupply) * 100).toFixed(2)}% of {(stats &&
+					stats.totalSupply.toLocaleString('en')) ||
+					''}
 			</div>
 		</div>
 	</div>
@@ -102,25 +62,18 @@
 
 	<div class="stat-column">
 		<div class="top">
-			<div class="side">
-				<PlaceHolderIndicator />
-			</div>
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">
-				{(totalStakeBonded && parseStringValue(totalStakeBonded.toString()).toLocaleString('en')) ||
-					0}
+				{(stats && stats.totalStakeBonded.toLocaleString('en')) || 0}
 			</div>
 			<div class="detail">
-				{totalStakeBonded &&
-					economics &&
-					((totalStakeBonded / parseFloat(economics.total_supply)) * 100).toFixed(2)}% of Total
-				supply
+				{stats && ((stats.totalStakeBonded / stats.totalSupply) * 100).toFixed(2)}% of Total supply
 			</div>
 		</div>
 		<div class="bottom">
 			<div class="title">TOTAL TRANSFERS</div>
 			<div class="value">
-				{totalTransfers.toLocaleString('en') || ''}
+				{(stats && stats.totalTransfers.toLocaleString('en')) || ''}
 			</div>
 		</div>
 	</div>
