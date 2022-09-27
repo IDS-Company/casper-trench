@@ -2,7 +2,7 @@ import axios from 'axios';
 import { notifyError } from './toast';
 const casperStatsBaseURL = `${import.meta.env.VITE_CASPERSTATS_URL}`;
 const art3misBaseURL = `${import.meta.env.VITE_ART3MIS_URL}`;
-
+const csprFyiBaseURL = `${import.meta.env.VITE_CASPER_INFO_API_URL}`;
 export const getEconomics = async () => {
 	return await axios
 		.get(`${casperStatsBaseURL}/info/economics`)
@@ -14,15 +14,24 @@ export const getEconomics = async () => {
 		});
 };
 
+// export const getStats = async () => {
+// 	return await axios
+// 		.get(`${casperStatsBaseURL}/info/get-stats`)
+// 		.then((res) => {
+// 			return res.data;
+// 		})
+// 		.catch((err) => {
+// 			notifyError('Could not fetch stats');
+// 		});
+// };
+
 export const getStats = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/info/get-stats`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch stats');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/stats`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch stats');
+	}
 };
 
 export const getLatestBlocks = async (number: number) => {
@@ -341,4 +350,14 @@ export const getVolumes = async (count: number) => {
 		.catch((err) => {
 			notifyError('Could not fetch transaction volumes');
 		});
+};
+
+export const getDeployVolumes = async () => {
+	try {
+		const res = await axios.get(`https://api.cspr.fyi/v1/deploys/volumes`);
+		console.log('Volumes', res.data);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch volumes');
+	}
 };

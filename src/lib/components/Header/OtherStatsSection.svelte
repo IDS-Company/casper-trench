@@ -7,16 +7,16 @@
 	import { onMount } from 'svelte';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
 
-	let stats: Stats;
+	export let stats: Stats;
 	let economics: Economics;
 	let blocks: Block[];
-	let isLoading = true;
-	onMount(async () => {
-		stats = await getStats();
-		economics = await getEconomics();
-		blocks = await getLatestBlocks(1);
-		isLoading = false;
-	});
+	export let isLoading = true;
+	// onMount(async () => {
+	// 	stats = await getStats();
+	// 	economics = await getEconomics();
+	// 	blocks = await getLatestBlocks(1);
+	// 	isLoading = false;
+	// });
 </script>
 
 {#if isLoading}
@@ -25,19 +25,13 @@
 <div class="home-stats-section header-stats-background">
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
-		{#if !isLoading && blocks}
-			<div class="value">
-				{(blocks && blocks.length > 0 && blocks[0].header.height.toLocaleString('en')) || ''}
-			</div>
-			<div class="detail flex">
-				{`${aTimeAgo(
-					Date.now() - Date.parse(blocks && blocks.length > 0 && blocks[0].header.timestamp)
-				)} ` || '0 seconds '} ago
-			</div>
-		{:else}
-			<div class="value">0</div>
-			<div class="detail flex">0</div>
-		{/if}
+		<div class="value">
+			{(stats && stats.currentBlockHeight.toLocaleString('en')) || '0 seconds'}
+		</div>
+		<div class="detail flex">
+			{`${aTimeAgo(Date.now() - Date.parse(stats && stats.currentBlockTime))} ` || '0 seconds '}
+			ago
+		</div>
 	</div>
 
 	<div class="vt" />
@@ -45,7 +39,7 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
-			{(economics && economics.APY.toFixed(2)) || ''}%
+			{(stats && stats.apy.toFixed(2)) || ''}%
 		</div>
 		<div class="detail">Annual Percentage Yield</div>
 	</div>
@@ -55,10 +49,10 @@
 	<div class="stat-column">
 		<div class="title">CSPR PRICE</div>
 		<div class="value">
-			${Math.floor(stats && stats.price * 10000) / 10000 || ''}
+			${Math.floor(stats && stats.currentPrice * 10000) / 10000 || ''}
 		</div>
 		<div class="detail">
-			${(stats && stats.marketcap.toLocaleString('en')) || ''} Market Cap
+			${(stats && stats.marketCap.toLocaleString('en')) || ''} Market Cap
 		</div>
 	</div>
 
@@ -66,25 +60,14 @@
 
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
-		{#if !isLoading && economics}
-			<div class="value">
-				{parseFloat(economics && economics.circulating_supply.substring(0, 10)).toLocaleString(
-					'en'
-				) || ''}
-			</div>
-			<div class="detail">
-				{(
-					(parseFloat(economics && economics.circulating_supply) /
-						parseFloat(economics && economics.total_supply)) *
-					100
-				).toFixed(2)}% of {parseFloat(
-					economics && economics.total_supply.substring(0, 11)
-				).toLocaleString('en') || ''}
-			</div>
-		{:else}
-			<div class="value">0</div>
-			<div class="detail">0% of 0</div>
-		{/if}
+		<div class="value">
+			{(stats && stats.circulatingSupply.toLocaleString('en')) || ''}
+		</div>
+		<div class="detail">
+			{((stats && stats.circulatingSupply / stats.totalSupply) * 100).toFixed(2)}% of {(stats &&
+				stats.totalSupply.toLocaleString('en')) ||
+				''}
+		</div>
 	</div>
 </div>
 

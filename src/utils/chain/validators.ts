@@ -135,7 +135,7 @@ export const queryValidators = async (): Promise<{
 			};
 		})
 		.catch((err) => {
-			console.log('Validators Err', err);
+			console.log('Validators Err');
 		});
 };
 
