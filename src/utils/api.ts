@@ -34,31 +34,22 @@ export const getStats = async () => {
 	}
 };
 
-export const getLatestBlocks = async (number: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/${number}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch latest blocks');
-		});
+export const getLatestBlocks = async (count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/latest/${count}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch latest blocks');
+	}
 };
 
-export const getRangeBlocks = async (start: number, end: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-range-block`, {
-			params: {
-				start,
-				end
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch blocks');
-		});
+export const getBlocks = async (startIndex: number, count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks`, { params: { startIndex, count } });
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch block range');
+	}
 };
 
 export const getEraValidators = async () => {
@@ -355,7 +346,6 @@ export const getVolumes = async (count: number) => {
 export const getDeployVolumes = async () => {
 	try {
 		const res = await axios.get(`https://api.cspr.fyi/v1/deploys/volumes`);
-		console.log('Volumes', res.data);
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch volumes');

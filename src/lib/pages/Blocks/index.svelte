@@ -7,27 +7,26 @@
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import { isLoading } from '$stores/loading';
 	// import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
-	import { getBlocks, getLatestBlocks } from '$utils/chain/blocks';
+	import { getBlocks, getLatestBlocks } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
 	import { tableSort } from '$utils/sort';
-	import type { Block } from '$utils/types/block';
+	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
-	let blocks: Block[];
+	let blocks: DBBlock[];
 	let latestBlock = 0;
 	let blocksPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
 		$isLoading = true;
-		const latestBlocks: Block[] = await getLatestBlocks(1);
-		startIndex = latestBlocks && latestBlocks[0].height;
+		const latestBlocks: DBBlock[] = await getLatestBlocks(1);
+		startIndex = latestBlocks && latestBlocks[0].blockHeight;
 		latestBlock = startIndex;
 		$isLoading = false;
 	});
 
 	const fetchBlocks = async () => {
 		$isLoading = true;
-		// logic to invert the block heights for start and end query params.
-		blocks = await getBlocks(startIndex - blocksPerPage + 1, startIndex);
+		blocks = await getBlocks(startIndex, blocksPerPage);
 		$isLoading = false;
 	};
 	$: if (blocksPerPage && startIndex) {
@@ -47,25 +46,25 @@
 			<th class="block">
 				<div class="sorter">
 					<div class="text">Block Height</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.height')} />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'blockHeight')} />
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div class="text">Era</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.era_id')} />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'eraID')} />
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Transaction</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'body.deploy_hashes')} />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'deploys')} />
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Age</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'header.timestamp')} />
+					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp')} />
 				</div>
 			</th>
 			<th class="center">Block Hash</th>
@@ -76,21 +75,21 @@
 			{#each blocks as block, i}
 				<tr>
 					<td class="block black">
-						{block.height.toLocaleString()}
+						{block.blockHeight.toLocaleString()}
 					</td>
 					<td class="era">
 						{block.eraID}
 					</td>
 					<td class="center black">
-						{block.transactions}
+						{block.deploys}
 					</td>
 					<td class="center age">
-						{`${timeAgo(millisToFormat(Date.now() - block.timestamp))} ago`}
+						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}
 					</td>
 					<td class="center">
 						<div class="wrapper">
-							<a href="/blocks/{block.hash}">
-								<Hash hash={block.hash} />
+							<a href="/blocks/{block.blockHash}">
+								<Hash hash={block.blockHash} />
 							</a>
 						</div>
 					</td>

@@ -12,15 +12,14 @@
 	import { isLoading } from '$stores/loading';
 	import { getBlock, getCurrentBlockHeight, getBlockTransfers } from '$utils/chain/blocks';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
-	import type { Block } from '$utils/types/block';
+	import type { ChainBlock } from '$utils/types/block';
 	import type { BlockTransfer } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let showTransfers = false;
 	let showProofs = false;
-	let block: Block;
-	// let transfers: BlockTransfer[];
+	let block: ChainBlock;
 	let transfers;
 	let currentHeight = 0;
 	onMount(async () => {

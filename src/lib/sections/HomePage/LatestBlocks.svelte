@@ -3,12 +3,12 @@
 
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import BlockHeight from '$lib/components/TableData/BlockHeight.svelte';
-	import { getLatestBlocks } from '$utils/chain/blocks';
+	import { getLatestBlocks } from '$utils/api';
 	import { isLoading } from '$stores/loading';
-	import type { Block } from '$utils/types/block';
+	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
-	let blocks: Block[];
+	let blocks: DBBlock[];
 	onMount(async () => {
 		$isLoading = true;
 		blocks = await getLatestBlocks(10);
@@ -32,13 +32,13 @@
 				<tr>
 					<td
 						><BlockHeight
-							blockDate={block.timestamp}
-							blockHeight={block.height.toLocaleString('en')}
+							blockDate={Date.parse(block.timestamp.toLocaleString())}
+							blockHeight={block.blockHeight.toLocaleString('en')}
 						/></td
 					>
 					<td class="text-color-table-header">{block.eraID}</td>
-					<td> <a href="/blocks/{block.hash}"><Hash hash={block.hash} /></a></td>
-					<td class="text-color-table-header">{block.transactions}</td>
+					<td> <a href="/blocks/{block.blockHash}"><Hash hash={block.blockHash} /></a></td>
+					<td class="text-color-table-header">{block.deploys}</td>
 				</tr>
 			{/each}
 		</table>

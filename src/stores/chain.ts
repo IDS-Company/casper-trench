@@ -2,20 +2,20 @@ import type { Bid } from '$utils/types/validator';
 // import type { CasperServiceByJsonRPC } from 'casper-js-sdk';
 import { get, writable } from 'svelte/store';
 
-export const network = writable<'casper' | 'casper-test'>('casper-test');
+export const network = writable<'casper' | 'casper-test'>('casper');
 // export const rpcUrl = writable<string>(
 // 	get(network) === 'casper' ? 'https://62.149.222.207:7777/rpc' : 'https://44.240.166.110:7777/rpc'
 // );
-export const rpcUrl = writable<string>(
-	get(network) === 'casper'
-		? 'https://casper-node.tor.us/rpc'
-		: 'https://node-clarity-testnet.make.services/rpc'
-);
 // export const rpcUrl = writable<string>(
 // 	get(network) === 'casper'
-// 		? 'http://mainnet.gosuto.io:7777/rpc'
-// 		: 'http://testnet.gosuto.io:7777/rpc'
+// 		? 'https://casper-node.tor.us/rpc'
+// 		: 'https://node-clarity-testnet.make.services/rpc'
 // );
+export const rpcUrl = writable<string>(
+	get(network) === 'casper'
+		? 'http://mainnet.gosuto.io:7777/rpc'
+		: 'http://testnet.gosuto.io:7777/rpc'
+);
 
 // export const csprService = writable<CasperServiceByJsonRPC>(null);
 export const csprService = writable(null);
