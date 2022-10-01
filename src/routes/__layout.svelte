@@ -31,7 +31,7 @@
 <main>
 	<slot />
 </main>
-<Footer />
+<!-- <Footer /> -->
 <BottomFooter />
 
 <Toast />
