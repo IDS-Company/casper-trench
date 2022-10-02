@@ -15,7 +15,7 @@
 		</div>
 	</div>
 	<div class="versions">
-		<div>Casper.fyi version: 1.10.0 (4287b143)</div>
+		<div>cspr.fyi version: 1.10.0 (4287b143)</div>
 		<div>Casper Network Node version: 1.4.6 (72b698e89)</div>
 		<div>Quote Data provided by CoinGecko API</div>
 	</div>
@@ -48,6 +48,6 @@
 	}
 
 	.c-logo {
-		@apply h-[clamp(25px,2.44vw,2.44vw)] w-[clamp(90px,9vw,9vw)];
+		@apply h-[clamp(25px,2.44vw,2.44vw)];
 	}
 </style>
