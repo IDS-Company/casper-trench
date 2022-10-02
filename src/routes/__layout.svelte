@@ -27,7 +27,7 @@
 	<script src={nodePackages}></script>
 </svelte:head>
 
-<!-- <Header /> -->
+<Header />
 <main>
 	<slot />
 </main>

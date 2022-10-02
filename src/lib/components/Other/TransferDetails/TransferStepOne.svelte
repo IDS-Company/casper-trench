@@ -106,7 +106,7 @@
 </div>
 
 <div class="terms">
-	By using Casper.info, you acknowledge that you have read, understood and accepted our. <a
+	By using cspr.fyi, you acknowledge that you have read, understood and accepted our. <a
 		href="/"
 		class="green">Terms of Service.</a
 	>

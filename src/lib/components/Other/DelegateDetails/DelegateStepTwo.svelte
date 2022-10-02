@@ -120,7 +120,7 @@
 </div>
 
 <div class="terms">
-	By using Casper.info, you acknowledge that you have read, understood and accepted our. <span
+	By using cspr.fyi, you acknowledge that you have read, understood and accepted our. <span
 		class="green">Terms of Service.</span
 	>
 </div>

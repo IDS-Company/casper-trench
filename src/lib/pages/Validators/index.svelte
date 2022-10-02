@@ -57,8 +57,8 @@
 		});
 		eraValidators = currentEraValidators;
 		if (pageOptions) {
-			pageOptions[0].dropdown[0] = `Next Era ${nextEraValidators[0].eraId}`;
-			pageOptions[0].dropdown[1] = `Current Era ${currentEraValidators[0].eraId}`;
+			pageOptions[0].dropdown[0] = `Current Era ${currentEraValidators[0]?.eraId}`;
+			pageOptions[0].dropdown[1] = `Next Era ${nextEraValidators[0]?.eraId}`;
 		}
 
 		$isLoading = false;
