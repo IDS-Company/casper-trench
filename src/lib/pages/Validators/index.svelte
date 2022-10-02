@@ -10,14 +10,15 @@
 	import { onMount } from 'svelte';
 	import type { EraValidator, Bid } from '$utils/types/validator';
 	import { tableSort } from '$utils/sort';
-	import { queryValidators } from '$utils/chain/validators';
+	import { get } from 'svelte/store';
+	import { getBids, getCurrentEraValidators, getNextEraValidators } from '$utils/api';
 
 	let bidValidators: Bid[] = [];
-	let currentEraValidators: EraValidator[] = [];
-	let nextEraValidators: EraValidator[] = [];
-	let eraValidators: EraValidator[];
+	let currentEraValidators: Partial<Bid[]> = [];
+	let nextEraValidators: Partial<Bid[]> = [];
+	let eraValidators: Partial<Bid[]>;
 	let displayedBidValidators: Bid[] = [];
-	let displayedEraValidators: EraValidator[] = [];
+	let displayedEraValidators: Partial<Bid[]> = [];
 
 	let pageOptions: { name: string; dropdown?: string[]; selectedDropdown?: string }[] = [
 		{
@@ -35,19 +36,31 @@
 	let currentPage = 0;
 	onMount(async () => {
 		$isLoading = true;
-		const { _bidValidators, _currentEraValidators, _nextEraValidators, _eraIDs } =
-			await queryValidators();
-		if (_bidValidators && _currentEraValidators && _nextEraValidators && _eraIDs) {
-			bidValidators = _bidValidators;
-			currentEraValidators = eraValidators = _currentEraValidators;
-			nextEraValidators = _nextEraValidators;
-			_eraIDs.forEach((eraID, i) => {
-				if (i < 2) {
-					const dropdownItem = i == 0 ? `Next Era ${eraID}` : `Current Era ${eraID}`;
-					pageOptions && pageOptions[0].dropdown.push(dropdownItem);
-				}
-			});
+		bidValidators = await getBids();
+		currentEraValidators = await getCurrentEraValidators();
+		nextEraValidators = await getNextEraValidators();
+		currentEraValidators?.forEach((validator) => {
+			validator.performance = bidValidators.find(
+				(bid) => bid.publicKey === validator.publicKey
+			).performance;
+			validator.information = bidValidators.find(
+				(bid) => bid.publicKey === validator.publicKey
+			).information;
+		});
+		nextEraValidators?.forEach((validator) => {
+			validator.performance = bidValidators.find(
+				(bid) => bid.publicKey === validator.publicKey
+			).performance;
+			validator.information = bidValidators.find(
+				(bid) => bid.publicKey === validator.publicKey
+			).information;
+		});
+		eraValidators = currentEraValidators;
+		if (pageOptions) {
+			pageOptions[0].dropdown[0] = `Next Era ${nextEraValidators[0].eraId}`;
+			pageOptions[0].dropdown[1] = `Current Era ${currentEraValidators[0].eraId}`;
 		}
+
 		$isLoading = false;
 	});
 
@@ -109,7 +122,6 @@
 					<th class="performance">
 						<div class="header-wrapper">
 							<div class="text">Performance</div>
-							<Tooltip text="Performance tooltip" />
 						</div>
 					</th>
 				</tr>
@@ -119,9 +131,9 @@
 						<td class="rank-val">{validator.rank}</td>
 						<td class="validators"
 							><Validator
-								imgUrl={validator.icon}
-								hash={validator.publicKey}
-								name={validator.name}
+								imgUrl={validator?.information?.icon}
+								hash={validator?.publicKey}
+								name={validator.information?.name}
 							/></td
 						>
 						<td class="grey">{validator.delegationRate}%</td>
@@ -129,7 +141,7 @@
 						<td class="stake">{validator.selfStake.toLocaleString('en')} CSPR</td>
 						<td class="grey self">{validator.selfStakePercentage.toFixed(2)}%</td>
 						<td class="grey network-perc">{validator.networkPercentage.toFixed(2)}%</td>
-						<td class="performance"><CircleProgressBar progress={0.25} /></td>
+						<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
 					</tr>
 				{/each}
 			</table>
@@ -166,7 +178,6 @@
 					<th class="performance">
 						<div class="header-wrapper">
 							<div class="text">Performance</div>
-							<Tooltip text="Performance tooltip" />
 						</div>
 					</th>
 				</tr>
@@ -175,7 +186,11 @@
 					<tr>
 						<td class="rank-val">{bid.rank}</td>
 						<td class="validators"
-							><Validator imgUrl={bid.icon} hash={bid.publicKey} name={bid.name} /></td
+							><Validator
+								imgUrl={bid.information?.icon}
+								hash={bid.publicKey}
+								name={bid.information?.name}
+							/></td
 						>
 						<td class="status"><Status inactive={bid.inactive} /></td>
 						<td class="grey">{bid.delegationRate.toFixed(2)}%</td>
@@ -183,7 +198,7 @@
 						<td class="stake">{bid.totalBid.toLocaleString('en')} CSPR</td>
 						<td class="grey self">{bid.selfStakePercentage.toFixed(2)}%</td>
 						<td class="grey network-perc">{bid.networkPercentage.toFixed(2)}%</td>
-						<td class="performance"><CircleProgressBar progress={0.7} /></td>
+						<td class="performance"><CircleProgressBar progress={bid.performance} /></td>
 					</tr>
 				{/each}
 			</table>

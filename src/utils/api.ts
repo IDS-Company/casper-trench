@@ -52,37 +52,37 @@ export const getBlocks = async (startIndex: number, count: number) => {
 	}
 };
 
-export const getEraValidators = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-era-validators`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch era validators');
-		});
+export const getBids = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/bids`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch validators');
+	}
 };
-
-export const getAuctionBids = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-bids`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch auction bids');
-		});
+export const getCurrentEraValidators = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/current-era`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch current era validators');
+	}
 };
-
-export const getValidator = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-validator/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch validator details');
-		});
+export const getNextEraValidators = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/next-era`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch next era validators');
+	}
+};
+export const getValidator = async (publicKey: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch next era validators');
+	}
 };
 
 export const getAccount = async (address: string) => {
@@ -106,21 +106,26 @@ export const getType = async (address: string) => {
 		});
 };
 
-export const getProposerBlocks = async (address: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-proposer-blocks`, {
+export const getValidatorBlocks = async (publicKey: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/validator-blocks/${publicKey}`, {
 			params: {
-				validator: address,
-				count,
-				start
+				startIndex,
+				count
 			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch verified blocks');
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch next era validators');
+	}
+};
+export const getValidatorDelegators = async (publicKey: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}/delegators`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch next era validators');
+	}
 };
 
 export const getTopAccounts = async (count: number, start: number) => {
@@ -266,14 +271,12 @@ export const getDeploy = async (address: string) => {
 };
 
 export const getBlock = async (address: string | number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-block/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch block details');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not block');
+	}
 };
 
 export const getBlockTransfers = async (address: string | number) => {
@@ -345,7 +348,7 @@ export const getVolumes = async (count: number) => {
 
 export const getDeployVolumes = async () => {
 	try {
-		const res = await axios.get(`https://api.cspr.fyi/v1/deploys/volumes`);
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes`);
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch volumes');

@@ -4,18 +4,16 @@
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
 	import ValidatorElement from '$lib/components/TableData/Validator.svelte';
-	// import { getTopValidators } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
-	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
-	import type { EraValidator } from '$utils/types/validator';
-	import { getTopValidators } from '$utils/chain/validators';
-	let validators;
-	let topValidators: Partial<EraValidator>[] = [];
+	import type { Bid } from '$utils/types/validator';
+	import { getBids } from '$utils/api';
+	let topValidators: Partial<Bid>[] = [];
 	onMount(async () => {
 		$isLoading = true;
-		// validators = await getTopValidators();
-		topValidators = await getTopValidators(10);
+		topValidators = await getBids();
+		topValidators = topValidators.slice(0, 10);
+		console.log(topValidators);
 		$isLoading = false;
 	});
 </script>
@@ -38,14 +36,14 @@
 				<tr>
 					<td
 						><ValidatorElement
-							imgUrl={validator?.icon}
-							name={validator?.name}
+							imgUrl={validator?.information?.icon}
+							name={validator?.information?.name}
 							hash={validator.publicKey}
 						/></td
 					>
 					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>
 					<td class="text-color-table-header">{validator.selfStake.toLocaleString('en')} CSPR</td>
-					<!-- <td><CircleProgressBar progress={1} /></td> -->
+					<td><CircleProgressBar progress={validator.performance} /></td>
 				</tr>
 			{/each}
 		</table>
