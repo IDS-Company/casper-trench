@@ -37,7 +37,7 @@
 		validator = await getValidator($page.params.public_key);
 		delegators = await getValidatorDelegators($page.params.public_key);
 		// console.log(delegators);
-		menuOptions[0].props.delegators = delegators ?? null;
+		menuOptions[0].props.delegators = delegators && delegators;
 		// // Sort delegators
 		// menuOptions[0].props.delegators = menuOptions[0].props.delegators.sort(
 		// 	(a, b) => b.stakedAmount - a.stakedAmount
@@ -64,7 +64,9 @@
 			<ValidatorCard {validator} />
 			<StatisticsCard {validator} />
 		</div>
-		<TabMenu {menuOptions} />
+		{#if validator && delegators?.length > 0}
+			<TabMenu {menuOptions} />
+		{/if}
 	{/if}
 </div>
 
