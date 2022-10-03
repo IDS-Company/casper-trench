@@ -3,8 +3,7 @@
 	import StackedChart from '$lib/components/Charts/StackedChart.svelte';
 	import AreaChart from '$lib/components/Charts/AreaChart.svelte';
 	import PoNegAreaChart from '$lib/components/Charts/PoNegAreaChart.svelte';
-	import { getEraData, getLatestBlocks, getMarketPrices } from '$utils/api';
-	import type { Block } from '$utils/types/block';
+	import { getEraData, getLatestChainState, getMarketPrices } from '$utils/api';
 	import type { EraData } from '$utils/types/era';
 	import { onMount } from 'svelte';
 	import type { MarketPrices } from '$utils/types/price';
@@ -22,8 +21,9 @@
 	let isLoading = true;
 	onMount(async () => {
 		isLoading = true;
-		const latestBlocks: Block[] = await getLatestBlocks(1);
-		eraData = latestBlocks && (await getEraData('id ASC', 0, latestBlocks[0].header.era_id));
+		const chainState = await getLatestChainState();
+		const eraId = chainState.last_added_block_info.era_id;
+		eraData = eraId && (await getEraData('id ASC', 0, eraId));
 		marketPrices = await getMarketPrices();
 		eraData &&
 			eraData.forEach((data) => {

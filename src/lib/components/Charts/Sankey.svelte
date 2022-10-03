@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getLatestBlocks, getTransferFlow } from '$utils/api';
+	import { getLatestBlocks, getLatestChainState, getTransferFlow } from '$utils/api';
 	import { externalSankeyTooltipHandler } from '$utils/tooltip';
 	import { truncateString } from '$utils/truncate';
 	import type { Block } from '$utils/types/block';
@@ -19,13 +19,13 @@
 	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
 	let dateTo = new Date('Jul 7, 2022, 18:33');
 
+	let eraId = 0;
+	const getCurrentEra = async () => {
+		const chainState = await getLatestChainState();
+		eraId = chainState.last_added_block_info.era_id;
+		return eraId;
+	};
 	const currentEra = getCurrentEra();
-	let eraValue = 0;
-	async function getCurrentEra() {
-		const latestBlocks: Block[] = await getLatestBlocks(1);
-		eraValue = latestBlocks[0].header.era_id;
-		return latestBlocks[0].header.era_id;
-	}
 
 	onMount(async () => {
 		// @ts-ignore
@@ -36,7 +36,7 @@
 
 	const updateSankey = async (mount = false) => {
 		data = [];
-		transferFlow = await getTransferFlow(mount ? await currentEra : eraValue, limit);
+		transferFlow = await getTransferFlow(mount ? await currentEra : eraId, limit);
 		totalTxAccount = await transferFlow.count;
 		dateFrom = new Date(await transferFlow.eraStart);
 		dateTo = (await transferFlow.eraEnd) ? new Date(await transferFlow.eraEnd) : new Date();
@@ -150,11 +150,11 @@
 		<div />
 	{:then value}
 		<EraSlider
-			bind:value={eraValue}
+			bind:value={eraId}
 			max={value}
 			on:change={async () => {
-				if (eraValue > (await currentEra)) {
-					eraValue = await currentEra;
+				if (eraId > (await currentEra)) {
+					eraId = await currentEra;
 				}
 			}}
 			on:mouseup={() => {
@@ -167,10 +167,10 @@
 				<input
 					type="number"
 					max={value}
-					bind:value={eraValue}
+					bind:value={eraId}
 					on:change={async () => {
-						if (eraValue > (await currentEra)) {
-							eraValue = await currentEra;
+						if (eraId > (await currentEra)) {
+							eraId = await currentEra;
 						}
 						updateSankey(false);
 					}}
