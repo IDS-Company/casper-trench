@@ -40,18 +40,18 @@
 		currentEraValidators = await getCurrentEraValidators();
 		nextEraValidators = await getNextEraValidators();
 		currentEraValidators?.forEach((validator) => {
-			validator.performance = bidValidators.find(
+			validator.performance = bidValidators?.find(
 				(bid) => bid.publicKey === validator.publicKey
 			).performance;
-			validator.information = bidValidators.find(
+			validator.information = bidValidators?.find(
 				(bid) => bid.publicKey === validator.publicKey
 			).information;
 		});
 		nextEraValidators?.forEach((validator) => {
-			validator.performance = bidValidators.find(
+			validator.performance = bidValidators?.find(
 				(bid) => bid.publicKey === validator.publicKey
 			).performance;
-			validator.information = bidValidators.find(
+			validator.information = bidValidators?.find(
 				(bid) => bid.publicKey === validator.publicKey
 			).information;
 		});

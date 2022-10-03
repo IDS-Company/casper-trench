@@ -39,11 +39,11 @@
 		</tr>
 		<tr>
 			<td class="label">Commission Rate</td>
-			<td class="value commission">{validator.delegationRate.toFixed(2)}%</td>
+			<td class="value commission">{validator.delegationRate.toFixed(2) || 0}%</td>
 		</tr>
 		<tr>
 			<td class="label">Performance</td>
-			<td class="value"><CircleProgressBar progress={validator.performance} /></td>
+			<td class="value"><CircleProgressBar progress={validator.performance || 0} /></td>
 		</tr>
 	</table>
 </div>

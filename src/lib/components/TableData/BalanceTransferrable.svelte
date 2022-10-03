@@ -9,7 +9,7 @@
 <div class="crypto-cash">
 	<div class="value-crypto">
 		<div class="crypto">
-			{(cspr && parseFloat(cspr.toFixed(5)).toLocaleString('en')) || '0'}
+			{(cspr && parseFloat(cspr?.toFixed(5)).toLocaleString('en')) || 0}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>
@@ -19,7 +19,7 @@
 		</div>
 	{:else}
 		<div class="value-cash">
-			${parseFloat((cspr * $price).toFixed(4)).toLocaleString('en') || '0'}
+			${parseFloat((cspr * $price).toFixed(4)).toLocaleString('en') || 0}
 		</div>
 	{/if}
 </div>
