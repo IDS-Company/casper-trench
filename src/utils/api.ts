@@ -205,35 +205,31 @@ export const getAccountEraRewards = async (address: string) => {
 		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/era-rewards`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch account rewards');
+		notifyError('Could not fetch account era rewards');
 	}
 };
 
-export const getTransactions = async (count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-txs`, {
+export const getTransactions = async (count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/deploys`, {
 			params: {
-				count,
-				start
+				startIndex,
+				count
 			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch transactions');
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch deploys');
+	}
 };
 
-export const getDeploy = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/info/get-deploy/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch transactions details');
-		});
+export const getDeploy = async (hash: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/${hash}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch deploy details');
+	}
 };
 
 export const getBlock = async (address: string | number) => {

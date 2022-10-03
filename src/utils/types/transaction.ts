@@ -14,15 +14,17 @@ export type AccountTransaction = {
 };
 export type Transaction = {
 	deployHash: string;
-	timestamp: number;
-	fromAddress: string;
-	toAddress: string;
-	value: number;
-	fee: number;
-	fromBalance: number;
-	toBalance: number;
+	amount: number;
 	blockHash: string;
+	cost: number;
+	deployType: string;
+	entryPoint: string;
+	fromAccountHash: string;
 	publicKey: string;
+	status: string;
+	timestamp: string;
+	toAccountHash: string;
+	validator: string;
 };
 
 export type TransactionDetail = {

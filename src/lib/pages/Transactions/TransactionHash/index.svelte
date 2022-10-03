@@ -16,7 +16,7 @@
 	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
 	import { onMount } from 'svelte';
 	import { isLoading } from '$stores/loading';
-	import { getDeploy } from '$utils/chain/transactions';
+	import { getDeploy } from '$utils/api';
 	import { page } from '$app/stores';
 
 	let showRawData = false;

@@ -1,12 +1,12 @@
 <script lang="ts">
-	export let type: 'Delegate' | 'Transfer' = 'Delegate';
+	export let type: string;
 </script>
 
 <div class="contract-text">
 	<div class="type">
 		{type}
 	</div>
-	{#if type === 'Delegate'}
+	{#if type === 'delegate' || type === 'undelegate'}
 		<div class="detail">
 			with <span class="auction">Auction</span> System Contract
 		</div>
@@ -19,7 +19,7 @@
 	}
 
 	.type {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link capitalize;
 	}
 
 	.detail {

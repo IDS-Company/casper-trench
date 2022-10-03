@@ -5,17 +5,15 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import TxHash from '$lib/components/TableData/TxHash.svelte';
 	import { millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
-	import { onMount } from 'svelte';
-	import { getDeploy, getTransactions } from '$utils/api';
+	import { getTransactions } from '$utils/api';
 	import { isLoading } from '$stores/loading';
 	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 	import type { Transaction } from '$utils/types/transaction';
-	import { getAllTransactions } from '$utils/chain/transactions';
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 
 	const fetchTransactions = async () => {
 		$isLoading = true;
@@ -24,8 +22,8 @@
 	};
 	$: if (transactionsPerPage) {
 		setTimeout(async () => {
-			// await fetchTransactions();
-			transactions = await getAllTransactions();
+			await fetchTransactions();
+			// transactions = await getAllTransactions();
 		}, 1);
 	}
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
@@ -38,16 +36,13 @@
 	<table>
 		<tr>
 			<th class="block">Tx Hash</th>
-			<!-- TODO remove placeholder -->
 			<th class="">Block Hash</th>
-			<!-- TODO remove placeholder -->
 			<th class="">Public Key</th>
 			<th class="center sorter">
 				<div class="text">Age</div>
 				<TableSorter on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
 			</th>
-			<!-- TODO remove placeholder -->
-			<th>Contract <PlaceHolderIndicator /></th>
+			<th>Contract </th>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
 		</tr>
@@ -58,29 +53,14 @@
 					<td class="block">
 						<div class="wrapper-center">
 							<a href="/transactions/{transaction.deployHash}">
-								<TxHash hash={transaction.deployHash} right />
+								<TxHash
+									hash={transaction.deployHash}
+									right
+									color={transaction.status === 'success' ? 'text' : 'yellow'}
+								/>
 							</a>
 						</div>
 					</td>
-					<!-- {#await getDeploy(transaction.deployHash)}
-						<td>
-							<div class="loader" />
-						</td>
-						<td>
-							<div class="loader" />
-						</td>
-					{:then tx}
-						<td>
-							<a href="/blocks/{tx.deploy.header.block_hash}">
-								<Hash hash={tx.deploy.header.block_hash} /></a
-							>
-						</td>
-						<td>
-							<a href="/accounts/{tx.deploy.header.account}">
-								<Hash hash={tx.deploy.header.account} />
-							</a>
-						</td>
-					{/await} -->
 					<td>
 						<a href="/blocks/{transaction.blockHash}"> <Hash hash={transaction.blockHash} /></a>
 					</td>
@@ -90,22 +70,19 @@
 						</a>
 					</td>
 					<td class="center age">
-						{`${timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago`}
+						{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}
 					</td>
-					<!-- TODO remove placeholder for contract -->
 					<td>
-						<ContractText />
+						<ContractText type={transaction.entryPoint} />
 					</td>
 					<td class="right">
 						<div class="wrapper">
-							<!-- <AmountCost cspr={transaction.amount.cspr} cashValue={transaction.amount.cash} /> -->
-							<BalanceTransferrable cspr={parseStringValue(transaction.value)} />
+							<BalanceTransferrable cspr={transaction.amount} />
 						</div>
 					</td>
 					<td class="right">
 						<div class="wrapper">
-							<!-- <AmountCost cspr={transaction.cost.cspr} cashValue={transaction.cost.cash} /> -->
-							<BalanceTransferrable cspr={parseStringValue(transaction.fee)} />
+							<BalanceTransferrable cspr={transaction.cost} />
 						</div>
 					</td>
 				</tr>
