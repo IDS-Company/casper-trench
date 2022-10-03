@@ -137,7 +137,7 @@
 	}
 
 	.logo {
-		@apply h-[clamp(16px,2.44vw,2.44vw)] w-[clamp(90px,9vw,9vw)];
+		@apply h-[clamp(16px,2.44vw,2.44vw)];
 	}
 
 	/* .chevron {
