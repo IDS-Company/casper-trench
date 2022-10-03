@@ -6,30 +6,34 @@
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import PublicKey from '$lib/components/TableData/PublicKey.svelte';
 	import Rank from '$lib/components/TableData/Rank.svelte';
-	import { bidStore } from '$stores/chain';
 	import { isLoading } from '$stores/loading';
-	import { getTopAccounts } from '$utils/chain/accounts';
+	import { getTopAccounts } from '$utils/api';
 	import { tableSort } from '$utils/sort';
 	import type { TopAccount } from '$utils/types/account';
+	import { onMount } from 'svelte';
+
 	let accountsPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	let topAccounts: TopAccount[];
 
-	const fetchTopAccounts = async () => {};
-
-	$: if (accountsPerPage || $bidStore) {
-		setTimeout(async () => {
-			topAccounts = await getTopAccounts(startIndex, accountsPerPage);
-			// await fetchTopAccounts();
-		}, 1);
-	}
-
-	$: if ($bidStore) {
-		console.log('New bids');
-	}
+	const fetchTopAccounts = async () => {
+		$isLoading = true;
+		topAccounts = await getTopAccounts(startIndex, accountsPerPage);
+		$isLoading = false;
+	};
 	const sortTopAccounts = (direction: 'asc' | 'desc', field: string) => {
 		topAccounts = tableSort(direction, topAccounts, field);
 	};
+
+	onMount(async () => {
+		await fetchTopAccounts();
+	});
+
+	$: if (accountsPerPage) {
+		setTimeout(async () => {
+			await fetchTopAccounts();
+		}, 1);
+	}
 </script>
 
 <div class="delegators-tab">
@@ -54,13 +58,13 @@
 			<th>
 				<div class="sorter">
 					<div>Txn Count</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'txnCount')} />
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transactionCount')} />
 				</div>
 			</th>
 			<th>
 				<div class="sorter right-div">
 					<div>Staked</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'staked_amount')} />
+					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'stakedAmount')} />
 				</div>
 			</th>
 		</tr>
@@ -70,14 +74,18 @@
 				<tr>
 					<td class="block">
 						<div class="wrapper">
-							<Rank rank={account.rank} />
+							<!-- TOD use actual rank -->
+							<!-- <Rank rank={account.rank} /> -->
+							<Rank rank={i + 1} />
 							<Contract text="CONTRACT" />
 						</div>
 					</td>
 					<td>
 						<a href="/accounts/{account.publicKey}">
-							<!-- TODO add actual active date -->
-							<PublicKey hash={account.publicKey} activeDate={Date.parse('1970/01/01')} />
+							<PublicKey
+								hash={account.publicKey}
+								activeDate={Date.parse(account.activeDate.toString())}
+							/>
 						</a>
 					</td>
 					<td>
@@ -86,9 +94,9 @@
 						></td
 					>
 					<td><div class="right-div"><BalanceTransferrable cspr={account.balance} /></div></td>
-					<td><div class="right-div"><BalanceTransferrable cspr={account.transferrable} /></div></td>
-					<!-- TODO geadd actual txnCount -->
-					<td>{account.txnCount?.toLocaleString('en') || 0}</td>
+					<td><div class="right-div"><BalanceTransferrable cspr={account.transferrable} /></div></td
+					>
+					<td>{account.transactionCount?.toLocaleString('en') || 0}</td>
 					<td class="right">{account.stakedAmount.toLocaleString('en')}</td>
 				</tr>
 			{/each}

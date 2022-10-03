@@ -59,7 +59,7 @@
 
 	const fetchUndelegations = async () => {
 		$isLoading = true;
-		undelegations = await getAccountUndelegations($page.params.address, itemsPerPage, startIndex);
+		undelegations = await getAccountUndelegations($page.params.address);
 		$isLoading = false;
 	};
 	$: if (itemsPerPage) {
@@ -88,31 +88,30 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block"> <a href="/transactions/{transaction.hash}"> {transaction.hash}</a></td>
+					<td class="block">
+						<a href="/transactions/{transaction.deployHash}"> {transaction.deployHash}</a></td
+					>
 					<td>
-						<Validator
+						<!-- TODO add validator data -->
+						<!-- <Validator
 							hash={transaction.validator_public_key}
 							imgUrl={transaction.validator_icon}
 							name={transaction.validator_name}
-						/>
+						/> -->
 					</td>
 					<td class="time">{timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago</td>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
-								{parseFloat(parseStringValue(transaction.amount).toFixed(5)).toLocaleString()}
+								{transaction.amount.toLocaleString()}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>
 					</td>
 					<td>
 						<div class="wrapper">
-							<TransactionStatus success={transaction.status}>
-								{#if transaction.status}
-									Success
-								{:else}
-									Failed
-								{/if}
+							<TransactionStatus success={transaction.status === 'success'}>
+								{transaction.status}
 							</TransactionStatus>
 						</div>
 					</td>
@@ -121,7 +120,6 @@
 		{/if}
 	</table>
 	{#if transactions && transactions.length > 0}
-		<!-- TODO handle paginator for staking -->
 		<Paginator
 			showTotalRows={false}
 			bind:itemsPerPage

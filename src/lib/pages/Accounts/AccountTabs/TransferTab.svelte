@@ -12,7 +12,7 @@
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	let transfers: Transfer[];
 	let transfersPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	onMount(async () => {
 		await fetchTransfers();
 	});
@@ -42,11 +42,12 @@
 			<th class="right">Amount</th>
 		</tr>
 		<div class="divider table-header-border" />
+		<!-- TODO add account balances,direction,correct amount -->
 		{#if transfers && transfers.length > 0}
 			{#each transfers as transfer}
 				<tr>
 					<td class="block">
-						<a href="/transactions/{transfer.deploy_hash}"> {transfer.deploy_hash}</a></td
+						<a href="/transactions/{transfer.deployHash}"> {transfer.deployHash}</a></td
 					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transfer.timestamp)))} ago`}</td
@@ -55,8 +56,8 @@
 						<div class="right-flex">
 							<FromToAccountHash
 								cspr={parseStringValue(transfer.from_balance)}
-								hash={transfer.from_address}
-								link="/accounts/{transfer.from_address}"
+								hash={transfer.fromAccountHash}
+								link="/accounts/{transfer.fromAccountHash}"
 							/>
 						</div>
 					</td>
@@ -64,8 +65,8 @@
 						<div class="right-flex">
 							<FromToAccountHash
 								cspr={parseStringValue(transfer.to_balance)}
-								hash={transfer.to_address}
-								link="/accounts/{transfer.to_address}"
+								hash={transfer.toAccountHash}
+								link="/accounts/{transfer.toAccountHash}"
 							/>
 						</div>
 					</td>
@@ -73,7 +74,7 @@
 						<div class="right-flex">
 							<AmountChange
 								isUp={transfer.type === 'in' ? false : true}
-								cspr={parseStringValue(transfer.value)}
+								cspr={parseStringValue(transfer.amount)}
 							/>
 						</div>
 					</td>

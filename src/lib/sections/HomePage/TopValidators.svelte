@@ -13,7 +13,6 @@
 		$isLoading = true;
 		topValidators = await getBids();
 		topValidators = topValidators.slice(0, 10);
-		console.log(topValidators);
 		$isLoading = false;
 	});
 </script>

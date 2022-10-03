@@ -1,7 +1,7 @@
 <script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
-	import { parseStringValue, processType } from '$utils/converters';
+	import { processType } from '$utils/converters';
 	import type { Account } from '$utils/types/account';
 	import type { Type } from '$utils/types/type';
 
@@ -23,13 +23,13 @@
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account?.transferrable) || 0} />
+					<BalanceTransferrable cspr={account?.availableBalance || 0} />
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Balance </td>
 				<td class="value">
-					<BalanceTransferrable cspr={parseStringValue(account?.balance) || 0} />
+					<BalanceTransferrable cspr={account?.totalBalance || 0} />
 				</td>
 			</tr>
 			<tr>
@@ -37,11 +37,11 @@
 				<td class="value">
 					<div class="address-value hash">
 						<div class="text">
-							{account?.account_hash || ''}
+							{account?.accountHash || ''}
 						</div>
-						{#if account?.account_hash}
+						{#if account?.accountHash}
 							<div class="copy-icon">
-								<CopyIcon text={account?.account_hash} />
+								<CopyIcon text={account?.accountHash} />
 							</div>
 						{/if}
 					</div>

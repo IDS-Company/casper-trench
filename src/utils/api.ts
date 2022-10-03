@@ -81,19 +81,17 @@ export const getValidator = async (publicKey: string) => {
 		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch next era validators');
+		notifyError('Could not fetch validator details');
 	}
 };
 
 export const getAccount = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-account/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account details');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account details');
+	}
 };
 export const getType = async (address: string) => {
 	return await axios
@@ -116,7 +114,7 @@ export const getValidatorBlocks = async (publicKey: string, count: number, start
 		});
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch next era validators');
+		notifyError('Could not fetch validators blocks');
 	}
 };
 export const getValidatorDelegators = async (publicKey: string) => {
@@ -124,123 +122,91 @@ export const getValidatorDelegators = async (publicKey: string) => {
 		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}/delegators`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch next era validators');
+		notifyError('Could not fetch validator delegators');
 	}
 };
 
-export const getTopAccounts = async (count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-rich-accounts`, {
+export const getTopAccounts = async (startIndex: number, count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/top-accounts`, {
 			params: {
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch top accounts');
-		});
-};
-
-export const getAccountTransfers = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-transfers`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account transfers');
-		});
-};
-
-export const getAccountDeploys = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-deploys`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account transactions');
-		});
-};
-
-export const getAccountDelegation = async (account: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/delegate`, {
-			params: {
-				account
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account staking delegations');
-		});
-};
-
-export const getAccountUndelegations = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/undelegate`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account staking undelegations');
-		});
-};
-
-export const getAccountRewards = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-rewards`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account earnings');
-		});
-};
-
-export const getAccountEraRewards = async (account: string, count: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-era-reward`, {
-			params: {
-				account,
+				startIndex,
 				count
 			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account era earnings');
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch top accounts');
+	}
+};
+
+export const getAccountTransfers = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/transfers`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account transfers');
+	}
+};
+
+export const getAccountDeploys = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/deploys`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account transfers');
+	}
+};
+
+export const getAccountDelegation = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/delegations`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account delegations');
+	}
+};
+
+export const getAccountUndelegations = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/undelegations`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account undelegations');
+	}
+};
+
+export const getAccountRewards = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/rewards`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account rewards');
+	}
+};
+
+export const getAccountEraRewards = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/era-rewards`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account rewards');
+	}
 };
 
 export const getTransactions = async (count: number, start: number) => {
