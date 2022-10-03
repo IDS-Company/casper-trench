@@ -36,16 +36,7 @@
 		$isLoading = true;
 		validator = await getValidator($page.params.public_key);
 		delegators = await getValidatorDelegators($page.params.public_key);
-		// console.log(delegators);
 		menuOptions[0].props.delegators = delegators && delegators;
-		// // Sort delegators
-		// menuOptions[0].props.delegators = menuOptions[0].props.delegators.sort(
-		// 	(a, b) => b.stakedAmount - a.stakedAmount
-		// );
-		// // Add ranks
-		// menuOptions[0].props.delegators.forEach((delegator, i) => {
-		// 	delegator.rank = i + 1;
-		// });
 		menuOptions[0].props.delegators.unshift({
 			publicKey: validator.publicKey,
 			stakedAmount: validator.selfStake,

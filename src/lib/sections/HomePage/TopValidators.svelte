@@ -26,9 +26,7 @@
 				<th>Validator</th>
 				<th>Fee</th>
 				<th>Total Stake</th>
-				<!-- TODO validator perfomance -->
-				<!-- Only available from make services -->
-				<!-- <th><PlaceHolderIndicator /> Performance</th> -->
+				<th> Performance</th>
 			</tr>
 			<div class="divider table-header-border" />
 			{#each topValidators as validator}
@@ -42,7 +40,7 @@
 					>
 					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>
 					<td class="text-color-table-header">{validator.selfStake.toLocaleString('en')} CSPR</td>
-					<td><CircleProgressBar progress={validator.performance} /></td>
+					<td><CircleProgressBar progress={validator.performance || 0} /></td>
 				</tr>
 			{/each}
 		</table>
