@@ -14,17 +14,6 @@ export const getEconomics = async () => {
 		});
 };
 
-// export const getStats = async () => {
-// 	return await axios
-// 		.get(`${casperStatsBaseURL}/info/get-stats`)
-// 		.then((res) => {
-// 			return res.data;
-// 		})
-// 		.catch((err) => {
-// 			notifyError('Could not fetch stats');
-// 		});
-// };
-
 export const getStats = async () => {
 	try {
 		const res = await axios.get(`${csprFyiBaseURL}/stats`);
@@ -234,22 +223,28 @@ export const getDeploy = async (hash: string) => {
 
 export const getBlock = async (address: string | number) => {
 	try {
-		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes`);
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/from-chain/${address}`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not block');
+		notifyError('Could not fetch block details');
 	}
 };
 
-export const getBlockTransfers = async (address: string | number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch block transfers');
-		});
+export const getBlockTransfers = async (blockHash: string | number) => {
+	// return await axios
+	// 	.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
+	// 	.then((res) => {
+	// 		return res.data;
+	// 	})
+	// 	.catch((err) => {
+	// 		notifyError('Could not fetch block transfers');
+	// 	});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/${blockHash}/transfers`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch block transfers');
+	}
 };
 
 export const getEraData = async (order: string, skip: number, limit: number) => {
@@ -314,5 +309,13 @@ export const getDeployVolumes = async () => {
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch volumes');
+	}
+};
+export const getLatestChainState = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/chain/latest-state`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch chain state');
 	}
 };

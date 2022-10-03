@@ -10,25 +10,33 @@
 	import SwitchChevron from '$lib/icons/SwitchChevron.svelte';
 	import VerifiedIcon from '$lib/icons/VerifiedIcon.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getBlock, getCurrentBlockHeight, getBlockTransfers } from '$utils/chain/blocks';
+	import { getBlock, getBlockTransfers, getLatestChainState } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
-	import type { ChainBlock } from '$utils/types/block';
-	import type { BlockTransfer } from '$utils/types/transfer';
+	import type { Block } from '$utils/types/block';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let showTransfers = false;
 	let showProofs = false;
-	let block: ChainBlock;
-	let transfers;
+	let block: Block;
+	let transfers = [];
 	let currentHeight = 0;
-	onMount(async () => {
+	// onMount(async () => {
+	// 	await fetchBlock();
+	// });
+	const fetchBlock = async () => {
 		$isLoading = true;
 		block = await getBlock($page.params.hash);
-		currentHeight = await getCurrentBlockHeight();
+		const chainStatus = await getLatestChainState();
+		currentHeight = chainStatus.last_added_block_info.height;
 		transfers = block && (await getBlockTransfers(block.hash));
 		$isLoading = false;
-	});
+	};
+	$: if ($page.params.hash) {
+		setTimeout(async () => {
+			await fetchBlock();
+		}, 1);
+	}
 </script>
 
 {#if block}
@@ -38,7 +46,6 @@
 				<Button
 					on:click={() => {
 						goto(`/blocks/${block.height - 1}`);
-						window.location.reload();
 					}}
 					block>Blocks #{block.height - 1}</Button
 				>
@@ -47,7 +54,6 @@
 					on:click={() => {
 						if (block.height + 1 <= currentHeight) {
 							goto(`/blocks/${block.height + 1}`);
-							window.location.reload();
 						}
 					}}
 					block

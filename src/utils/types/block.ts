@@ -1,4 +1,4 @@
-export type ChainBlock = {
+export type Block = {
 	height: number;
 	eraID: number;
 	transactions: number;
@@ -8,16 +8,16 @@ export type ChainBlock = {
 	stateRootHash?: string;
 	proofs?: any[];
 };
-export type DBBlock = {
-	blockHeight: number;
-	blockHash: string;
-	eraID: number;
-	transfers: number;
-	deploys: number;
-	timestamp: Date;
-	isSwitchBlock: boolean;
-	validatorPublicKey: string;
-};
+// export type DBBlock = {
+// 	blockHeight: number;
+// 	blockHash: string;
+// 	eraID: number;
+// 	transfers: number;
+// 	deploys: number;
+// 	timestamp: Date;
+// 	isSwitchBlock: boolean;
+// 	validatorPublicKey: string;
+// };
 export type ProposerBlocks = {
 	hash: string;
 	height: number;

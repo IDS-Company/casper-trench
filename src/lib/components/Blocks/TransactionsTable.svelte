@@ -1,11 +1,8 @@
 <script lang="ts">
 	import Hash from '$components/TableData/Hash.svelte';
-	import { getValidatorDetails, parseStringValue } from '$utils/converters';
-	import type { BlockTransfer } from '$utils/types/transfer';
+	import type { Transfer } from '$utils/types/transfer';
 	import { slide } from 'svelte/transition';
-	import FromToAccountHash from '../TableData/FromToAccountHash.svelte';
-	import Validator from '../TableData/Validator.svelte';
-	export let transfers: BlockTransfer[];
+	export let transfers: Transfer[];
 </script>
 
 <div class="delegators-tab" transition:slide>
@@ -21,48 +18,28 @@
 			{#each transfers as transfer, i}
 				<tr>
 					<td>
-						<a href="/transactions/{transfer.deploy_hash}">
-							<Hash hash={transfer.deploy_hash} noOfCharacters={10} />
+						<a href="/transactions/{transfer.deployHash}">
+							<Hash hash={transfer.deployHash} noOfCharacters={10} />
 						</a>
 					</td>
 					<td>
-						<a href="/accounts/{transfer.from}">
+						<a href="/accounts/{transfer.fromAccountHash}">
 							<div class="account">
-								{#await getValidatorDetails(transfer.from)}
-									<div class="image-placeholder">
-										<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-									</div>
-								{:then validator}
-									{#if validator?.icon}
-										<img src={validator?.icon} alt="to-account-logo" />
-									{:else}
-										<div class="image-placeholder">
-											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-										</div>
-									{/if}
-								{/await}
-								<Hash hash={transfer.from} noOfCharacters={10} />
+								<div class="image-placeholder">
+									<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+								</div>
+								<Hash hash={transfer.fromAccountHash} noOfCharacters={10} />
 							</div>
 						</a>
 					</td>
 					<td>
-						{#if transfer.to}
-							<a href="/accounts/{transfer.to}">
+						{#if transfer.toAccountHash}
+							<a href="/accounts/{transfer.toAccountHash}">
 								<div class="account">
-									{#await getValidatorDetails(transfer.to)}
-										<div class="image-placeholder">
-											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-										</div>
-									{:then validator}
-										{#if validator?.icon}
-											<img src={validator?.icon} alt="to-account-logo" />
-										{:else}
-											<div class="image-placeholder">
-												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-											</div>
-										{/if}
-									{/await}
-									<Hash hash={transfer?.to} noOfCharacters={10} />
+									<div class="image-placeholder">
+										<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+									</div>
+									<Hash hash={transfer?.toAccountHash} noOfCharacters={10} />
 								</div>
 							</a>
 						{/if}
