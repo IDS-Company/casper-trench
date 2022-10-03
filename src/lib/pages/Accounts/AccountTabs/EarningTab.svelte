@@ -9,22 +9,21 @@
 	import { price } from '$stores/price';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 
-	let earnings: Reward[];
+	let earnings = [];
 	let eraRewards = [];
-	let eraRewardsPerPage = 1000;
 	let earningsPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	let data: [{ x?: Date; y?: number }] = [{}];
 	const fetchRewards = async () => {
 		$isLoading = true;
 		earnings = await getAccountRewards($page.params?.address, earningsPerPage, startIndex);
-		eraRewards = await getAccountEraRewards($page.params.address, eraRewardsPerPage);
+		eraRewards = await getAccountEraRewards($page.params.address);
 		eraRewards &&
 			eraRewards.forEach((e, i) => {
-				if (e[0] === null) {
-					e[0] = eraRewards[i - 1][0] - 1;
+				if (e._id === null) {
+					e._id = eraRewards[i - 1]._id - 1;
 				}
-				data.push({ x: new Date(e[0]), y: e[1] });
+				data.push({ x: new Date(e._id), y: e.totalReward || 0 });
 			});
 		$isLoading = false;
 	};
@@ -33,8 +32,6 @@
 			await fetchRewards();
 		}, 1);
 	}
-	// 1653477343232;
-	// 1653052014592;
 </script>
 
 <div class="earning">
@@ -52,17 +49,15 @@
 			{#if earnings && earnings.length > 0}
 				{#each earnings as earning}
 					<tr>
-						<td>{new Date(earning.date).toLocaleDateString()}</td>
+						<td>{new Date(earning._id).toLocaleDateString()}</td>
 						<td>
 							<div class="value-crypto">
 								<div class="crypto">
-									{parseFloat(parseStringValue(earning.reward).toFixed(2)).toLocaleString('en')}
+									{earning.totalReward.toLocaleString('en')}
 								</div>
 								<div class="cspr">CSPR</div>
 								<div class="cash">
-									${parseFloat(
-										(parseStringValue(earning.reward) * $price).toFixed(2)
-									).toLocaleString('en')}
+									${parseFloat((earning.totalReward * $price).toFixed(2)).toLocaleString('en')}
 								</div>
 							</div>
 						</td>

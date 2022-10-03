@@ -18,12 +18,12 @@
 		setConstructors();
 		$account = JSON.parse(localStorage.getItem('account'));
 		await setCSPRPrice();
-		await pollValidatorData();
+		// await pollValidatorData();
 	});
 </script>
 
 <svelte:head>
-	<title>Casper.info</title>
+	<title>CSPR.FYI</title>
 	<script src={nodePackages}></script>
 </svelte:head>
 

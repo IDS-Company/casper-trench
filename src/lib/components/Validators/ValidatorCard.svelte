@@ -15,8 +15,8 @@
 {#if validator}
 	<div class="validator-card">
 		<div class="logo" class:inactive={validator.inactive}>
-			{#if validator.icon}
-				<img src={validator.icon} alt="validator-logo" />
+			{#if validator?.information?.icon}
+				<img src={validator?.information?.icon} alt="validator-logo" />
 			{:else}
 				<img src="/images/png/validator-placeholder.png" alt="validator-logo" />
 			{/if}
@@ -25,49 +25,49 @@
 			{/if}
 		</div>
 		<div class="name-wrapper">
-			{#if validator.name}
-				<div class="name">{validator.name}</div>
+			{#if validator?.information?.name}
+				<div class="name">{validator?.information?.name}</div>
 				<div class="verified-icon">
 					<VerifiedIcon />
 				</div>
 			{/if}
 		</div>
 		<div class="details">
-			{validator.details || ''}
+			{validator?.information?.description || ''}
 		</div>
 		<div class="extras">
 			<div class="labels-values">
-				{#if validator.website}
+				{#if validator?.information?.website}
 					<div class="label">Website</div>
 				{/if}
-				{#if validator.email}
+				{#if validator?.information?.email}
 					<div class="label">Email</div>
 				{/if}
-				{#if validator.links}
+				{#if validator?.information?.links}
 					<div class="label">Socials</div>
 				{/if}
 			</div>
 			<div class="validator-values">
-				{#if validator.website}
-					<a class="value" href={validator.website}>
+				{#if validator?.information?.website}
+					<a class="value" href={validator?.information?.website}>
 						<div class="text">
-							{validator.website}
+							{validator?.information?.website}
 						</div>
 						<div class="open-icon">
 							<OpenIcon />
 						</div>
 					</a>
 				{/if}
-				{#if validator.email}
+				{#if validator?.information?.email}
 					<div class="value">
-						<a href="mailto:{validator.email}" class="text">
-							{validator.email}
+						<a href="mailto:{validator?.information?.email}" class="text">
+							{validator?.information?.email}
 						</a>
 					</div>
 				{/if}
 				<div class="socials">
-					{#if validator?.links && validator?.links.length > 0}
-						{#each validator.links as link}
+					{#if validator?.information?.links && validator?.information?.links.length > 0}
+						{#each validator?.information?.links as link}
 							{#if link.tag === 'Twitter'}
 								<a href={link.link} class="social"><TwitterGreenLogo /></a>
 							{/if}

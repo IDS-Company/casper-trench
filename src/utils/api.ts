@@ -14,17 +14,6 @@ export const getEconomics = async () => {
 		});
 };
 
-// export const getStats = async () => {
-// 	return await axios
-// 		.get(`${casperStatsBaseURL}/info/get-stats`)
-// 		.then((res) => {
-// 			return res.data;
-// 		})
-// 		.catch((err) => {
-// 			notifyError('Could not fetch stats');
-// 		});
-// };
-
 export const getStats = async () => {
 	try {
 		const res = await axios.get(`${csprFyiBaseURL}/stats`);
@@ -34,75 +23,64 @@ export const getStats = async () => {
 	}
 };
 
-export const getLatestBlocks = async (number: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-blocks/${number}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch latest blocks');
-		});
+export const getLatestBlocks = async (count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/latest/${count}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch latest blocks');
+	}
 };
 
-export const getRangeBlocks = async (start: number, end: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-range-block`, {
-			params: {
-				start,
-				end
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch blocks');
-		});
+export const getBlocks = async (startIndex: number, count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks`, { params: { startIndex, count } });
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch block range');
+	}
 };
 
-export const getEraValidators = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-era-validators`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch era validators');
-		});
+export const getBids = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/bids`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch validators');
+	}
 };
-
-export const getAuctionBids = async () => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-bids`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch auction bids');
-		});
+export const getCurrentEraValidators = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/current-era`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch current era validators');
+	}
 };
-
-export const getValidator = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/state/get-validator/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch validator details');
-		});
+export const getNextEraValidators = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/next-era`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch next era validators');
+	}
+};
+export const getValidator = async (publicKey: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch validator details');
+	}
 };
 
 export const getAccount = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-account/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account details');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account details');
+	}
 };
 export const getType = async (address: string) => {
 	return await axios
@@ -115,185 +93,158 @@ export const getType = async (address: string) => {
 		});
 };
 
-export const getProposerBlocks = async (address: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-proposer-blocks`, {
+export const getValidatorBlocks = async (publicKey: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/validator-blocks/${publicKey}`, {
 			params: {
-				validator: address,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch verified blocks');
-		});
-};
-
-export const getTopAccounts = async (count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-rich-accounts`, {
-			params: {
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch top accounts');
-		});
-};
-
-export const getAccountTransfers = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-transfers`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account transfers');
-		});
-};
-
-export const getAccountDeploys = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-deploys`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account transactions');
-		});
-};
-
-export const getAccountDelegation = async (account: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/delegate`, {
-			params: {
-				account
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account staking delegations');
-		});
-};
-
-export const getAccountUndelegations = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/undelegate`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account staking undelegations');
-		});
-};
-
-export const getAccountRewards = async (account: string, count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-rewards`, {
-			params: {
-				account,
-				count,
-				start
-			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account earnings');
-		});
-};
-
-export const getAccountEraRewards = async (account: string, count: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/account/get-era-reward`, {
-			params: {
-				account,
+				startIndex,
 				count
 			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch account era earnings');
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch validators blocks');
+	}
+};
+export const getValidatorDelegators = async (publicKey: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/validators/${publicKey}/delegators`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch validator delegators');
+	}
 };
 
-export const getTransactions = async (count: number, start: number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-latest-txs`, {
+export const getTopAccounts = async (startIndex: number, count: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/top-accounts`, {
 			params: {
-				count,
-				start
+				startIndex,
+				count
 			}
-		})
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch transactions');
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch top accounts');
+	}
 };
 
-export const getDeploy = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/info/get-deploy/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch transactions details');
+export const getAccountTransfers = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/transfers`, {
+			params: {
+				startIndex,
+				count
+			}
 		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account transfers');
+	}
+};
+
+export const getAccountDeploys = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/deploys`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account transfers');
+	}
+};
+
+export const getAccountDelegation = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/delegations`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account delegations');
+	}
+};
+
+export const getAccountUndelegations = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/undelegations`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account undelegations');
+	}
+};
+
+export const getAccountRewards = async (address: string, count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/rewards`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account rewards');
+	}
+};
+
+export const getAccountEraRewards = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/era-rewards`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account era rewards');
+	}
+};
+
+export const getTransactions = async (count: number, startIndex: number) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/deploys`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch deploys');
+	}
+};
+
+export const getDeploy = async (hash: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/${hash}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch deploy details');
+	}
 };
 
 export const getBlock = async (address: string | number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-block/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch block details');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/from-chain/${address}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch block details');
+	}
 };
 
-export const getBlockTransfers = async (address: string | number) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch block transfers');
-		});
+export const getBlockTransfers = async (blockHash: string | number) => {
+	// return await axios
+	// 	.get(`${casperStatsBaseURL}/chain/get-block-transfers/${address}`)
+	// 	.then((res) => {
+	// 		return res.data;
+	// 	})
+	// 	.catch((err) => {
+	// 		notifyError('Could not fetch block transfers');
+	// 	});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/blocks/${blockHash}/transfers`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch block transfers');
+	}
 };
 
 export const getEraData = async (order: string, skip: number, limit: number) => {
@@ -354,10 +305,17 @@ export const getVolumes = async (count: number) => {
 
 export const getDeployVolumes = async () => {
 	try {
-		const res = await axios.get(`https://api.cspr.fyi/v1/deploys/volumes`);
-		console.log('Volumes', res.data);
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes`);
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch volumes');
+	}
+};
+export const getLatestChainState = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/chain/latest-state`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch chain state');
 	}
 };

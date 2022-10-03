@@ -12,7 +12,7 @@
 
 	let transactions: AccountTransaction[];
 	let transactionsPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	onMount(async () => {
 		await fetchTransactions();
 	});
@@ -46,20 +46,20 @@
 			{#each transactions as transaction}
 				<tr>
 					<td class="block">
-						<a href="/transactions/{transaction.deploy_hash}"> {transaction.deploy_hash}</a></td
+						<a href="/transactions/{transaction.deployHash}"> {transaction.deployHash}</a></td
 					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}</td
 					>
 					<td>
 						<div class="right-flex">
-							<Hash color="black" hash={transaction.hash} />
+							<Hash color="black" hash={transaction.publicKey} />
 						</div>
 					</td>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
-								{parseFloat(transaction.gas_price.toFixed(5)).toLocaleString('en')}
+								{transaction.cost.toLocaleString('en')}
 							</div>
 							<div class="cspr">CSPR</div>
 						</div>

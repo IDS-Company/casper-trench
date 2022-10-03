@@ -1,24 +1,24 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import { isLoading } from '$stores/loading';
-	import { getProposerBlocks } from '$utils/api';
+	import { getValidatorBlocks } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import type { ProposerBlocks } from '$utils/types/block';
+	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
 
 	export let props: {
 		validatorPublicKey: string;
 	};
 	let blocksPerPage: number = 10;
-	let startIndex = 0;
-	let blocks: ProposerBlocks[];
+	let startIndex = 1;
+	let blocks: DBBlock[];
 	onMount(async () => {
 		await fetchProposerBlocks();
 	});
 
 	const fetchProposerBlocks = async () => {
 		$isLoading = true;
-		blocks = await getProposerBlocks(props.validatorPublicKey, blocksPerPage, startIndex);
+		blocks = await getValidatorBlocks(props.validatorPublicKey, blocksPerPage, startIndex);
 		$isLoading = false;
 	};
 	$: if (blocksPerPage) {
@@ -45,12 +45,16 @@
 		{#if blocks && blocks.length > 0}
 			{#each blocks as block}
 				<tr>
-					<td class="block">{block.height}</td>
-					<td>{block.era}</td>
-					<td>{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}</td>
+					<td class="block">{block.blockHeight.toLocaleString('en')}</td>
+					<td>{block.eraID.toLocaleString('en')}</td>
+					<td
+						>{`${timeAgo(
+							millisToFormat(Date.now() - Date.parse(block.timestamp.toString()))
+						)} ago`}</td
+					>
 					<td>{block.deploys}</td>
 					<td>{block.transfers}</td>
-					<td class="hash right"> <a href="/blocks/{block.hash}"> {block.hash}</a></td>
+					<td class="hash right"> <a href="/blocks/{block.blockHash}"> {block.blockHash}</a></td>
 				</tr>
 			{/each}
 		{/if}

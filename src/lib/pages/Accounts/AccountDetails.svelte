@@ -35,12 +35,12 @@
 			title: 'Earning',
 			component: EarningTab,
 			props: {}
-		},
-		{
-			title: 'Tokens',
-			component: TokensTab,
-			props: {}
 		}
+		// {
+		// 	title: 'Tokens',
+		// 	component: TokensTab,
+		// 	props: {}
+		// }
 	];
 	let account: Account;
 	let type: Type;

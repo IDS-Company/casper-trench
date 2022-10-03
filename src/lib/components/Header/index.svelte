@@ -12,7 +12,6 @@
 	let stats: Stats;
 	onMount(async () => {
 		stats = await getStats();
-		stats && console.log('Stats', stats);
 		isLoading = false;
 	});
 </script>

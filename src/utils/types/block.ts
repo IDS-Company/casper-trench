@@ -1,28 +1,3 @@
-// export type Block = {
-// 	body: {
-// 		proposer: string;
-// 		deploy_hashes: string[];
-// 		transfer_hashes: string[];
-// 	};
-// 	hash: string;
-// 	header: {
-// 		accumulated_seed: string;
-// 		body_hash: string;
-// 		era_end: any;
-// 		era_id: number;
-// 		height: number;
-// 		parent_hash: string;
-// 		protocol_version: string;
-// 		random_bit: boolean;
-// 		state_root_hash: string;
-// 		timestamp: string;
-// 	};
-// 	proofs: {
-// 		public_key: string;
-// 		signature: string;
-// 	}[];
-// };
-
 export type Block = {
 	height: number;
 	eraID: number;
@@ -33,7 +8,16 @@ export type Block = {
 	stateRootHash?: string;
 	proofs?: any[];
 };
-
+// export type DBBlock = {
+// 	blockHeight: number;
+// 	blockHash: string;
+// 	eraID: number;
+// 	transfers: number;
+// 	deploys: number;
+// 	timestamp: Date;
+// 	isSwitchBlock: boolean;
+// 	validatorPublicKey: string;
+// };
 export type ProposerBlocks = {
 	hash: string;
 	height: number;

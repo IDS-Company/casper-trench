@@ -6,9 +6,9 @@
 	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import type { Bid } from '$utils/types/validator';
 	import { isLoading } from '$stores/loading';
-	import { getValidatorDetails } from '$utils/chain/validators';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { getValidator, getValidatorDelegators } from '$utils/api';
 
 	let delegators: {
 		publicKey: string;
@@ -18,6 +18,7 @@
 		rank?: number;
 	}[] = [];
 
+	let validator: Bid;
 	let menuOptions = [
 		{
 			title: 'Delegators',
@@ -31,19 +32,20 @@
 		}
 	];
 
-	let validator: Bid;
 	onMount(async () => {
 		$isLoading = true;
-		validator = await getValidatorDetails($page.params.public_key);
-		menuOptions[0].props.delegators = validator.delegators ?? null;
-		// Sort delegators
-		menuOptions[0].props.delegators = menuOptions[0].props.delegators.sort(
-			(a, b) => b.stakedAmount - a.stakedAmount
-		);
-		// Add ranks
-		menuOptions[0].props.delegators.forEach((delegator, i) => {
-			delegator.rank = i + 1;
-		});
+		validator = await getValidator($page.params.public_key);
+		delegators = await getValidatorDelegators($page.params.public_key);
+		// console.log(delegators);
+		menuOptions[0].props.delegators = delegators && delegators;
+		// // Sort delegators
+		// menuOptions[0].props.delegators = menuOptions[0].props.delegators.sort(
+		// 	(a, b) => b.stakedAmount - a.stakedAmount
+		// );
+		// // Add ranks
+		// menuOptions[0].props.delegators.forEach((delegator, i) => {
+		// 	delegator.rank = i + 1;
+		// });
 		menuOptions[0].props.delegators.unshift({
 			publicKey: validator.publicKey,
 			stakedAmount: validator.selfStake,
@@ -52,12 +54,8 @@
 		});
 		menuOptions[0].props['totalStake'] = validator && validator.totalBid;
 		menuOptions[0].props['validatorPublicKey'] = validator && validator.publicKey;
-		await getRewards();
 		$isLoading = false;
 	});
-
-	// TODO get delegator and validator rewards
-	const getRewards = async (network: 'casper' | 'casper-test' = 'casper-test') => {};
 </script>
 
 <div class="main">
@@ -66,7 +64,9 @@
 			<ValidatorCard {validator} />
 			<StatisticsCard {validator} />
 		</div>
-		<TabMenu {menuOptions} />
+		{#if validator && delegators?.length > 0}
+			<TabMenu {menuOptions} />
+		{/if}
 	{/if}
 </div>
 

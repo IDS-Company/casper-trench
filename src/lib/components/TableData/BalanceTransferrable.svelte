@@ -19,7 +19,7 @@
 		</div>
 	{:else}
 		<div class="value-cash">
-			${parseFloat((cspr * $price).toFixed(2)).toLocaleString('en') || '0'}
+			${parseFloat((cspr * $price).toFixed(4)).toLocaleString('en') || '0'}
 		</div>
 	{/if}
 </div>
