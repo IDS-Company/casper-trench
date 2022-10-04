@@ -13,6 +13,7 @@
 	let transfers: Transfer[];
 	let transfersPerPage = 10;
 	let startIndex = 1;
+	export let props: { accountHash: string };
 	onMount(async () => {
 		await fetchTransfers();
 	});
@@ -20,6 +21,7 @@
 	const fetchTransfers = async () => {
 		$isLoading = true;
 		transfers = await getAccountTransfers($page.params?.address, transfersPerPage, startIndex);
+
 		$isLoading = false;
 	};
 	$: if (transfersPerPage) {
@@ -43,7 +45,7 @@
 		</tr>
 		<div class="divider table-header-border" />
 		<!-- TODO add account balances,direction,correct amount -->
-		{#if transfers && transfers.length > 0}
+		{#if props.accountHash && transfers && transfers.length > 0}
 			{#each transfers as transfer}
 				<tr>
 					<td class="block">
@@ -52,29 +54,51 @@
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transfer.timestamp)))} ago`}</td
 					>
-					<td>
-						<div class="right-flex">
-							<FromToAccountHash
-								cspr={parseStringValue(transfer.from_balance)}
-								hash={transfer.fromAccountHash}
-								link="/accounts/{transfer.fromAccountHash}"
-							/>
-						</div>
-					</td>
-					<td>
-						<div class="right-flex">
-							<FromToAccountHash
-								cspr={parseStringValue(transfer.to_balance)}
-								hash={transfer.toAccountHash}
-								link="/accounts/{transfer.toAccountHash}"
-							/>
-						</div>
-					</td>
+					{#if transfer.fromAccountHash === props?.accountHash}
+						<td>
+							<div class="right-flex">
+								<FromToAccountHash
+									cspr={transfer.fromAccountBalance}
+									hash={transfer.fromAccountHash}
+									link="/accounts/{transfer.fromAccountHash}"
+								/>
+							</div>
+						</td>
+						<td>
+							<div class="right-flex">
+								<FromToAccountHash
+									cspr={transfer.toAccountBalance}
+									hash={transfer.toAccountHash}
+									link="/accounts/{transfer.toAccountHash}"
+								/>
+							</div>
+						</td>
+					{:else}
+						<td>
+							<div class="right-flex">
+								<FromToAccountHash
+									cspr={transfer.toAccountBalance}
+									hash={transfer.toAccountHash}
+									link="/accounts/{transfer.toAccountHash}"
+								/>
+							</div>
+						</td>
+						<td>
+							<div class="right-flex">
+								<FromToAccountHash
+									cspr={transfer.fromAccountBalance}
+									hash={transfer.fromAccountHash}
+									link="/accounts/{transfer.fromAccountHash}"
+								/>
+							</div>
+						</td>
+					{/if}
+
 					<td>
 						<div class="right-flex">
 							<AmountChange
-								isUp={transfer.type === 'in' ? false : true}
-								cspr={parseStringValue(transfer.amount)}
+								isUp={transfer.fromAccountHash === props?.accountHash ? false : true}
+								cspr={transfer.amount}
 							/>
 						</div>
 					</td>

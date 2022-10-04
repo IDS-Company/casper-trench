@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getAccountBalance } from '$utils/api';
 	import Hash from './Hash.svelte';
 
 	export let isFrom = false;
@@ -17,7 +18,15 @@
 	{/if}
 	<div class="value-crypto">
 		<div class="crypto">
-			{cspr.toFixed(5)}
+			{#if cspr}
+				{cspr?.toFixed(5)}
+			{:else}
+				{#await getAccountBalance(hash)}
+					{''}
+				{:then balance}
+					{(balance && parseFloat(balance?.toFixed(5)).toLocaleString('en')) || 0}
+				{/await}
+			{/if}
 		</div>
 		<div class="cspr">CSPR</div>
 	</div>

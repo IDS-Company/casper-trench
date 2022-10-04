@@ -1,22 +1,10 @@
 <script lang="ts">
-	import { getEconomics, getLatestBlocks, getStats } from '$utils/api';
-	import { aTimeAgo, parseStringValue } from '$utils/converters';
-	import type { Block } from '$utils/types/block';
-	import type { Economics } from '$utils/types/economics';
+	import { aTimeAgo } from '$utils/converters';
 	import type { Stats } from '$utils/types/stats';
-	import { onMount } from 'svelte';
 	import SvelteLoader from '$components/SvelteLoader/index.svelte';
 
 	export let stats: Stats;
-	let economics: Economics;
-	let blocks: Block[];
 	export let isLoading = true;
-	// onMount(async () => {
-	// 	stats = await getStats();
-	// 	economics = await getEconomics();
-	// 	blocks = await getLatestBlocks(1);
-	// 	isLoading = false;
-	// });
 </script>
 
 {#if isLoading}
@@ -26,10 +14,10 @@
 	<div class="stat-column">
 		<div class="title">BLOCK HEIGHT</div>
 		<div class="value">
-			{(stats && stats.currentBlockHeight.toLocaleString('en')) || '0 seconds'}
+			{stats?.currentBlockHeight.toLocaleString('en') || '0'}
 		</div>
 		<div class="detail flex">
-			{`${aTimeAgo(Date.now() - Date.parse(stats && stats.currentBlockTime))} ` || '0 seconds '}
+			{(stats && aTimeAgo(Date.now() - Date.parse(stats?.currentBlockTime))) || '0 seconds'}
 			ago
 		</div>
 	</div>
@@ -39,7 +27,7 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
-			{(stats && stats.apy.toFixed(2)) || ''}%
+			{(stats && stats.apy.toFixed(2)) || '0'}%
 		</div>
 		<div class="detail">Annual Percentage Yield</div>
 	</div>
@@ -49,10 +37,10 @@
 	<div class="stat-column">
 		<div class="title">CSPR PRICE</div>
 		<div class="value">
-			${Math.floor(stats && stats.currentPrice * 10000) / 10000 || ''}
+			${Math.floor(stats?.currentPrice * 10000) / 10000 || '0'}
 		</div>
 		<div class="detail">
-			${(stats && stats.marketCap.toLocaleString('en')) || ''} Market Cap
+			${stats?.marketCap.toLocaleString('en') || '0'} Market Cap
 		</div>
 	</div>
 
@@ -61,12 +49,12 @@
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
 		<div class="value">
-			{(stats && stats.circulatingSupply.toLocaleString('en')) || ''}
+			{stats?.circulatingSupply.toLocaleString('en') || '0'}
 		</div>
 		<div class="detail">
-			{((stats && stats.circulatingSupply / stats.totalSupply) * 100).toFixed(2)}% of {(stats &&
-				stats.totalSupply.toLocaleString('en')) ||
-				''}
+			{(stats && ((stats?.circulatingSupply / stats?.totalSupply) * 100).toFixed(2)) || 0}% of {stats?.totalSupply.toLocaleString(
+				'en'
+			) || '0'}
 		</div>
 	</div>
 </div>

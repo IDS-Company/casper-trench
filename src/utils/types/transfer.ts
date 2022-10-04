@@ -6,10 +6,12 @@ export type Transfer = {
 	deployType: string;
 	entryPoint: string;
 	fromAccountHash: string;
+	fromAccountBalance: number;
 	publicKey: string;
 	status: string;
 	timestamp: string;
 	toAccountHash: string;
+	toAccountBalance: number;
 	validator: string;
 };
 

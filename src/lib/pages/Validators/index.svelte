@@ -138,7 +138,7 @@
 						>
 						<td class="grey">{validator.delegationRate}%</td>
 						<td>{validator.numOfDelegators.toLocaleString('en')}</td>
-						<td class="stake">{validator.selfStake.toLocaleString('en')} CSPR</td>
+						<td class="stake">{validator.totalBid.toLocaleString('en')} CSPR</td>
 						<td class="grey self">{validator.selfStakePercentage.toFixed(2)}%</td>
 						<td class="grey network-perc">{validator.networkPercentage.toFixed(2)}%</td>
 						<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
