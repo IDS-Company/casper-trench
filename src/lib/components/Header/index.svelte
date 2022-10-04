@@ -7,12 +7,11 @@
 	import { onMount } from 'svelte';
 	import { getStats } from '$utils/api';
 	import type { Stats } from '$utils/types/stats';
-	let isLoading = true;
+	let isLoading = false;
 	$: isHome = $page.url.pathname === '/';
 	let stats: Stats;
 	onMount(async () => {
 		stats = await getStats();
-		isLoading = false;
 	});
 </script>
 

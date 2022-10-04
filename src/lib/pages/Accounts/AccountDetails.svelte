@@ -48,6 +48,7 @@
 	onMount(async () => {
 		isLoading = true;
 		account = await getAccount($page.params?.address);
+		menuOptions[0].props['accountHash'] = account && account.accountHash;
 		type = await getType($page.params?.address);
 		isLoading = false;
 	});

@@ -19,7 +19,7 @@ export const getStats = async () => {
 		const res = await axios.get(`${csprFyiBaseURL}/stats`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch stats');
+		// notifyError('Could not fetch stats');
 	}
 };
 
@@ -80,6 +80,15 @@ export const getAccount = async (address: string) => {
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch account details');
+	}
+};
+
+export const getAccountBalance = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/balance`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account balance');
 	}
 };
 export const getType = async (address: string) => {
