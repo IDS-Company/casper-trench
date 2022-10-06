@@ -8,7 +8,6 @@
 	import { isLoading } from '$stores/loading';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { parseStringValue } from '$utils/converters';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
 	let transfers: Transfer[];
 	let transfersPerPage = 10;
@@ -54,7 +53,7 @@
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transfer.timestamp)))} ago`}</td
 					>
-					{#if transfer.fromAccountHash === props?.accountHash}
+					{#if transfer.fromAccountHash === props?.accountHash || transfer.toAccountHash === $page.params?.address}
 						<td>
 							<div class="right-flex">
 								<FromToAccountHash

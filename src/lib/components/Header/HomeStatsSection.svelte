@@ -28,7 +28,7 @@
 				${Math.floor(stats?.currentPrice * 10000) / 10000 || '0'}
 			</div>
 			<div class="detail">
-				${stats?.marketCap.toLocaleString('en') || '0'} Market Cap
+				${stats?.marketCap?.toLocaleString('en') || '0'} Market Cap
 			</div>
 		</div>
 	</div>
@@ -48,12 +48,14 @@
 		<div class="bottom">
 			<div class="title">CIRCULATING SUPPLY</div>
 			<div class="value">
-				{stats?.circulatingSupply.toLocaleString('en') || '0'}
+				{stats?.circulatingSupply?.toLocaleString('en') || '0'}
 			</div>
 			<div class="detail">
-				{(stats && ((stats.circulatingSupply / stats.totalSupply) * 100).toFixed(2)) || 0}% of {stats?.totalSupply.toLocaleString(
-					'en'
-				) || '0'}
+				{(stats &&
+					stats.circulatingSupply &&
+					stats.totalSupply &&
+					((stats.circulatingSupply / stats.totalSupply) * 100).toFixed(2)) ||
+					0}% of {stats?.totalSupply?.toLocaleString('en') || '0'}
 			</div>
 		</div>
 	</div>
@@ -64,17 +66,20 @@
 		<div class="top">
 			<div class="title">TOTAL STAKE BONDED</div>
 			<div class="value">
-				{stats?.totalStakeBonded.toLocaleString('en') || 0}
+				{stats?.totalStakeBonded?.toLocaleString('en') || 0}
 			</div>
 			<div class="detail">
-				{(stats && ((stats.totalStakeBonded / stats.totalSupply) * 100).toFixed(2)) || 0}% of Total
-				supply
+				{(stats &&
+					stats?.totalStakeBonded &&
+					stats?.totalSupply &&
+					((stats?.totalStakeBonded / stats?.totalSupply) * 100).toFixed(2)) ||
+					0}% of Total supply
 			</div>
 		</div>
 		<div class="bottom">
 			<div class="title">TOTAL TRANSFERS</div>
 			<div class="value">
-				{(stats && stats.totalTransfers.toLocaleString('en')) || '0'}
+				{(stats && stats.totalTransfers?.toLocaleString('en')) || '0'}
 			</div>
 		</div>
 	</div>

@@ -27,7 +27,7 @@
 	<div class="stat-column">
 		<div class="title">APY</div>
 		<div class="value">
-			{(stats && stats.apy.toFixed(2)) || '0'}%
+			{stats?.apy?.toFixed(2) || '0'}%
 		</div>
 		<div class="detail">Annual Percentage Yield</div>
 	</div>
@@ -40,7 +40,7 @@
 			${Math.floor(stats?.currentPrice * 10000) / 10000 || '0'}
 		</div>
 		<div class="detail">
-			${stats?.marketCap.toLocaleString('en') || '0'} Market Cap
+			${stats?.marketCap?.toLocaleString('en') || '0'} Market Cap
 		</div>
 	</div>
 
@@ -49,12 +49,14 @@
 	<div class="stat-column">
 		<div class="title">CIRCULATING SUPPLY</div>
 		<div class="value">
-			{stats?.circulatingSupply.toLocaleString('en') || '0'}
+			{stats?.circulatingSupply?.toLocaleString('en') || '0'}
 		</div>
 		<div class="detail">
-			{(stats && ((stats?.circulatingSupply / stats?.totalSupply) * 100).toFixed(2)) || 0}% of {stats?.totalSupply.toLocaleString(
-				'en'
-			) || '0'}
+			{(stats &&
+				stats?.circulatingSupply &&
+				stats?.totalSupply &&
+				((stats?.circulatingSupply / stats?.totalSupply) * 100).toFixed(2)) ||
+				0}% of {stats?.totalSupply?.toLocaleString('en') || '0'}
 		</div>
 	</div>
 </div>
