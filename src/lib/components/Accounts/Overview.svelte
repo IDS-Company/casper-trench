@@ -17,7 +17,7 @@
 			<tr>
 				<td class="label"> Address type </td>
 				<td class="value">
-					{processType(type?.type)}
+					{type?.type || ''}
 				</td>
 			</tr>
 			<tr>

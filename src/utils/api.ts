@@ -92,14 +92,12 @@ export const getAccountBalance = async (address: string) => {
 	}
 };
 export const getType = async (address: string) => {
-	return await axios
-		.get(`${casperStatsBaseURL}/info/get-type/${address}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			notifyError('Could not fetch type');
-		});
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/type`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch account type');
+	}
 };
 
 export const getValidatorBlocks = async (publicKey: string, count: number, startIndex: number) => {

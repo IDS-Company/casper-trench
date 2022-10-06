@@ -1,11 +1,17 @@
 <script lang="ts">
+	import { browser } from '$app/env';
 	import { getAccountBalance } from '$utils/api';
+	import { isPublicKey } from '$utils/wallets/verifications';
+	const { CLPublicKey } = browser && window.CasperSDK;
 	import Hash from './Hash.svelte';
 
 	export let isFrom = false;
 	export let cspr: number;
 	export let hash: string;
 	export let link = '';
+	$: hash = isPublicKey(hash)
+		? CLPublicKey.fromHex(hash).toAccountHashStr().replace('account-hash-', '')
+		: hash;
 </script>
 
 <div class="from-to-hash">
