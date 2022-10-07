@@ -196,7 +196,7 @@
 						<td class="grey">{bid.delegationRate.toFixed(2)}%</td>
 						<td>{bid.numOfDelegators.toLocaleString('en')}</td>
 						<td class="stake">{bid.totalBid.toLocaleString('en')} CSPR</td>
-						<td class="grey self">{bid.selfStakePercentage.toFixed(2)}%</td>
+						<td class="grey self">{bid.selfStakePercentage && bid.selfStakePercentage.toFixed(2)}%</td>
 						<td class="grey network-perc">{bid.networkPercentage.toFixed(2)}%</td>
 						<td class="performance"><CircleProgressBar progress={bid.performance} /></td>
 					</tr>
