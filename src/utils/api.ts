@@ -333,6 +333,6 @@ export const searchPhrase = async (address: string) => {
 		console.log(res.data);
 		goto(res?.data?.endpoint);
 	} catch (error) {
-		notifyError('Sorry, nothing was find.');
+		notifyError('Sorry, nothing was found.');
 	}
 };
