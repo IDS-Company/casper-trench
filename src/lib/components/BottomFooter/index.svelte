@@ -25,6 +25,7 @@
 	.bottom-footer {
 		@apply relative py-[clamp(16px,3.21vw,3.21vw)] pl-[clamp(16px,3.75vw,3.75vw)] pr-[clamp(16px,9.94vw,9.94vw)];
 		@apply flex items-center justify-between;
+		@apply w-screen;
 	}
 
 	.bg {

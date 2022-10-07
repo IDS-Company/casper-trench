@@ -39,7 +39,7 @@
 
 <style lang="postcss">
 	main {
-		@apply min-w-full;
+		@apply w-screen;
 		@apply pt-[clamp(30px,3.6vw,3.6vw)] pb-[clamp(40px,4.6vw,4.6vw)] px-[clamp(20px,3.8vw,3.8vw)];
 	}
 </style>

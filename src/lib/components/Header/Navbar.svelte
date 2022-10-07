@@ -6,6 +6,7 @@
 	import { account } from '$stores/account';
 	import Hash from '../TableData/Hash.svelte';
 	import { disconnectWallet } from '$utils/wallets/connection';
+	import MobileNavMenuIcon from '$lib/icons/MobileNavMenuIcon.svelte';
 
 	let navItems: {
 		text: string;
@@ -120,11 +121,16 @@
 			</a>
 		{/if}
 	</div>
+	<div class="nav-menu-mobile">
+		<div class="icon">
+			<MobileNavMenuIcon />
+		</div>
+	</div>
 </div>
 
 <style lang="postcss">
 	.navbar {
-		@apply flex justify-between;
+		@apply flex justify-between items-center md:items-start mb-3 md:mb-0;
 	}
 
 	.nav-items {
@@ -137,7 +143,7 @@
 	}
 
 	.logo {
-		@apply h-[clamp(16px,2.44vw,2.44vw)];
+		@apply h-[40px] md:h-[clamp(16px,2.44vw,2.44vw)];
 	}
 
 	/* .chevron {
@@ -155,5 +161,9 @@
 
 	.user-icon {
 		@apply h-[clamp(14px,1.07vw,1.07vw)] w-[clamp(14px,1.07vw,1.07vw)] mr-[clamp(4px,0.36vw,0.36vw)];
+	}
+
+	.icon {
+		@apply h-6;
 	}
 </style>
