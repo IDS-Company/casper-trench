@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import axios from 'axios';
 import { notifyError } from './toast';
 const casperStatsBaseURL = `${import.meta.env.VITE_CASPERSTATS_URL}`;
@@ -324,5 +325,14 @@ export const getLatestChainState = async () => {
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch chain state');
+	}
+};
+export const searchPhrase = async (address: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/search/${address}`);
+		console.log(res.data);
+		goto(res?.data?.endpoint);
+	} catch (error) {
+		notifyError('Sorry, nothing was find.');
 	}
 };
