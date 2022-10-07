@@ -67,8 +67,8 @@
 					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp')} />
 				</div>
 			</th>
-			<th class="center">Block Hash</th>
-			<th>Validators</th>
+			<th class="right">Block Hash</th>
+			<th class="right">Validators</th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#if blocks && blocks.length > 0}
@@ -86,7 +86,7 @@
 					<td class="center age">
 						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}
 					</td>
-					<td class="center">
+					<td class="flex justify-end">
 						<div class="wrapper">
 							<a href="/blocks/{block.blockHash}">
 								<Hash hash={block.blockHash} />
@@ -94,19 +94,21 @@
 						</div>
 					</td>
 					<td>
-						{#await getValidatorDetails(block.validatorPublicKey)}
-							<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
-						{:then validator}
-							{#if validator}
-								<Validator
-									imgUrl={validator.icon}
-									name={validator.name}
-									hash={block.validatorPublicKey}
-								/>
-							{:else}
+						<div class="flex justify-end">
+							{#await getValidatorDetails(block.validatorPublicKey)}
 								<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
-							{/if}
-						{/await}
+							{:then validator}
+								{#if validator}
+									<Validator
+										imgUrl={validator.icon}
+										name={validator.name}
+										hash={block.validatorPublicKey}
+									/>
+								{:else}
+									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
+								{/if}
+							{/await}
+						</div>
 					</td>
 				</tr>
 			{/each}
@@ -159,6 +161,10 @@
 
 	.center {
 		@apply text-center;
+	}
+
+	.right {
+		@apply text-right;
 	}
 
 	.age {
