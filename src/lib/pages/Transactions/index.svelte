@@ -26,8 +26,18 @@
 			// transactions = await getAllTransactions();
 		}, 1);
 	}
+
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
 		transactions = tableSort(direction, transactions, field);
+		sortingOptions = {
+			index: 0,
+			order: direction
+		};
 	};
 </script>
 
@@ -40,7 +50,8 @@
 			<th class="">Public Key</th>
 			<th class="center sorter">
 				<div class="text">Age</div>
-				<TableSorter on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
+				<TableSorter ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+				descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'} on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
 			</th>
 			<th>Contract </th>
 			<th class="right">Amount</th>
