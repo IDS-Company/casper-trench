@@ -3,6 +3,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getValidatorBlocks } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { blockHistory } from '$utils/history';
 	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
 
@@ -26,6 +27,7 @@
 			await fetchProposerBlocks();
 		}, 1);
 	}
+	blockHistory.set(`/validators/${props.validatorPublicKey}`);
 </script>
 
 <div class="delegators-tab">
