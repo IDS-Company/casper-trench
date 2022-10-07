@@ -36,6 +36,7 @@
 							imgUrl={validator?.information?.icon}
 							name={validator?.information?.name}
 							hash={validator.publicKey}
+							variant={"righter"}
 						/></td
 					>
 					<td class="text-color-grey-footer-label">{validator.delegationRate.toFixed(2)}%</td>

@@ -55,7 +55,7 @@
 							<a href="/transactions/{transaction.deployHash}">
 								<TxHash
 									hash={transaction.deployHash}
-									right
+									righter
 									color={transaction.status === 'success' ? 'text' : 'yellow'}
 								/>
 							</a>
