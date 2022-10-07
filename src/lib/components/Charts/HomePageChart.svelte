@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getVolumes } from '$utils/api';
-
+	import { externalTooltipHandler } from '$utils/tooltip';
 	import { onMount } from 'svelte';
 
 	let ctx: HTMLCanvasElement;
@@ -33,7 +33,7 @@
 			data: {
 				datasets: [
 					{
-						label: 'Era Rewards',
+						label: 'Transactions',
 						data: chartData1,
 						backgroundColor: '#099B91',
 						borderColor: '#099B91',
@@ -105,8 +105,9 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16
 					}
 				}
 			}
