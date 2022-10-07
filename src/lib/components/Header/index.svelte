@@ -31,7 +31,7 @@
 <style lang="postcss">
 	.header {
 		@apply flex flex-col gap-y-[2vw];
-		@apply sm:p-4 md:px-[clamp(16px,3.57vw,3.57vw)] md:py-[clamp(16px,0.95vw,0.95vw)];
+		@apply sm:p-4 md:px-[clamp(16px,3.57vw,3.57vw)] md:pt-[clamp(16px,0.95vw,0.95vw)] md:pb-[clamp(16px,2vw,2vw)];
 		@apply bg-no-repeat bg-center bg-auto;
 		@apply w-full;
 		background: url('/images/png/header-bg.png') center/cover;
