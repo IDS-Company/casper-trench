@@ -1,8 +1,13 @@
-<script>
+<script lang="ts">
 	import NavbarChevron from '$lib/icons/NavbarChevron.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
+	import { searchPhrase } from '$utils/api';
 
-	export let value = '';
+	export let value: string;
+	export const search = async () => {
+		await searchPhrase(value);
+		value = '';
+	};
 </script>
 
 <div class="filter">
@@ -16,15 +21,20 @@
 	<input
 		type="text"
 		name="filter"
+		on:keydown={async (e) => {
+			if (e.key === 'Enter') {
+				search();
+			}
+		}}
 		placeholder="Search by Address /Hash / Block / Public Key"
 		bind:value
 	/>
 
-	<div class="search">
+	<button class="search" type="button" on:click={search}>
 		<div class="search-icon">
 			<SearchIcon />
 		</div>
-	</div>
+	</button>
 </div>
 
 <style lang="postcss">
