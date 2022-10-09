@@ -58,7 +58,7 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators', 0)}
+						on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators', 1)}
 					/>
 				</div>
 			</th>
@@ -69,7 +69,7 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortBids(e.detail?.direction, 'totalBid', 0)}
+						on:sort={(e) => sortBids(e.detail?.direction, 'totalBid', 2)}
 					/>
 				</div>
 			</th>
@@ -80,7 +80,7 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortBids(e.detail?.direction, 'networkPercentage', 0)}
+						on:sort={(e) => sortBids(e.detail?.direction, 'networkPercentage', 3)}
 					/>
 				</div></th
 			>
@@ -90,7 +90,7 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortBids(e.detail?.direction, 'performance', 0)}
+						on:sort={(e) => sortBids(e.detail?.direction, 'performance', 4)}
 					/>
 				</div>
 			</th>
@@ -112,7 +112,7 @@
 				<td class="stake">{bid.totalBid && bid.totalBid.toLocaleString('en')} CSPR</td>
 				<td class="grey self">{bid.selfStakePercentage && bid.selfStakePercentage.toFixed(2)}%</td>
 				<td class="grey network-perc">{bid.networkPercentage && bid.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={bid.performance && bid.performance} /></td>
+				<td class="performance"><CircleProgressBar progress={bid.performance && bid.performance || 0} /></td>
 			</tr>
 		{/each}
 	</table>

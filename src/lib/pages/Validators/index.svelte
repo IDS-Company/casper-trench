@@ -10,11 +10,20 @@
 
 	let displayedEraValidators: Partial<Bid[]> = [];
 
-	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
-		$eraValidators = tableSort(direction, $eraValidators, field);
+	currentPage.set(0);
+
+	let sortingOptions = {
+		index: 0,
+		order: null
 	};
 
-	currentPage.set(0);
+	const sortValidators = (direction: 'asc' | 'desc', field: string, i: number) => {
+		$eraValidators = tableSort(direction, $eraValidators, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
+	};
 </script>
 
 {#if displayedEraValidators && displayedEraValidators.length > 0}
@@ -25,33 +34,53 @@
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate', 0)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="header-wrapper">
 					<div class="text">Delegators</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators', 1)}
+					/>
 				</div>
 			</th>
 			<th class="stake">
 				<div class="header-wrapper justify-center">
 					<div class="text">Total Stake</div>
 					<Tooltip text="Total Stake tooltip" />
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'selfStake')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortValidators(e.detail?.direction, 'totalBid', 2)}
+					/>
 				</div>
 			</th>
 			<th class="self">Self %</th>
 			<th>
 				<div class="header-wrapper justify-center network-perc">
 					<div class="text">% Of Network</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'networkPercentage')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortValidators(e.detail?.direction, 'networkPercentage', 3)}
+					/>
 				</div></th
 			>
 			<th>
 				<div class="justify-center performance">
 					<div class="text">Performance</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'performance')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortValidators(e.detail?.direction, 'performance', 4)}
+					/>
 				</div>
 			</th>
 		</tr>
@@ -66,12 +95,12 @@
 						name={validator.information?.name}
 					/></td
 				>
-				<td class="grey">{validator.delegationRate}%</td>
-				<td>{validator.numOfDelegators.toLocaleString('en')}</td>
-				<td class="stake">{validator.totalBid.toLocaleString('en')} CSPR</td>
-				<td class="grey self">{validator.selfStakePercentage.toFixed(2)}%</td>
-				<td class="grey network-perc">{validator.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
+				<td class="grey">{validator.delegationRate && validator.delegationRate}%</td>
+				<td>{validator.numOfDelegators && validator.numOfDelegators.toLocaleString('en')}</td>
+				<td class="stake">{validator.totalBid && validator.totalBid.toLocaleString('en')} CSPR</td>
+				<td class="grey self">{validator.selfStakePercentage && validator.selfStakePercentage.toFixed(2)}%</td>
+				<td class="grey network-perc">{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td>
+				<td class="performance"><CircleProgressBar progress={validator.performance && validator.performance || 0} /></td>
 			</tr>
 		{/each}
 	</table>
