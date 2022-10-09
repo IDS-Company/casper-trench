@@ -42,10 +42,16 @@
 				</div>
 			</th>
 			<th class="self">Self %</th>
-			<th class="network-perc">% Of Network</th>
-			<th class="performance">
-				<div class="header-wrapper">
+			<th>
+				<div class="header-wrapper justify-center network-perc">
+					<div class="text">% Of Network</div>
+					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'networkPercentage')} />
+				</div></th
+			>
+			<th>
+				<div class="justify-center performance">
 					<div class="text">Performance</div>
+					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'performance')} />
 				</div>
 			</th>
 		</tr>
@@ -114,11 +120,12 @@
 
 	.performance {
 		@apply text-center;
-		@apply flex justify-center;
+		@apply flex justify-center gap-[0.48vw];
 	}
 
 	.network-perc {
 		@apply text-right;
+		@apply justify-end;
 	}
 
 	.self {

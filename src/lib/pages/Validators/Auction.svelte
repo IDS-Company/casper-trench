@@ -14,7 +14,12 @@
 
 	let displayedBidValidators: Bid[] = [];
 
-    currentPage.set(1);
+	currentPage.set(1);
+
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
 
 	onMount(async () => {
 		$isLoading = true;
@@ -22,8 +27,12 @@
 		$isLoading = false;
 	});
 
-	const sortBids = (direction: 'asc' | 'desc', field: string) => {
+	const sortBids = (direction: 'asc' | 'desc', field: string, i: number) => {
 		$bidValidators = tableSort(direction, $bidValidators, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
 	};
 </script>
 
@@ -36,27 +45,53 @@
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
-					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'delegationRate')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBids(e.detail?.direction, 'delegationRate', 0)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="header-wrapper">
 					<div class="text">Delegators</div>
-					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators', 0)}
+					/>
 				</div>
 			</th>
 			<th class="stake">
 				<div class="header-wrapper justify-center">
 					<div class="text">Total Stake</div>
 					<Tooltip text="Total Stake tooltip" />
-					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'totalBid')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBids(e.detail?.direction, 'totalBid', 0)}
+					/>
 				</div>
 			</th>
 			<th class="self">Self %</th>
-			<th class="network-perc">% Of Network</th>
-			<th class="performance">
-				<div class="header-wrapper">
+			<th>
+				<div class="header-wrapper justify-center network-perc">
+					<div class="text">% Of Network</div>
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBids(e.detail?.direction, 'networkPercentage', 0)}
+					/>
+				</div></th
+			>
+			<th>
+				<div class="justify-center performance">
 					<div class="text">Performance</div>
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBids(e.detail?.direction, 'performance', 0)}
+					/>
 				</div>
 			</th>
 		</tr>
@@ -126,11 +161,12 @@
 
 	.performance {
 		@apply text-center;
-		@apply flex justify-center;
+		@apply flex justify-center gap-[0.48vw];
 	}
 
 	.network-perc {
 		@apply text-right;
+		@apply justify-end;
 	}
 
 	.self {
