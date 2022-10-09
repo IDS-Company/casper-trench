@@ -1,16 +1,16 @@
 <script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
+	import { isLoading } from '$stores/loading';
 	import { processType } from '$utils/converters';
 	import type { Account } from '$utils/types/account';
 	import type { Type } from '$utils/types/type';
 
 	export let type: Type;
 	export let account: Account;
-	export let isLoading = true;
 </script>
 
-<div class:loading={isLoading} class="overview">
+<div class:loading={$isLoading} class="overview">
 	<div class="title">OVERVIEW</div>
 	<div class="extras">
 		<table>
