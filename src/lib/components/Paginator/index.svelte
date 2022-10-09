@@ -14,6 +14,7 @@
 	export let items: {}[] = [];
 	export let pagedItems: {}[] = [];
 	export let apiPaginator = false;
+	export let showRow = true;
 	const pageItems = () => {
 		pagedItems =
 			items &&
@@ -31,12 +32,14 @@
 <div class="paginator">
 	{#if showTotalRows}
 		<div class="total">{items && items.length} total rows</div>
-	{:else}
+	{:else if showRow}
 		<ShowRow bind:itemsPerPage />
 	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
-			<ShowRow bind:itemsPerPage />
+			{#if showRow}
+				<ShowRow bind:itemsPerPage />
+			{/if}
 		{/if}
 		<div class="actual-paginator">
 			<button
