@@ -1,44 +1,57 @@
 <script lang="ts">
+	showSwitch.set(true);
+
 	import CircleProgressBar from '$lib/components/TableData/CircleProgressBar.svelte';
+	import Status from '$lib/components/TableData/Status.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import { tableSort } from '$utils/sort';
-	import { currentPage, eraValidators } from '$stores/validatorsSwitch';
+	import { bidValidators, currentPage, showSwitch } from '$stores/validatorsSwitch';
+	import { onMount } from 'svelte';
+	import { getBids } from '$utils/api';
 	import type { Bid } from '$utils/types/validator';
+	import { isLoading } from '$stores/loading';
 
-	let displayedEraValidators: Partial<Bid[]> = [];
+	let displayedBidValidators: Bid[] = [];
 
-	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
-		$eraValidators = tableSort(direction, $eraValidators, field);
+    currentPage.set(1);
+
+	onMount(async () => {
+		$isLoading = true;
+		$bidValidators = await getBids();
+		$isLoading = false;
+	});
+
+	const sortBids = (direction: 'asc' | 'desc', field: string) => {
+		$bidValidators = tableSort(direction, $bidValidators, field);
 	};
-
-	currentPage.set(0);
 </script>
 
-{#if displayedEraValidators && displayedEraValidators.length > 0}
+{#if displayedBidValidators && displayedBidValidators.length > 0}
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
 			<th class="validators">Validators</th>
+			<th class="status">Status</th>
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')} />
+					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'delegationRate')} />
 				</div>
 			</th>
 			<th>
 				<div class="header-wrapper">
 					<div class="text">Delegators</div>
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')} />
+					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'numOfDelegators')} />
 				</div>
 			</th>
 			<th class="stake">
 				<div class="header-wrapper justify-center">
 					<div class="text">Total Stake</div>
 					<Tooltip text="Total Stake tooltip" />
-					<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'selfStake')} />
+					<TableSorter on:sort={(e) => sortBids(e.detail?.direction, 'totalBid')} />
 				</div>
 			</th>
 			<th class="self">Self %</th>
@@ -50,27 +63,28 @@
 			</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#each displayedEraValidators as validator, i}
+		{#each displayedBidValidators as bid, i}
 			<tr>
-				<td class="rank-val">{validator.rank}</td>
+				<td class="rank-val">{bid.rank}</td>
 				<td class="validators"
 					><Validator
-						imgUrl={validator?.information?.icon}
-						hash={validator?.publicKey}
-						name={validator.information?.name}
+						imgUrl={bid.information?.icon}
+						hash={bid.publicKey}
+						name={bid.information?.name}
 					/></td
 				>
-				<td class="grey">{validator.delegationRate}%</td>
-				<td>{validator.numOfDelegators.toLocaleString('en')}</td>
-				<td class="stake">{validator.totalBid.toLocaleString('en')} CSPR</td>
-				<td class="grey self">{validator.selfStakePercentage.toFixed(2)}%</td>
-				<td class="grey network-perc">{validator.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={validator.performance} /></td>
+				<td class="status"><Status inactive={bid.inactive && bid.inactive} /></td>
+				<td class="grey">{bid.delegationRate && bid.delegationRate.toFixed(2)}%</td>
+				<td>{bid.numOfDelegators && bid.numOfDelegators.toLocaleString('en')}</td>
+				<td class="stake">{bid.totalBid && bid.totalBid.toLocaleString('en')} CSPR</td>
+				<td class="grey self">{bid.selfStakePercentage && bid.selfStakePercentage.toFixed(2)}%</td>
+				<td class="grey network-perc">{bid.networkPercentage && bid.networkPercentage.toFixed(2)}%</td>
+				<td class="performance"><CircleProgressBar progress={bid.performance && bid.performance} /></td>
 			</tr>
 		{/each}
 	</table>
 {/if}
-<Paginator bind:items={$eraValidators} bind:pagedItems={displayedEraValidators} />
+<Paginator bind:items={$bidValidators} bind:pagedItems={displayedBidValidators} />
 
 <style lang="postcss">
 	table {
@@ -131,5 +145,10 @@
 
 	.header-wrapper {
 		@apply flex items-center gap-[0.48vw];
+	}
+
+	.status {
+		@apply text-center;
+		@apply flex justify-center;
 	}
 </style>
