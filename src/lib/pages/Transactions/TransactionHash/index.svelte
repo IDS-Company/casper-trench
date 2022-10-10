@@ -18,6 +18,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getDeploy } from '$utils/api';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	let showRawData = false;
 	let deployResult;
@@ -40,7 +41,9 @@
 
 <div class="transaction-details">
 	<div class="top">
-		<span class="green">Transaction</span> / Transaction Details
+		<span class="green cursor-pointer" on:click={() => {
+			goto('/transactions');
+		}}>Transactions</span> / Transaction Details
 	</div>
 	{#if deployResult}
 		<div class="wrapper" bind:this={toDownload}>

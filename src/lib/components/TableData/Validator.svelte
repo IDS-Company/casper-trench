@@ -5,6 +5,7 @@
 	export let imgUrl: string;
 	export let name: string;
 	export let hash: string;
+	export let variant: 'center' | 'right' | 'righter' = 'right';
 </script>
 
 <div class="validator">
@@ -21,7 +22,7 @@
 		<a href="/validators/{hash}">
 			<Hash
 				{hash}
-				variant="right"
+				{variant}
 				on:click={() => {
 					goto(`/validators/${hash}`);
 				}}
