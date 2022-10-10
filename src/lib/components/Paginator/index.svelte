@@ -71,7 +71,7 @@
 			<div class="text">
 				Page {page}
 				{#if !apiPaginator}
-					of {totalPages.toLocaleString()}
+					of {totalPages ? totalPages.toLocaleString() : "1"}
 				{/if}
 				{#if isRangeBlock}
 					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}
