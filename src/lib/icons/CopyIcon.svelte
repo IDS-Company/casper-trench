@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { notifySuccess } from "$utils/toast";
+
+
 	export let text = '';
 </script>
 
@@ -12,6 +15,7 @@
 		xmlns="http://www.w3.org/2000/svg"
 		on:click={() => {
 			navigator.clipboard && navigator.clipboard.writeText(text);
+			notifySuccess('Copied');
 		}}
 	>
 		<circle cx="16.5" cy="16.5" r="16.5" fill="#F4F5F5" />
