@@ -1,5 +1,6 @@
 <script>
 	import Paginator from '$lib/components/Paginator/index.svelte';
+	import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import LightningIcon from '$lib/icons/LightningIcon.svelte';
@@ -58,6 +59,9 @@
 			audited: 'None'
 		}
 	];
+
+	const typeFilterItems = ['NFT', 'ERC'];
+	let selectedFilter = -1;
 </script>
 
 <div class="delegators-tab">
@@ -66,7 +70,12 @@
 		<tr>
 			<th class="block">Address</th>
 			<th>Contract Name</th>
-			<th>Type</th>
+			<th
+				><div class="sorter">
+					<div class="text">Type</div>
+					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
+				</div></th
+			>
 			<th>Version</th>
 			<th>Balance</th>
 			<th>Txns</th>
@@ -81,51 +90,99 @@
 		</tr>
 		<div class="divider table-header-border" />
 		{#each contracts as contract}
-			<tr>
-				<td class="block hash">
-					<a href="/contracts/{contract.address}">
-						<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
-					</a>
-				</td>
-				<td class="grey">{contract.name}</td>
-				<td>{contract.type}</td>
-				<td>
-					<div class="setting">
-						<div class="version-icon">
-							<VersionWarningIcon />
+			{#if selectedFilter === -1}
+				<tr>
+					<td class="block hash">
+						<a href="/contracts/{contract.address}">
+							<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+						</a>
+					</td>
+					<td class="grey">{contract.name}</td>
+					<td>{contract.type}</td>
+					<td>
+						<div class="setting">
+							<div class="version-icon">
+								<VersionWarningIcon />
+							</div>
+							<div class="grey">
+								{contract.version}
+							</div>
 						</div>
-						<div class="grey">
-							{contract.version}
+					</td>
+					<td>{contract.balance} CSPR</td>
+					<td class="black">{contract.transactions}</td>
+					<td>
+						<div class="setting">
+							<button
+								type="button"
+								class="icon"
+								on:click={() => {
+									// Lightning functionality
+								}}
+							>
+								<LightningIcon />
+							</button>
+							<button
+								type="button"
+								class="icon"
+								on:click={() => {
+									// Settings functionality
+								}}
+							>
+								<SettingsIcon />
+							</button>
 						</div>
-					</div>
-				</td>
-				<td>{contract.balance} CSPR</td>
-				<td class="black">{contract.transactions}</td>
-				<td>
-					<div class="setting">
-						<button
-							type="button"
-							class="icon"
-							on:click={() => {
-								// Lightning functionality
-							}}
-						>
-							<LightningIcon />
-						</button>
-						<button
-							type="button"
-							class="icon"
-							on:click={() => {
-								// Settings functionality
-							}}
-						>
-							<SettingsIcon />
-						</button>
-					</div>
-				</td>
-				<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
-				<td class="black">{contract.audited}</td>
-			</tr>
+					</td>
+					<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
+					<td class="black">{contract.audited}</td>
+				</tr>
+			{:else if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
+				<tr>
+					<td class="block hash">
+						<a href="/contracts/{contract.address}">
+							<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+						</a>
+					</td>
+					<td class="grey">{contract.name}</td>
+					<td>{contract.type}</td>
+					<td>
+						<div class="setting">
+							<div class="version-icon">
+								<VersionWarningIcon />
+							</div>
+							<div class="grey">
+								{contract.version}
+							</div>
+						</div>
+					</td>
+					<td>{contract.balance} CSPR</td>
+					<td class="black">{contract.transactions}</td>
+					<td>
+						<div class="setting">
+							<button
+								type="button"
+								class="icon"
+								on:click={() => {
+									// Lightning functionality
+								}}
+							>
+								<LightningIcon />
+							</button>
+							<button
+								type="button"
+								class="icon"
+								on:click={() => {
+									// Settings functionality
+								}}
+							>
+								<SettingsIcon />
+							</button>
+						</div>
+					</td>
+					<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
+					<td class="black">{contract.audited}</td>
+				</tr>
+			{/if}
 		{/each}
 	</table>
 	<Paginator />
@@ -143,6 +200,10 @@
 	.divider {
 		@apply h-[clamp(1px,0.18vw,0.18vw)] w-full;
 		@apply absolute;
+	}
+
+	.sorter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
 	th {
