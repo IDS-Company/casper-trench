@@ -12,6 +12,7 @@
 	import { beforeUpdate } from 'svelte';
 	import { setCSPRPrice } from '$utils';
 	import { setConstructors } from '$utils/chain/helper';
+	import { page } from '$app/stores';
 
 	beforeUpdate(async () => {
 		setConstructors();
@@ -26,9 +27,11 @@
 </svelte:head>
 
 <Header />
-<main>
-	<slot />
-</main>
+{#key $page.url.pathname}
+	<main>
+		<slot />
+	</main>
+{/key}
 <!-- <Footer /> -->
 <BottomFooter />
 

@@ -12,6 +12,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getBlock, getBlockTransfers, getLatestChainState } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import { blockHistory } from '$utils/history';
 	import type { Block } from '$utils/types/block';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
@@ -72,7 +73,9 @@
 				</div>
 				<div class="sub-title">
 					<div class="blocks">
-						<span class="green">Blocks</span> / Blocks {currentHeight}
+						<span class="green cursor-pointer" on:click={() => {
+							goto($blockHistory);
+						}}>Blocks</span> / Blocks {currentHeight}
 					</div>
 				</div>
 			</div>

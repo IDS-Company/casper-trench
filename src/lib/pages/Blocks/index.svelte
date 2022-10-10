@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
@@ -9,6 +7,7 @@
 	// import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
 	import { getBlocks, getLatestBlocks } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import { blockHistory } from '$utils/history';
 	import { tableSort } from '$utils/sort';
 	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
@@ -46,6 +45,7 @@
 			order: direction
 		};
 	};
+	blockHistory.set('/blocks');
 </script>
 
 <div class="delegators-tab">
