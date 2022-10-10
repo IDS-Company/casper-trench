@@ -6,7 +6,11 @@
 
 <div class="tooltip">
 	<div class="tooltip-icon" style="--tooltip: '{text}'">
-		<TooltipIcon />
+		<slot>
+			<div class="h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)]">
+				<TooltipIcon />
+			</div>
+		</slot>
 	</div>
 </div>
 
@@ -17,7 +21,6 @@
 
 	.tooltip-icon {
 		@apply relative;
-		@apply h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)];
 		@apply cursor-pointer;
 	}
 
@@ -33,6 +36,7 @@
 		@apply p-[0.48vw];
 		@apply rounded-[0.71vw];
 		@apply bg-white;
+		@apply z-10;
 		content: var(--tooltip);
 	}
 

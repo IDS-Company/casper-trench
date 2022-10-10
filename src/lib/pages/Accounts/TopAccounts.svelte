@@ -21,8 +21,18 @@
 		topAccounts = await getTopAccounts(startIndex, accountsPerPage);
 		$isLoading = false;
 	};
-	const sortTopAccounts = (direction: 'asc' | 'desc', field: string) => {
+
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
+	const sortTopAccounts = (direction: 'asc' | 'desc', field: string, i: number) => {
 		topAccounts = tableSort(direction, topAccounts, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
 	};
 
 	onMount(async () => {
@@ -46,25 +56,41 @@
 			<th>
 				<div class="sorter">
 					<div>Balance</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'balance')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortTopAccounts(e.detail?.direction, 'balance', 0)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div>Transferrable</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transferrable')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transferrable', 1)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div>Txn Count</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transactionCount')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortTopAccounts(e.detail?.direction, 'transactionCount', 2)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="sorter right-div">
 					<div>Staked</div>
-					<TableSorter on:sort={(e) => sortTopAccounts(e.detail?.direction, 'stakedAmount')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortTopAccounts(e.detail?.direction, 'stakedAmount', 3)}
+					/>
 				</div>
 			</th>
 		</tr>

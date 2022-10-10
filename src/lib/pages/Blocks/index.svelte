@@ -24,6 +24,11 @@
 		$isLoading = false;
 	});
 
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
 	const fetchBlocks = async () => {
 		$isLoading = true;
 		blocks = await getBlocks(startIndex, blocksPerPage);
@@ -34,8 +39,12 @@
 			await fetchBlocks();
 		}, 1);
 	}
-	const sortBlocks = (direction: 'asc' | 'desc', field: string) => {
+	const sortBlocks = (direction: 'asc' | 'desc', field: string, i: number) => {
 		blocks = tableSort(direction, blocks, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
 	};
 </script>
 
@@ -46,25 +55,41 @@
 			<th class="block">
 				<div class="sorter">
 					<div class="text">Block Height</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'blockHeight')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'blockHeight', 0)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div class="text">Era</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'eraID')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'eraID', 1)}
+					/>
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Transaction</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'deploys')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'deploys', 2)}
+					/>
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Age</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp', 3)}
+					/>
 				</div>
 			</th>
 			<th class="center">Block Hash</th>
