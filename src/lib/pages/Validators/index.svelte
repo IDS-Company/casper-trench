@@ -33,6 +33,11 @@
 		}
 	];
 
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
 	let currentPage = 0;
 	onMount(async () => {
 		$isLoading = true;
@@ -64,8 +69,12 @@
 		$isLoading = false;
 	});
 
-	const sortValidators = (direction: 'asc' | 'desc', field: string) => {
+	const sortValidators = (direction: 'asc' | 'desc', field: string, i: number) => {
 		eraValidators = tableSort(direction, eraValidators, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
 	};
 
 	const sortBids = (direction: 'asc' | 'desc', field: string) => {
@@ -99,14 +108,20 @@
 					<th class="fee">
 						<div class="header-wrapper">
 							<div class="text">Fee</div>
-							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate')} />
+							<TableSorter
+								ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+								descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+								on:sort={(e) => sortValidators(e.detail?.direction, 'delegationRate', 0)}
+							/>
 						</div>
 					</th>
 					<th>
 						<div class="header-wrapper">
 							<div class="text">Delegators</div>
 							<TableSorter
-								on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators')}
+								ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+								descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+								on:sort={(e) => sortValidators(e.detail?.direction, 'numOfDelegators', 1)}
 							/>
 						</div>
 					</th>
@@ -114,7 +129,11 @@
 						<div class="header-wrapper justify-center">
 							<div class="text">Total Stake</div>
 							<Tooltip text="Total Stake tooltip" />
-							<TableSorter on:sort={(e) => sortValidators(e.detail?.direction, 'selfStake')} />
+							<TableSorter
+								ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+								descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+								on:sort={(e) => sortValidators(e.detail?.direction, 'selfStake', 2)}
+							/>
 						</div>
 					</th>
 					<th class="self">Self %</th>
