@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
@@ -9,6 +7,7 @@
 	// import { getLatestBlocks, getRangeBlocks, getValidator } from '$utils/api';
 	import { getBlocks, getLatestBlocks } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
+	import { blockHistory } from '$utils/history';
 	import { tableSort } from '$utils/sort';
 	import type { DBBlock } from '$utils/types/block';
 	import { onMount } from 'svelte';
@@ -24,6 +23,11 @@
 		$isLoading = false;
 	});
 
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
 	const fetchBlocks = async () => {
 		$isLoading = true;
 		blocks = await getBlocks(startIndex, blocksPerPage);
@@ -34,9 +38,14 @@
 			await fetchBlocks();
 		}, 1);
 	}
-	const sortBlocks = (direction: 'asc' | 'desc', field: string) => {
+	const sortBlocks = (direction: 'asc' | 'desc', field: string, i: number) => {
 		blocks = tableSort(direction, blocks, field);
+		sortingOptions = {
+			index: i,
+			order: direction
+		};
 	};
+	blockHistory.set('/blocks');
 </script>
 
 <div class="delegators-tab">
@@ -46,29 +55,45 @@
 			<th class="block">
 				<div class="sorter">
 					<div class="text">Block Height</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'blockHeight')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'blockHeight', 0)}
+					/>
 				</div>
 			</th>
 			<th>
 				<div class="sorter">
 					<div class="text">Era</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'eraID')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 1 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'eraID', 1)}
+					/>
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Transaction</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'deploys')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 2 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'deploys', 2)}
+					/>
 				</div>
 			</th>
 			<th class="center">
 				<div class="sorter">
 					<div class="text">Age</div>
-					<TableSorter on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp')} />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortBlocks(e.detail?.direction, 'timestamp', 3)}
+					/>
 				</div>
 			</th>
-			<th class="center">Block Hash</th>
-			<th>Validators</th>
+			<th class="right">Block Hash</th>
+			<th class="right">Validators</th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#if blocks && blocks.length > 0}
@@ -86,7 +111,7 @@
 					<td class="center age">
 						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}
 					</td>
-					<td class="center">
+					<td class="flex justify-end">
 						<div class="wrapper">
 							<a href="/blocks/{block.blockHash}">
 								<Hash hash={block.blockHash} />
@@ -94,19 +119,21 @@
 						</div>
 					</td>
 					<td>
-						{#await getValidatorDetails(block.validatorPublicKey)}
-							<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
-						{:then validator}
-							{#if validator}
-								<Validator
-									imgUrl={validator.icon}
-									name={validator.name}
-									hash={block.validatorPublicKey}
-								/>
-							{:else}
+						<div class="flex justify-end">
+							{#await getValidatorDetails(block.validatorPublicKey)}
 								<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
-							{/if}
-						{/await}
+							{:then validator}
+								{#if validator}
+									<Validator
+										imgUrl={validator.icon}
+										name={validator.name}
+										hash={block.validatorPublicKey}
+									/>
+								{:else}
+									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
+								{/if}
+							{/await}
+						</div>
 					</td>
 				</tr>
 			{/each}
@@ -159,6 +186,10 @@
 
 	.center {
 		@apply text-center;
+	}
+
+	.right {
+		@apply text-right;
 	}
 
 	.age {

@@ -14,6 +14,7 @@
 	import { getAccount, getType } from '$utils/api';
 	import { page } from '$app/stores';
 	import type { Type } from '$utils/types/type';
+	import { isLoading } from '$stores/loading';
 
 	let menuOptions = [
 		{
@@ -44,13 +45,12 @@
 	];
 	let account: Account;
 	let type: Type;
-	let isLoading = false;
 	onMount(async () => {
-		isLoading = true;
+		$isLoading = true;
 		account = await getAccount($page.params?.address);
 		menuOptions[0].props['accountHash'] = account && account.accountHash;
 		type = await getType($page.params?.address);
-		isLoading = false;
+		$isLoading = false;
 	});
 </script>
 
@@ -75,8 +75,8 @@
 	</div>
 
 	<div class="info">
-		<Overview {account} {type} {isLoading} />
-		<StakeInfo {account} {isLoading} />
+		<Overview {account} {type} />
+		<StakeInfo {account} />
 	</div>
 	<TabMenu {menuOptions} />
 </div>

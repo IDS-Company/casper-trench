@@ -6,10 +6,17 @@
 	export let hash = '';
 	export let color: 'text' | 'yellow' = 'text';
 	export let right = false;
+	export let righter = false;
+	let variant: 'center' | 'right' | 'righter'  = 'center';
+	if (right) {
+		variant = 'right';
+	} else if (righter) {
+		variant = 'righter';
+	}
 </script>
 
 <div class="tx-hash">
-	<Hash {hash} {color} variant={right ? 'right' : 'center'} />
+	<Hash {hash} {color} {variant} />
 	<div class="icon">
 		{#if color === 'text'}
 			<GreenCheckMarkIcon />
