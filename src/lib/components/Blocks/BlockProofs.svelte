@@ -6,7 +6,7 @@
 	let displayProofs = [];
 </script>
 
-<div class="proofs" transition:slide>
+<div class="proofs">
 	{#each displayProofs as proof}
 		<div class="proof" transition:slide>
 			<div class="num">{proof.pos}</div>
@@ -28,7 +28,7 @@
 			</table>
 		</div>
 	{/each}
-	<div class="mt-2">
+	<div class="paginator-wrapper">
 		<Paginator bind:items={proofs} bind:pagedItems={displayProofs} itemsPerPage={5} showTotalRows={false} showRow={false}/>
 	</div>
 </div>
@@ -48,6 +48,10 @@
 		@apply bg-color-proof-num-background;
 		@apply mr-[clamp(20px,1.61vw,1.61vw)];
 		@apply text-[clamp(10px,0.95vw,0.95vw)] text-color-grey-footer-label;
+	}
+
+	.paginator-wrapper {
+		@apply mt-[clamp(16px,1.19vw,1.19vw)] flex justify-end w-full;
 	}
 
 	.label {

@@ -34,7 +34,7 @@
 		proofs = block && block.proofs;
 		proofs.forEach((_, i) => {
 			proofs[i].pos = i + 1;
-		})
+		});
 		$isLoading = false;
 	};
 	$: if ($page.params.hash) {
@@ -194,7 +194,7 @@
 								</div>
 							</div>
 							{#if showProofs}
-								<BlockProofs proofs={proofs} />
+								<BlockProofs {proofs} />
 							{/if}
 						</td>
 					</tr>
