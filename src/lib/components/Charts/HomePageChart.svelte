@@ -107,7 +107,8 @@
 						enabled: false,
 						position: 'nearest',
 						external: externalTooltipHandler,
-						padding: 16
+						padding: 16,
+						intersect: false
 					}
 				}
 			}
