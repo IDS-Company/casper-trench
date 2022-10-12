@@ -4,7 +4,7 @@
 	export let props: {
 		contractHash: string;
 	};
-	let transactionsPerPage: number = 10;
+	let versionsPerPage: number = 10;
 	let startIndex = 0;
 	let versions = [
 		{
@@ -22,7 +22,7 @@
 
 <div class="delegators-tab">
 	<div class="total">
-		{transactionsPerPage} Versions per page
+		{versionsPerPage} Versions per page
 	</div>
 	<table>
 		<tr>
@@ -51,7 +51,7 @@
 	</table>
 	<Paginator
 		showTotalRows={false}
-		bind:itemsPerPage={transactionsPerPage}
+		bind:itemsPerPage={versionsPerPage}
 		apiPaginator
 		bind:startIndex
 	/>
