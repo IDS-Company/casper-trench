@@ -22,6 +22,7 @@
 	let block: Block;
 	let transfers = [];
 	let currentHeight = 0;
+	let proofs = [];
 	// onMount(async () => {
 	// 	await fetchBlock();
 	// });
@@ -31,6 +32,10 @@
 		const chainStatus = await getLatestChainState();
 		currentHeight = chainStatus.last_added_block_info.height;
 		transfers = block && (await getBlockTransfers(block.hash));
+		proofs = block && block.proofs;
+		proofs.forEach((_, i) => {
+			proofs[i].pos = i + 1;
+		});
 		$isLoading = false;
 	};
 	$: if ($page.params.hash) {
@@ -48,9 +53,9 @@
 					on:click={() => {
 						goto(`/blocks/${block.height - 1}`);
 					}}
-					block>Blocks #{block.height - 1}</Button
+					block>Block #{block.height - 1}</Button
 				>
-				<Button block active>Blocks #{block.height}</Button>
+				<Button block active>Block #{block.height}</Button>
 				<Button
 					on:click={() => {
 						if (block.height + 1 <= currentHeight) {
@@ -60,7 +65,7 @@
 					block
 				>
 					{#if block.height + 1 <= currentHeight}
-						Blocks #{block.height + 1}
+						Block #{block.height + 1}
 					{:else}
 						Crunching...
 					{/if}
@@ -69,13 +74,13 @@
 
 			<div class="top">
 				<div class="title">
-					Blocks {block.height}
+					Block {block.height}
 				</div>
 				<div class="sub-title">
 					<div class="blocks">
 						<span class="green cursor-pointer" on:click={() => {
 							goto($blockHistory);
-						}}>Blocks</span> / Blocks {currentHeight}
+						}}>Blocks</span> / Block {currentHeight}
 					</div>
 				</div>
 			</div>
@@ -192,7 +197,7 @@
 								</div>
 							</div>
 							{#if showProofs}
-								<BlockProofs proofs={block && block.proofs} />
+								<BlockProofs {proofs} />
 							{/if}
 						</td>
 					</tr>

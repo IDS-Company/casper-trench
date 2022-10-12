@@ -8,6 +8,7 @@
 	export let ascendingSelected = false;
 	export let descendingSelected = false;
 	export let autoDisabled = true;
+	export let left = false;
 
 	export let ascendingHandler = () => {
 		dispatch('sort', { direction: 'asc' });
@@ -27,14 +28,14 @@
 </script>
 
 <div class="table-sorter">
-	<Tooltip text="Lowest to Highest">
+	<Tooltip text="Lowest to Highest" {left}>
 		<div class="ascending" on:click={ascendingHandler}>
 			<div class="icon">
 				<PaginatorChevron color={ascendingSelected ? '#099B91' : '#DCDCDC'} />
 			</div>
 		</div>
 	</Tooltip>
-	<Tooltip text="Highest to Lowest">
+	<Tooltip text="Highest to Lowest" {left}>
 		<div class="descending" on:click={descendingHandler}>
 			<div class="icon">
 				<PaginatorChevron color={descendingSelected ? '#099B91' : '#DCDCDC'} />
