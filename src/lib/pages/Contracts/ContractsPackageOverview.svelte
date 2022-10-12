@@ -180,7 +180,7 @@
 		@apply w-[1.19vh] md:w-[1.19vw];
 	}
 
-    .proofs-button {
+  .proofs-button {
 		@apply flex items-center gap-[0.3vw];
 		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
@@ -188,4 +188,5 @@
 		@apply max-w-max;
 		@apply cursor-pointer;
 	}
+
 </style>
