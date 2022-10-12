@@ -1,28 +1,15 @@
 <script>
 	import { slide } from 'svelte/transition';
+	import Paginator from '$lib/components/Paginator/index.svelte';
 
 	export let proofs = [];
-
-	let pages = [];
-	pages = [];
-	let pos = 0;
-	export let proofsPerPage = 5;
-	let useArray = [...proofs];
-	while (useArray.length) {
-		pages.push({
-			pos,
-			data: useArray.splice(0, proofsPerPage)
-		});
-		pos++;
-	}
-
-	let currentPage = 0;
+	let displayProofs = [];
 </script>
 
-<div class="proofs" transition:slide>
-	{#each pages[currentPage].data as proof, i}
+<div class="proofs">
+	{#each displayProofs as proof}
 		<div class="proof" transition:slide>
-			<div class="num">{pages[currentPage].pos * 5 + i + 1}</div>
+			<div class="num">{proof.pos}</div>
 			<table>
 				<tr>
 					<td class="label"> Public Key </td>
@@ -41,12 +28,8 @@
 			</table>
 		</div>
 	{/each}
-	<div class="paginator">
-		{#each pages as _, i}
-			<div class="button" class:selected={currentPage === i} on:click={() => (currentPage = i)}>
-				{i + 1}
-			</div>
-		{/each}
+	<div class="paginator-wrapper">
+		<Paginator bind:items={proofs} bind:pagedItems={displayProofs} itemsPerPage={5} showTotalRows={false} showRow={false}/>
 	</div>
 </div>
 
@@ -65,6 +48,10 @@
 		@apply bg-color-proof-num-background;
 		@apply mr-[clamp(20px,1.61vw,1.61vw)];
 		@apply text-[clamp(10px,0.95vw,0.95vw)] text-color-grey-footer-label;
+	}
+
+	.paginator-wrapper {
+		@apply mt-[clamp(16px,1.19vw,1.19vw)] flex justify-end w-full;
 	}
 
 	.label {

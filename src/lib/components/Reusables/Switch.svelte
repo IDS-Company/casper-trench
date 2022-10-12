@@ -53,6 +53,7 @@
 				return;
 			}
 		}
+		dispatch('switched', {optionIndex: index});
 		selectOption(index);
 	};
 </script>
