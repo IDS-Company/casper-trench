@@ -2,10 +2,11 @@
 	import TooltipIcon from '$lib/icons/TooltipIcon.svelte';
 
 	export let text = '';
+	export let left = false;
 </script>
 
 <div class="tooltip">
-	<div class="tooltip-icon" style="--tooltip: '{text}'">
+	<div class="tooltip-icon" class:left style="--tooltip: '{text}'">
 		<slot>
 			<div class="h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)]">
 				<TooltipIcon />
@@ -43,5 +44,10 @@
 	.tooltip-icon:hover::after,
 	.tooltip-icon:hover::before {
 		@apply scale-100;
+	}
+
+	.left::before,
+	.left::after {
+		@apply translate-x-[-9vw];
 	}
 </style>
