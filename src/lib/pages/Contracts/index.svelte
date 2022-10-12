@@ -101,7 +101,7 @@
 			{#if selectedFilter === -1}
 				<tr>
 					<td class="block hash">
-						<a href="/contracts/package/{contract.packageHash}">
+						<a href="/contract-package/{contract.packageHash}">
 							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 						</a>
 					</td>
@@ -129,7 +129,7 @@
 				{#if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
 					<tr>
 						<td class="block hash">
-							<a href="/contracts/package/{contract.packageHash}">
+							<a href="/contract-package/{contract.packageHash}">
 								<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 							</a>
 						</td>
