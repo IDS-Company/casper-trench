@@ -16,7 +16,7 @@
 			name: 'Auction',
 			type: 'System Contract',
 			timestamp: '2021-03-31T15:00:40.000Z',
-			deploys: 4876,
+			transactions: 4876,
 			owner: null
 		},
 		{
@@ -24,7 +24,7 @@
 			name: null,
 			type: null,
 			timestamp: '2022-04-30T20:32:20.000Z',
-			deploys: 151,
+			transactions: 151,
 			owner: '016a6339f34d4ec62f60f20dd7295b5b7872cd7c59a430320aab5baa823e1f524c'
 		},
 		{
@@ -32,7 +32,7 @@
 			name: 'Swappery Token',
 			type: 'ERC-20',
 			timestamp: '2022-04-30T20:32:20.000Z',
-			deploys: 40,
+			transactions: 40,
 			owner: '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071'
 		},
 		{
@@ -40,7 +40,7 @@
 			name: 'Friendly Market',
 			type: 'DeFi',
 			timestamp: '2022-06-05T19:53:35.000Z',
-			deploys: 39,
+			transactions: 39,
 			owner: '01f61490e53606fbec3bcd9124213eac25186faafa150af9f6b9efc45358f844d1'
 		},
 		{
@@ -48,7 +48,7 @@
 			name: 'WISEKEY_KYC',
 			type: 'NFT',
 			timestamp: '2022-03-01T19:10:07.000Z',
-			deploys: 5,
+			transactions: 5,
 			owner: '016ecbdc24a17aec45b8a125d7f5df0b7f03a15ac7d2e41f353c90339a383b26ca'
 		}
 	];
@@ -85,12 +85,12 @@
 			<th>Age</th>
 			<th
 				><div class="sorter">
-					<div class="text">30d Deploys</div>
+					<div class="text">30d Transactions</div>
 					<Tooltip text="Number of Contract calls in the past 30 Days" />
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortTransactions(e.detail?.direction, 'deploys')}
+						on:sort={(e) => sortTransactions(e.detail?.direction, 'transactions')}
 					/>
 				</div></th
 			>
@@ -112,7 +112,7 @@
 							{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 						</div>
 					</td>
-					<td>{contract.deploys}</td>
+					<td>{contract.transactions}</td>
 					<td class="grey">
 						<div class="flex justify-end">
 							{#if contract.owner}
@@ -140,7 +140,7 @@
 								{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 							</div>
 						</td>
-						<td>{contract.deploys}</td>
+						<td>{contract.transactions}</td>
 						<td class="grey">
 							<div class="flex justify-end">
 								{#if contract.owner}
