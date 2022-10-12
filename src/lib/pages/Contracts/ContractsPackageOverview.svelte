@@ -6,7 +6,7 @@
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import { sampleJsonData } from '$utils/sampleData';
-    import { slide } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
 
 	export let accessKey =
 		'uref-be3a9a586b10eba01dc1392bcef73139ea2482be3af469eca12c5ae91a7ed6b4-007';
@@ -180,7 +180,7 @@
 		@apply w-[1.19vh] md:w-[1.19vw];
 	}
 
-    .proofs-button {
+  .proofs-button {
 		@apply flex items-center gap-[0.3vw];
 		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
