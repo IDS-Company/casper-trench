@@ -407,3 +407,177 @@ export const sampleJsonData = {
 		}
 	]
 };
+
+export const sampleEntryPoints = [
+	{
+		name: 'add_admin',
+		args: [
+			{
+				name: 'admin',
+				cl_type: 'Key'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'allowance',
+		args: [
+			{
+				name: 'owner',
+				cl_type: 'Key'
+			},
+			{
+				name: 'spender',
+				cl_type: 'Key'
+			}
+		],
+		ret: 'U256',
+		access: 'Private',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'approve',
+		args: [
+			{
+				name: 'spender',
+				cl_type: 'Key'
+			},
+			{
+				name: 'amount',
+				cl_type: 'U256'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'balance_of',
+		args: [
+			{
+				name: 'address',
+				cl_type: 'Key'
+			}
+		],
+		ret: 'U256',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'burn',
+		args: [
+			{
+				name: 'owner',
+				cl_type: 'Key'
+			},
+			{
+				name: 'amount',
+				cl_type: 'U256'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'constructor',
+		args: [],
+		ret: 'String',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'decimals',
+		args: [],
+		ret: 'U8',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'mint',
+		args: [
+			{
+				name: 'owner',
+				cl_type: 'Key'
+			},
+			{
+				name: 'amount',
+				cl_type: 'U256'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'name',
+		args: [],
+		ret: 'String',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'remove_admin',
+		args: [
+			{
+				name: 'admin',
+				cl_type: 'Key'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'symbol',
+		args: [],
+		ret: 'String',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'total_supply',
+		args: [],
+		ret: 'U256',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'transfer',
+		args: [
+			{
+				name: 'recipient',
+				cl_type: 'Key'
+			},
+			{
+				name: 'amount',
+				cl_type: 'U256'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	},
+	{
+		name: 'transfer_from',
+		args: [
+			{
+				name: 'owner',
+				cl_type: 'Key'
+			},
+			{
+				name: 'recipient',
+				cl_type: 'Key'
+			},
+			{
+				name: 'amount',
+				cl_type: 'U256'
+			}
+		],
+		ret: 'Unit',
+		access: 'Public',
+		entry_point_type: 'Contract'
+	}
+];
