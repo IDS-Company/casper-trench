@@ -163,25 +163,6 @@
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 	}
 
-	pre {
-		@apply overflow-y-auto;
-		@apply max-h-[25.76vw];
-	}
-
-	pre::-webkit-scrollbar {
-		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
-	}
-
-	pre::-webkit-scrollbar-track {
-		@apply bg-transparent;
-	}
-
-	pre::-webkit-scrollbar-thumb {
-		@apply bg-color-tooltip-border;
-		@apply rounded-[0.77vh] md:rounded-[0.77vw];
-		@apply pr-[clamp(4px,0.48vw,0.48vw)];
-	}
-
 	.raw-buttons {
 		@apply flex items-center gap-[clamp(4px,0.54vw,0.54vw)];
 	}
@@ -206,13 +187,5 @@
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
-	}
-
-	.raw {
-		@apply flex-col items-start justify-center;
-	}
-
-	.raw.label {
-		@apply align-top;
 	}
 </style>

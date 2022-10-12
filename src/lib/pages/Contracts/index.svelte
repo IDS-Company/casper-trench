@@ -5,9 +5,6 @@
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
-	import LightningIcon from '$lib/icons/LightningIcon.svelte';
-	import SettingsIcon from '$lib/icons/SettingsIcon.svelte';
-	import VersionWarningIcon from '$lib/icons/VersionWarningIcon.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	let contracts = [

@@ -10,7 +10,7 @@
 
 	let menuOptions = [
 		{
-			title: 'Deploys',
+			title: 'Transactions',
 			component: PackageDeploys,
 			props: {}
 		},
