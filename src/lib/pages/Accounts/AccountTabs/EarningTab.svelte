@@ -1,10 +1,8 @@
 <script lang="ts">
-	import type { Reward } from '$utils/types/reward';
 	import { isLoading } from '$stores/loading';
-	import { getAccountEraRewards, getAccountRewards, getStats } from '$utils/api';
+	import { getAccountEraRewards, getAccountRewards } from '$utils/api';
 	import { page } from '$app/stores';
 	import Paginator from '$lib/components/Paginator/index.svelte';
-	import { parseStringValue } from '$utils/converters';
 	import EarningChart from '$lib/components/Charts/EarningChart.svelte';
 	import { price } from '$stores/price';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
@@ -49,7 +47,7 @@
 			{#if earnings && earnings.length > 0}
 				{#each earnings as earning}
 					<tr>
-						<td>{new Date(earning._id).toLocaleDateString()}</td>
+						<td>{earning._id}</td>
 						<td>
 							<div class="value-crypto">
 								<div class="crypto">
