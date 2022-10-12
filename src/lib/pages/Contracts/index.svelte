@@ -162,7 +162,7 @@
 
 <style lang="postcss">
 	table {
-		@apply table-auto w-full relative;
+		@apply table-auto w-full relative md:mb-[0.95vw];
 	}
 
 	.title {
@@ -193,29 +193,8 @@
 		@apply px-0;
 	}
 
-	.tooltip {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
-	}
-
-	.setting {
-		@apply flex gap-[clamp(4px,0.36vw,0.36vw)] items-center;
-	}
-
-	.setting > .icon {
-		@apply w-[clamp(16px,1.55vw,1.55vw)] h-[clamp(16px,1.55vw,1.55vw)];
-		@apply cursor-pointer;
-	}
-
-	.black {
-		@apply text-color-black-text;
-	}
-
 	.grey {
 		@apply text-color-grey-footer-label;
-	}
-
-	.version-icon {
-		@apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
 	}
 
 	.hash {
