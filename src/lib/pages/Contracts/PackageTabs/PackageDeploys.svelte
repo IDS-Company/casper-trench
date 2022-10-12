@@ -136,7 +136,7 @@
 								</div>
 							</div>
 							<a href="/transactions/{contract.id}">
-								<Hash hash={contract.id} />
+								<Hash hash={contract.id} variant={'righter'}/>
 							</a>
 						</div>
 					</td>

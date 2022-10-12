@@ -1,62 +1,21 @@
 <script lang="ts">
 	import TreeToggle from '$lib/components/Reusables/TreeToggle.svelte';
-	import Hash from '$lib/components/TableData/Hash.svelte';
-	import Validator from '$lib/components/TableData/Validator.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import { sampleJsonData } from '$utils/sampleData';
-  import { slide } from 'svelte/transition';
+    import { slide } from 'svelte/transition';
 
-	export let accessKey =
-		'uref-be3a9a586b10eba01dc1392bcef73139ea2482be3af469eca12c5ae91a7ed6b4-007';
-	export let timestamp = '2021-03-31T15:00:40.000Z';
-	export let owner = '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071';
-	export let name = 'Swappery Token';
-	export let type = 'ERC-20';
+	export let type = 'This URef is used as an access token or reference to a dictionary.';
     export let jsonData = sampleJsonData;
 
-	const timestampDate = new Date(timestamp);
 	let showRawData = false;
 </script>
 
 <div class="overview">
-	<div class="title">CONTRACT OVERVIEW</div>
+	<div class="title">UREF OVERVIEW</div>
 	<div class="extras">
 		<table>
-			<tr>
-				<td class="label">Access Key</td>
-				<td class="value">
-					<a href="/uref/{accessKey}">
-						<Hash hash={accessKey} noOfCharacters={50} start />
-					</a>
-				</td>
-			</tr>
-			{#if name}
-				<tr>
-					<td class="label">Name</td>
-					<td class="value">
-						{name}
-					</td>
-				</tr>
-			{/if}
-			{#if owner}
-				<tr>
-					<td class="label">Owner Public Key</td>
-					<td class="value">
-						<a href="/accounts/{owner}">
-							<Validator
-								imgUrl={''}
-								name={''}
-								hash={owner}
-								notValidator
-								start
-								noOfCharacters={45}
-							/>
-						</a>
-					</td>
-				</tr>
-			{/if}
 			{#if type}
 				<tr>
 					<td class="label">Type</td>
@@ -65,12 +24,6 @@
 					</td>
 				</tr>
 			{/if}
-			<tr>
-				<td class="label">Timestamp</td>
-				<td class="value">
-					{timestampDate.toString().slice(0, 24)}
-				</td>
-			</tr>
             <tr>
 				<td class="label">Raw Data</td>
 				<td class="value">
@@ -180,7 +133,7 @@
 		@apply w-[1.19vh] md:w-[1.19vw];
 	}
 
-  .proofs-button {
+    .proofs-button {
 		@apply flex items-center gap-[0.3vw];
 		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
