@@ -6,6 +6,7 @@
 	export let name: string;
 	export let hash: string;
 	export let variant: 'center' | 'right' | 'righter' = 'right';
+	export let notValidator = false;
 </script>
 
 <div class="validator">
@@ -19,15 +20,15 @@
 		</div>
 	{/if}
 	<div class="details">
-		<a href="/validators/{hash}">
-			<Hash
-				{hash}
-				{variant}
-				on:click={() => {
+		<Hash
+			{hash}
+			{variant}
+			on:click={() => {
+				if (!notValidator) {
 					goto(`/validators/${hash}`);
-				}}
-			/>
-		</a>
+				}
+			}}
+		/>
 		<div class="name">
 			{#if name}
 				{name}

@@ -1,66 +1,72 @@
-<script>
+<script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
+	import Validator from '$lib/components/TableData/Validator.svelte';
 	import LightningIcon from '$lib/icons/LightningIcon.svelte';
 	import SettingsIcon from '$lib/icons/SettingsIcon.svelte';
 	import VersionWarningIcon from '$lib/icons/VersionWarningIcon.svelte';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 
 	let contracts = [
 		{
-			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
-			name: 'Nuggets',
+			packageHash: '86f2d45f024d7bb7fb5266b2390d7c253b588a0a16ebd946a60cb4314600af74',
+			name: 'Auction',
+			type: 'System Contract',
+			timestamp: '2021-03-31T15:00:40.000Z',
+			transactions: 4876,
+			owner: null
+		},
+		{
+			packageHash: '7998f6ca22f0f17d2011b875c07d2a4bbce7d4a3a27bf109352a8ea5eed3dbc8',
+			name: null,
+			type: null,
+			timestamp: '2022-04-30T20:32:20.000Z',
+			transactions: 151,
+			owner: '016a6339f34d4ec62f60f20dd7295b5b7872cd7c59a430320aab5baa823e1f524c'
+		},
+		{
+			packageHash: '5cf078b7768fd146630a0c74070e5a966504a8a87448a9865e5b9ca3d05d908f',
+			name: 'Swappery Token',
+			type: 'ERC-20',
+			timestamp: '2022-04-30T20:32:20.000Z',
+			transactions: 40,
+			owner: '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071'
+		},
+		{
+			packageHash: '460018b5a6a6fa6046d1021a7f4414fd45e5e506e6604b4656fe66c90b661e6b',
+			name: 'Friendly Market',
+			type: 'DeFi',
+			timestamp: '2022-06-05T19:53:35.000Z',
+			transactions: 39,
+			owner: '01f61490e53606fbec3bcd9124213eac25186faafa150af9f6b9efc45358f844d1'
+		},
+		{
+			packageHash: '2afc2c90a996218a3c64d8fd9a949bf68813696f0c68831ceae2b01394484b81',
+			name: 'WISEKEY_KYC',
 			type: 'NFT',
-			version: '0.6.12',
-			balance: 0,
-			transactions: 1,
-			date: Date.parse('July 15, 2022, 14:09'),
-			audited: 'None'
-		},
-		{
-			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
-			name: 'Nuggets',
-			type: 'CUSTOM ERC-20',
-			version: '0.6.12',
-			balance: 0,
-			transactions: 1,
-			date: Date.parse('July 15, 2022, 14:09'),
-			audited: 'None'
-		},
-		{
-			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
-			name: 'SYSTEM CONTRACT',
-			type: 'ERC 20',
-			version: '0.6.12',
-			balance: 0,
-			transactions: 1,
-			date: Date.parse('July 15, 2022, 14:09'),
-			audited: 'None'
-		},
-		{
-			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
-			name: 'CUSTOM ERC-20',
-			type: 'NFT',
-			version: '0.6.12',
-			balance: 0,
-			transactions: 1,
-			date: Date.parse('July 15, 2022, 14:09'),
-			audited: 'None'
-		},
-		{
-			address: '0x9677F70261FC9bd57f88nf814bf91734vfb',
-			name: 'Nuggets',
-			type: 'ERC 20',
-			version: '0.6.12',
-			balance: 0,
-			transactions: 1,
-			date: Date.parse('July 15, 2022, 14:09'),
-			audited: 'None'
+			timestamp: '2022-03-01T19:10:07.000Z',
+			transactions: 5,
+			owner: '016ecbdc24a17aec45b8a125d7f5df0b7f03a15ac7d2e41f353c90339a383b26ca'
 		}
 	];
 
-	const typeFilterItems = ['NFT', 'ERC'];
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
+	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
+		// transactions = tableSort(direction, transactions, field);
+		sortingOptions = {
+			index: 0,
+			order: direction
+		};
+	};
+
+	const typeFilterItems = ['System Contract', 'ERC-20', 'DeFi', 'NFT'];
 	let selectedFilter = -1;
 </script>
 
@@ -68,120 +74,86 @@
 	<div class="title">Contracts</div>
 	<table>
 		<tr>
-			<th class="block">Address</th>
-			<th>Contract Name</th>
+			<th class="block">Package Hash</th>
+			<th>Name</th>
 			<th
 				><div class="sorter">
 					<div class="text">Type</div>
 					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
 				</div></th
 			>
-			<th>Version</th>
-			<th>Balance</th>
-			<th>Txns</th>
-			<th>Setting</th>
-			<th>Verified</th>
-			<th>
-				<div class="tooltip">
-					<div class="text">Audited</div>
-					<Tooltip text="Test" />
-				</div>
-			</th>
+			<th>Age</th>
+			<th
+				><div class="sorter">
+					<div class="text">30d Transactions</div>
+					<Tooltip text="Number of Contract calls in the past 30 Days" />
+					<TableSorter
+						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+						on:sort={(e) => sortTransactions(e.detail?.direction, 'transactions')}
+					/>
+				</div></th
+			>
+			<th><div class="flex justify-end">Contract Owner</div></th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#each contracts as contract}
 			{#if selectedFilter === -1}
 				<tr>
 					<td class="block hash">
-						<a href="/contracts/{contract.address}">
-							<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
+						<a href="/contracts/package/{contract.packageHash}">
+							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 						</a>
 					</td>
-					<td class="grey">{contract.name}</td>
-					<td>{contract.type}</td>
+					<td class="grey">{contract.name || ''}</td>
+					<td>{contract.type || ''}</td>
 					<td>
-						<div class="setting">
-							<div class="version-icon">
-								<VersionWarningIcon />
-							</div>
-							<div class="grey">
-								{contract.version}
-							</div>
+						<div class="grey">
+							{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 						</div>
 					</td>
-					<td>{contract.balance} CSPR</td>
-					<td class="black">{contract.transactions}</td>
-					<td>
-						<div class="setting">
-							<button
-								type="button"
-								class="icon"
-								on:click={() => {
-									// Lightning functionality
-								}}
-							>
-								<LightningIcon />
-							</button>
-							<button
-								type="button"
-								class="icon"
-								on:click={() => {
-									// Settings functionality
-								}}
-							>
-								<SettingsIcon />
-							</button>
+					<td>{contract.transactions}</td>
+					<td class="grey">
+						<div class="flex justify-end">
+							{#if contract.owner}
+								<a href="/accounts/{contract.owner}">
+									<Validator imgUrl={''} name={''} hash={contract.owner} notValidator />
+								</a>
+							{:else}
+								System
+							{/if}
 						</div>
 					</td>
-					<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
-					<td class="black">{contract.audited}</td>
 				</tr>
-			{:else if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
-				<tr>
-					<td class="block hash">
-						<a href="/contracts/{contract.address}">
-							<Hash hash={contract.address} noOfCharacters={20} start variant="right" />
-						</a>
-					</td>
-					<td class="grey">{contract.name}</td>
-					<td>{contract.type}</td>
-					<td>
-						<div class="setting">
-							<div class="version-icon">
-								<VersionWarningIcon />
-							</div>
+			{:else if contract.type !== null}
+				{#if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
+					<tr>
+						<td class="block hash">
+							<a href="/contracts/package/{contract.packageHash}">
+								<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
+							</a>
+						</td>
+						<td class="grey">{contract.name || ''}</td>
+						<td>{contract.type || ''}</td>
+						<td>
 							<div class="grey">
-								{contract.version}
+								{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 							</div>
-						</div>
-					</td>
-					<td>{contract.balance} CSPR</td>
-					<td class="black">{contract.transactions}</td>
-					<td>
-						<div class="setting">
-							<button
-								type="button"
-								class="icon"
-								on:click={() => {
-									// Lightning functionality
-								}}
-							>
-								<LightningIcon />
-							</button>
-							<button
-								type="button"
-								class="icon"
-								on:click={() => {
-									// Settings functionality
-								}}
-							>
-								<SettingsIcon />
-							</button>
-						</div>
-					</td>
-					<td class="black">{new Date(contract.date).toLocaleDateString()}</td>
-					<td class="black">{contract.audited}</td>
-				</tr>
+						</td>
+						<td>{contract.transactions}</td>
+						<td class="grey">
+							<div class="flex justify-end">
+								{#if contract.owner}
+									<a href="/accounts/{contract.owner}">
+										<Validator imgUrl={''} name={''} hash={contract.owner} notValidator />
+									</a>
+								{:else}
+									System
+								{/if}
+							</div>
+						</td>
+					</tr>
+				{/if}
 			{/if}
 		{/each}
 	</table>
@@ -190,7 +162,7 @@
 
 <style lang="postcss">
 	table {
-		@apply table-auto w-full relative;
+		@apply table-auto w-full relative md:mb-[0.95vw];
 	}
 
 	.title {
@@ -221,29 +193,8 @@
 		@apply px-0;
 	}
 
-	.tooltip {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
-	}
-
-	.setting {
-		@apply flex gap-[clamp(4px,0.36vw,0.36vw)] items-center;
-	}
-
-	.setting > .icon {
-		@apply w-[clamp(16px,1.55vw,1.55vw)] h-[clamp(16px,1.55vw,1.55vw)];
-		@apply cursor-pointer;
-	}
-
-	.black {
-		@apply text-color-black-text;
-	}
-
 	.grey {
 		@apply text-color-grey-footer-label;
-	}
-
-	.version-icon {
-		@apply w-[1.19vh] h-[1.19vh] md:w-[1.19vw] md:h-[1.19vw];
 	}
 
 	.hash {
