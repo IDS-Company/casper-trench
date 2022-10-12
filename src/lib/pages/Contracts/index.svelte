@@ -102,7 +102,7 @@
 				<tr>
 					<td class="block hash">
 						<a href="/contracts/package/{contract.packageHash}">
-							<Hash hash={contract.packageHash} noOfCharacters={5} variant="right" />
+							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 						</a>
 					</td>
 					<td class="grey">{contract.name || ''}</td>
@@ -130,7 +130,7 @@
 					<tr>
 						<td class="block hash">
 							<a href="/contracts/package/{contract.packageHash}">
-								<Hash hash={contract.packageHash} noOfCharacters={5} variant="right" />
+								<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 							</a>
 						</td>
 						<td class="grey">{contract.name || ''}</td>
