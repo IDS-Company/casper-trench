@@ -94,7 +94,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link cursor-pointer;
+		@apply text-color-hover-footer-link;
 	}
 
     .data-type {
