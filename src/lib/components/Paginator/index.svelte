@@ -3,6 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
 	import { getLatestBlocks } from '$utils/chain/blocks';
+	import { getLatestChainState } from '$utils/api';
 	const dispatch = createEventDispatcher();
 	let page = 1;
 
@@ -43,8 +44,8 @@
 				type="button"
 				on:click={async () => {
 					if (isRangeBlock) {
-						let latestBlock = await getLatestBlocks(1);
-						startIndex = latestBlock && latestBlock[0].height;
+						const chainState = await getLatestChainState();
+						startIndex = chainState && chainState.last_added_block_info?.height;
 					} else {
 						startIndex = 0;
 					}
