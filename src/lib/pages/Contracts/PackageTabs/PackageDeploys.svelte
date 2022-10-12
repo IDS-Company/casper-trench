@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
+	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
+	import AmountCost from '$lib/components/TableData/AmountCost.svelte';
 	import Contract from '$lib/components/TableData/Contract.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
@@ -14,64 +17,88 @@
 	let startIndex = 0;
 	let contracts = [
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: "Swappery Token",
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		},
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: "Swappery Token",
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		},
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: "Swappery Token",
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		},
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: "Swappery Token",
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		},
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: "Swappery Token",
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		},
 		{
-			id: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			method: 'Approve',
-			block: 19239437,
-			age: Date.parse('July 25, 2022 16:06'),
-			from: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			to: '0x67c13583ae9f2071b9gn2899813298ngv98298g9248hg2',
-			value: 0,
-			fee: 0.00022198
+			id: 'f84a69f58e6aedb6c504c8dac84e82fe765447f72da4b8bc1dc96fd24e6745e7',
+			blockHash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+			publicKey: "01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071",
+			age: '2021-03-31T15:00:40.000Z',
+			contract: {
+				hash: "ebfbc348fbb69ae35474244e2f38e9cb04fadf5df5b64020b220809617d0c20c",
+				name: null,
+				type: "ERC-20",
+				function: 'mint'
+			},
+			value: 234,
+			fee: 23
 		}
 	];
 </script>
@@ -82,29 +109,20 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">TX ID</th>
+			<th class="block">TX Hash</th>
+			<th>Block Hash</th>
+			<th>Public Key</th>
 			<th>
 				<div class="tooltip">
-					<div class="text">Method</div>
-					<Tooltip text="Test" />
-				</div>
-			</th>
-			<th>Block</th>
-			<th>Age</th>
-			<th>
-				<div class="tooltip">
-					<div class="text">From</div>
-					<TableFilter />
+					<div class="text">Age</div>
+					<TableSorter />
 				</div>
 			</th>
 			<th>
-				<div class="tooltip">
-					<div class="text">To</div>
-					<TableFilter />
-				</div>
+				Contract
 			</th>
-			<th>Value</th>
-			<th class="right">[Txn Fee]</th>
+			<th class="right">Value</th>
+			<th class="right">Fee</th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#if contracts && contracts.length > 0}
@@ -117,35 +135,43 @@
 									<EyeIcon />
 								</div>
 							</div>
-							<Hash hash={contract.id} noOfCharacters={20} start />
+							<a href="/transactions/{contract.id}">
+								<Hash hash={contract.id} />
+							</a>
 						</div>
 					</td>
 					<td>
-						<div class="method">
-							{contract.method}
+						<a href="/blocks/{contract.blockHash}">
+							<Hash hash={contract.blockHash} />
+						</a>
+					</td>
+					<td><a href="/accounts/{contract.publicKey}">
+						<Hash hash={contract.publicKey} />
+					</a></td>
+					<td>{`${timeAgo(millisToFormat(Date.now() - (new Date(contract.age)).getTime()))} ago`}</td>
+					<td>
+						<div class="contract-value">
+							<div class="top">{contract.contract.function}</div>
+							{#if contract.contract.name}	
+								<div class="bottom">with <span class="green" on:click={() => {
+									goto(`/contracts/${contract.contract.hash}`);
+								}}>{`${contract.contract.name} ${contract.contract.type || ""}`}</span></div>
+							{:else}
+								<div class="bottom">with <Hash hash={contract.contract.hash} on:click={() => {
+									goto(`/contracts/${contract.contract.hash}`);
+								}}/> </div>
+							{/if}
 						</div>
 					</td>
 					<td>
-						{contract.block}
-					</td>
-					<td>{`${timeAgo(millisToFormat(Date.now() - contract.age))} ago`}</td>
-					<td><Hash hash={contract.from} noOfCharacters={20} start /></td>
-					<td>
-						<div class="to">
-							<div class="in">
-								<Contract text={contract.to} IN />
-							</div>
-							<div class="contract">
-								<Contract text={contract.to} />
-							</div>
-							<Hash hash={contract.to} noOfCharacters={20} start color="black" />
+						<div class="flex justify-end">
+							<AmountCost cspr={contract.fee} cashValue={contract.value / 123} />
 						</div>
-					</td>
-					<td>
-						{contract.value} BNB
 					</td>
 					<td class="right">
-						{contract.fee}
+						<div class="flex justify-end">
+							<AmountCost cspr={contract.fee} cashValue={contract.fee / 123} />
+						</div>
 					</td>
 				</tr>
 			{/each}
@@ -189,10 +215,6 @@
 		@apply mb-[2.38vw];
 	}
 
-	.hash {
-		@apply text-color-hover-footer-link;
-	}
-
 	.right {
 		@apply text-right;
 	}
@@ -203,6 +225,7 @@
 
 	.tx-id {
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+		@apply pt-[clamp(8px,0.8vw,0.8vw)];
 	}
 
 	.eye {
@@ -215,14 +238,15 @@
 		@apply w-[clamp(12px,0.95vw,0.95vw)];
 	}
 
-	.method {
-		@apply bg-color-translucent-blue;
-		@apply px-[clamp(4px,0.42vw,0.42vw)] py-[clamp(2px,0.3vw,0.3vw)];
-		@apply max-w-max;
-		@apply text-color-arcadia-blue;
+	.top {
+		@apply font-medium;
 	}
 
-	.to {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+	.bottom {
+		@apply flex items-center gap-[0.2vw];
+	}
+
+	.green {
+		@apply text-color-hover-footer-link cursor-pointer;
 	}
 </style>
