@@ -11,6 +11,7 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 	import type { Transaction } from '$utils/types/transaction';
+	import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 1;
@@ -39,6 +40,9 @@
 			order: direction
 		};
 	};
+
+	const typeFilterItems = ['Transfer', 'Delegate', 'Undelegate'];
+	let selectedFilter = -1;
 </script>
 
 <div class="delegators-tab">
@@ -53,7 +57,10 @@
 				<TableSorter ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
 				descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'} on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
 			</th>
-			<th>Contract </th>
+			<th><div class="filter">
+				<div class="text">Contract</div>
+				<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
+			</div></th>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
 		</tr>
@@ -157,6 +164,10 @@
 
 	.sorter {
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] justify-center;
+	}
+
+	.filter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
 	.wrapper-center {
