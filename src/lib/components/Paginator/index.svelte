@@ -124,7 +124,7 @@
 	}
 
 	.paginator-buttons {
-		@apply flex gap-[clamp(4px,1.19vw,1.19vw)];
+		@apply flex flex-col md:flex-row gap-[clamp(4px,1.19vw,1.19vw)];
 	}
 
 	.actual-paginator {

@@ -168,7 +168,7 @@
 	th {
 		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left;
+		@apply text-left min-w-max;
 	}
 
 	td {
@@ -193,7 +193,7 @@
 	}
 
 	.age {
-		@apply text-color-grey-footer-label;
+		@apply text-color-grey-footer-label whitespace-nowrap;
 	}
 
 	.black {
@@ -205,7 +205,7 @@
 	}
 
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
 	}
 
 	.center > .sorter {
