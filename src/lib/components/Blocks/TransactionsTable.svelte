@@ -70,25 +70,25 @@
 
 	th {
 		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
 	.value-crypto {
 		@apply flex items-center justify-end gap-[clamp(2px,0.24vw,0.24vw)];
-		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
 	}
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {
-		@apply text-[clamp(8px,0.83vw,0.83vw)] text-color-grey-footer-label;
+		@apply text-[clamp(10px,0.83vw,0.83vw)] text-color-grey-footer-label;
 	}
 
 	.account {
