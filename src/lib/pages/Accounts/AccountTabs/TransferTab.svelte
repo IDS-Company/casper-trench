@@ -48,8 +48,14 @@
 			{#each transfers as transfer}
 				<tr>
 					<td class="blocky">
-						<a class="hidden md:block" href="/transactions/{transfer.deployHash}"> {transfer.deployHash}</a>
-						<a class="md:hidden" href="/transactions/{transfer.deployHash}"> {`${transfer.deployHash.substring(0, 5)}...${transfer.deployHash.substring(transfer.deployHash.length - 5)}`}</a></td
+						<a class="hidden md:block" href="/transactions/{transfer.deployHash}">
+							{transfer.deployHash}</a
+						>
+						<a class="md:hidden" href="/transactions/{transfer.deployHash}">
+							{`${transfer.deployHash.substring(0, 5)}...${transfer.deployHash.substring(
+								transfer.deployHash.length - 5
+							)}`}</a
+						></td
 					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transfer.timestamp)))} ago`}</td

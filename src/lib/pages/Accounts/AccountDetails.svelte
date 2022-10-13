@@ -2,7 +2,6 @@
 	import Overview from '$lib/components/Accounts/Overview.svelte';
 	import StakeInfo from '$lib/components/Accounts/StakeInfo.svelte';
 	import StakingTab from '$lib/pages/Accounts/AccountTabs/StakingTab.svelte';
-	import TokensTab from '$lib/pages/Accounts/AccountTabs/TokensTab.svelte';
 	import TransactionsTab from '$lib/pages/Accounts/AccountTabs/TransactionsTab.svelte';
 	import TransferTab from '$lib/pages/Accounts/AccountTabs/TransferTab.svelte';
 	import EarningTab from '$lib/pages/Accounts/AccountTabs/EarningTab.svelte';

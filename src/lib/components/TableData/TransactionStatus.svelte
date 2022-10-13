@@ -25,7 +25,7 @@
 
 <style lang="postcss">
 	.transaction-status {
-		@apply text-[1.07vw] capitalize;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] capitalize;
 		@apply flex items-center gap-[0.36vw];
 		@apply text-color-arcadia-yellow;
 	}
@@ -35,6 +35,6 @@
 	}
 
 	.icon {
-		@apply h-[0.83vw] w-[0.83vw];
+		@apply h-[clamp(12px,0.83vw,0.83vw)] w-[clamp(12px,0.83vw,0.83vw)];
 	}
 </style>

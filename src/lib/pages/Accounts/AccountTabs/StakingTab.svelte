@@ -78,7 +78,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Transaction</th>
+			<th class="blocky">Transaction</th>
 			<th>Validator</th>
 			<th class="right">TX Time</th>
 			<th class="right">Amount</th>
@@ -89,7 +89,14 @@
 			{#each transactions as transaction}
 				<tr>
 					<td class="block">
-						<a href="/transactions/{transaction.deployHash}"> {transaction.deployHash}</a></td
+						<a class="hidden md:block" href="/transactions/{transaction.deployHash}">
+							{transaction.deployHash}</a
+						>
+						<a class="md:hidden" href="/transactions/{transaction.deployHash}">
+							{`${transaction.deployHash.substring(0, 5)}...${transaction.deployHash.substring(
+								transaction.deployHash.length - 5
+							)}`}</a
+						></td
 					>
 					<td>
 						<!-- TODO add validator data -->
@@ -150,26 +157,26 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	td.block {
+	td.blocky {
 		@apply text-color-hover-footer-link;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
 	.total {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
 	}
 
@@ -184,11 +191,11 @@
 
 	.value-crypto {
 		@apply flex items-center justify-end gap-[clamp(2px,0.24vw,0.24vw)];
-		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
 	}
 
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {
@@ -205,13 +212,13 @@
 	}
 
 	.empty-icon {
-		@apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
+		@apply w-[clamp(20px,2.08vw,2.08vw)] h-[clamp(20px,2.08vw,2.08vw)];
 	}
 
 	.empty {
 		@apply h-[23.81vh] md:h-[23.81vw] w-full;
 		@apply flex items-center justify-center;
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
 	}
 
 	.empty > div {

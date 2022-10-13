@@ -94,7 +94,7 @@
 	.switch {
 		@apply flex items-center gap-[clamp(10px,1.07vw,1.07vw)];
 		@apply w-max h-max;
-		@apply text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply cursor-pointer;
 	}
 
@@ -129,7 +129,7 @@
 		@apply text-color-hover-footer-link;
 		@apply bg-white;
 		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
-		@apply px-[1.31vw] py-[0.77vw] rounded-[0.3vw];
+		@apply px-[1.31vw] py-[0.77vw] rounded-[clamp(4px,0.3vw,0.3vw)];
 	}
 
 	.wrapper {

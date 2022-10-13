@@ -108,17 +108,17 @@
 
 	th {
 		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(12px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
 	.total {
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[clamp(8px,2.38vw,2.38vw)];
 	}
 
@@ -128,7 +128,7 @@
 	}
 
 	.crypto {
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {
@@ -137,13 +137,13 @@
 	}
 
 	.empty-icon {
-		@apply w-[clamp(16px,2.08vw,2.08vw)] h-[clamp(16px,2.08vw,2.08vw)];
+		@apply w-[clamp(20px,2.08vw,2.08vw)] h-[clamp(20px,2.08vw,2.08vw)];
 	}
 
 	.empty {
 		@apply h-[23.81vh] md:h-[23.81vw] w-full;
 		@apply flex items-center justify-center;
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label text-opacity-50;
 	}
 
 	.empty > div {
