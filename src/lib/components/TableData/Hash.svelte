@@ -33,7 +33,7 @@
 
 <style lang="postcss">
 	.hash {
-		@apply text-center text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-center text-[clamp(14px,1.07vw,1.07vw)];
 		@apply max-w-max;
 	}
 

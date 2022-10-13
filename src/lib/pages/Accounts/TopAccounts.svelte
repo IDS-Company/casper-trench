@@ -50,7 +50,7 @@
 	<div class="title">Rich List</div>
 	<table>
 		<tr>
-			<th class="block">Rank</th>
+			<th class="blocky">Rank</th>
 			<th>Public key</th>
 			<th>Account hash</th>
 			<th>
@@ -90,6 +90,7 @@
 						ascendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 3 && sortingOptions.order === 'desc'}
 						on:sort={(e) => sortTopAccounts(e.detail?.direction, 'stakedAmount', 3)}
+						left
 					/>
 				</div>
 			</th>
@@ -98,7 +99,7 @@
 		{#if !$isLoading && topAccounts && topAccounts.length > 0}
 			{#each topAccounts as account, i}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						<div class="wrapper">
 							<!-- TOD use actual rank -->
 							<!-- <Rank rank={account.rank} /> -->
@@ -144,7 +145,7 @@
 	}
 
 	.title {
-		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
+		@apply text-[clamp(18px,1.43vw,1.43vw)] font-bold text-color-table-header;
 	}
 
 	.divider {
@@ -154,18 +155,18 @@
 
 	th {
 		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2.4vw,2.4vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 		/* @apply flex flex-row; */
 	}
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2.4vw,2.4vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header align-top;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header align-top;
 		@apply min-w-max h-full;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
@@ -178,9 +179,9 @@
 	}
 
 	.wrapper {
-		@apply flex gap-[2.26vw];
+		@apply flex md:gap-[2.26vw] items-center gap-4 min-w-max;
 	}
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
 	}
 </style>

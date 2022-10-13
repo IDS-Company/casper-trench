@@ -26,7 +26,7 @@
 
 <style lang="postcss">
 	.crypto-cash {
-		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(14px,0.83vw,0.83vw)];
 		@apply max-w-max;
 	}
 

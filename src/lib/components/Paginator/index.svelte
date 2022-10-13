@@ -119,16 +119,16 @@
 
 <style lang="postcss">
 	.paginator {
-		@apply flex justify-between;
-		@apply text-[clamp(8px,0.95vw,0.95vw)] text-color-grey-footer-label;
+		@apply flex justify-between flex-col md:flex-row gap-3 md:gap-0;
+		@apply text-[clamp(14px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
 	.paginator-buttons {
-		@apply flex gap-[1.19vw];
+		@apply flex gap-[clamp(4px,1.19vw,1.19vw)];
 	}
 
 	.actual-paginator {
-		@apply flex gap-[0.71vw] items-center;
+		@apply flex gap-[clamp(4px,0.71vw,0.71vw)] items-center;
 	}
 
 	.text {
@@ -140,13 +140,13 @@
 	}
 
 	.icon {
-		@apply h-[0.95vw];
+		@apply h-[clamp(10px,0.95vw,0.95vw)];
 	}
 
 	.button {
-		@apply px-[0.83vw] py-[0.6vw];
+		@apply px-[clamp(6px,0.83vw,0.83vw)] py-[clamp(6px,0.6vw,0.6vw)] h-full;
 		@apply leading-none;
-		@apply border-[0.12vw] rounded-[0.3vw] border-color-paginator-border;
+		@apply border-[0.12vw] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply cursor-pointer;
 	}
 </style>

@@ -28,6 +28,6 @@
 		@apply text-color-hover-footer-link;
 	}
 	.time-ago {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header text-opacity-50;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header text-opacity-50;
 	}
 </style>
