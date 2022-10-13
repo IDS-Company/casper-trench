@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { getStats } from '$utils/api';
 	import type { Stats } from '$utils/types/stats';
+	import OtherStatsSectionMobile from './OtherStatsSectionMobile.svelte';
 	let isLoading = false;
 	$: isHome = $page.url.pathname === '/';
 	let stats: Stats;
@@ -25,7 +26,12 @@
 			<div class="md:hidden">
 				<Filter />
 			</div>
-			<OtherStatsSection bind:stats bind:isLoading />
+			<div class="hidden md:block">
+				<OtherStatsSection bind:stats bind:isLoading />
+			</div>
+			<div class="md:hidden">
+				<OtherStatsSectionMobile bind:stats bind:isLoading />
+			</div>
 			<div class="hidden md:block">
 				<Filter />
 			</div>
