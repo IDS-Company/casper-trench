@@ -62,5 +62,6 @@
 	.name {
 		@apply text-color-grey-footer-label;
 		@apply mt-[clamp(2px,0.24vw,0.24vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 	}
 </style>
