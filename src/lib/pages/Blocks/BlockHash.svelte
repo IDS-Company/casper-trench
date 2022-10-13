@@ -161,12 +161,14 @@
 											</div>
 										</div>
 										<div class="hash">
-											{`${block.validatorPublicKey.substring(
-												0,
-												5
-											)}...${block.validatorPublicKey.substring(
-												block.validatorPublicKey.length - 5
-											)}`}
+											<a href="/validators/{block.validatorPublicKey}">
+												{`${block.validatorPublicKey.substring(
+													0,
+													5
+												)}...${block.validatorPublicKey.substring(
+													block.validatorPublicKey.length - 5
+												)}`}
+											</a>
 										</div>
 									</div>
 								</div>
@@ -266,12 +268,14 @@
 										{/if}
 									</div>
 									<div class="hash">
-										{`${block.validatorPublicKey.substring(
-											0,
-											16
-										)}...${block.validatorPublicKey.substring(
-											block.validatorPublicKey.length - 16
-										)}`}
+										<a href="/validators/{block.validatorPublicKey}">
+											{`${block.validatorPublicKey.substring(
+												0,
+												16
+											)}...${block.validatorPublicKey.substring(
+												block.validatorPublicKey.length - 16
+											)}`}
+										</a>
 									</div>
 								</div>
 							</div>
@@ -466,6 +470,7 @@
 
 	.dets > .hash {
 		@apply text-color-hover-footer-link;
+		@apply cursor-pointer;
 	}
 
 	.transaction-button {
