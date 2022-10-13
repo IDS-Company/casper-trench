@@ -311,9 +311,9 @@ export const getVolumes = async (count: number) => {
 		});
 };
 
-export const getDeployVolumes = async () => {
+export const getDeployVolumes = async (days: number) => {
 	try {
-		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes`);
+		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes/${days}`);
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch volumes');
@@ -333,6 +333,6 @@ export const searchPhrase = async (address: string) => {
 		console.log(res.data);
 		goto(res?.data?.endpoint);
 	} catch (error) {
-		notifyError('Sorry, nothing was find.');
+		notifyError('Sorry, nothing was found.');
 	}
 };

@@ -53,6 +53,7 @@
 				return;
 			}
 		}
+		dispatch('switched', {optionIndex: index});
 		selectOption(index);
 	};
 </script>
@@ -128,7 +129,7 @@
 		@apply text-color-hover-footer-link;
 		@apply bg-white;
 		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
-		@apply pl-[0.95vw] pr-[1.31vw] py-[0.77vw] rounded-[0.3vw];
+		@apply px-[1.31vw] py-[0.77vw] rounded-[0.3vw];
 	}
 
 	.wrapper {

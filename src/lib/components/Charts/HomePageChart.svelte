@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getVolumes } from '$utils/api';
-
+	import { getDeployVolumes, getVolumes } from '$utils/api';
+	import { externalTooltipHandler } from '$utils/tooltip';
 	import { onMount } from 'svelte';
 
 	let ctx: HTMLCanvasElement;
@@ -9,7 +9,7 @@
 	export let data: { x: Date; y: number }[] = [];
 
 	export let isLoading = true;
-	let transactionVolumes = [];
+	let transactionVolumes: { volumes?: { _id: string; volume: number }[]; totalDeploys?: number };
 
 	$: if (!isLoading) {
 		data?.length > 0 && renderChart(data);
@@ -17,11 +17,13 @@
 
 	// TODO Remove the onMount Function
 	onMount(async () => {
-		transactionVolumes = await getVolumes(14);
+		transactionVolumes = await getDeployVolumes(14);
 		transactionVolumes &&
-			transactionVolumes.forEach((volume) => {
-				data.push({ x: new Date(volume[0]), y: volume[1] });
-				totalTransactions += volume[1];
+			transactionVolumes.volumes.forEach((volume) => {
+				data.push({
+					x: new Date(volume._id),
+					y: volume.volume
+				});
 			});
 		isLoading = false;
 	});
@@ -33,7 +35,7 @@
 			data: {
 				datasets: [
 					{
-						label: 'Era Rewards',
+						label: 'Transactions',
 						data: chartData1,
 						backgroundColor: '#099B91',
 						borderColor: '#099B91',
@@ -105,8 +107,10 @@
 					},
 					tooltip: {
 						enabled: false,
-						position: 'nearest'
-						// external: externalTooltipHandler
+						position: 'nearest',
+						external: externalTooltipHandler,
+						padding: 16,
+						intersect: false
 					}
 				}
 			}
@@ -118,7 +122,7 @@
 	<div class="title">
 		<div class="label">TRANSACTIONS HISTORY in 14 DAYS</div>
 		<div class="value">
-			{totalTransactions.toLocaleString()}
+			{transactionVolumes?.totalDeploys?.toLocaleString() || 0}
 		</div>
 	</div>
 	<div class="chart">

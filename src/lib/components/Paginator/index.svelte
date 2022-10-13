@@ -3,6 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
 	import { getLatestBlocks } from '$utils/chain/blocks';
+	import { getLatestChainState } from '$utils/api';
 	const dispatch = createEventDispatcher();
 	let page = 1;
 
@@ -14,6 +15,7 @@
 	export let items: {}[] = [];
 	export let pagedItems: {}[] = [];
 	export let apiPaginator = false;
+	export let showRow = true;
 	const pageItems = () => {
 		pagedItems =
 			items &&
@@ -31,20 +33,22 @@
 <div class="paginator">
 	{#if showTotalRows}
 		<div class="total">{items && items.length} total rows</div>
-	{:else}
+	{:else if showRow}
 		<ShowRow bind:itemsPerPage />
 	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
-			<ShowRow bind:itemsPerPage />
+			{#if showRow}
+				<ShowRow bind:itemsPerPage />
+			{/if}
 		{/if}
 		<div class="actual-paginator">
 			<button
 				type="button"
 				on:click={async () => {
 					if (isRangeBlock) {
-						let latestBlock = await getLatestBlocks(1);
-						startIndex = latestBlock && latestBlock[0].height;
+						const chainState = await getLatestChainState();
+						startIndex = chainState && chainState.last_added_block_info?.height;
 					} else {
 						startIndex = 0;
 					}
@@ -71,7 +75,7 @@
 			<div class="text">
 				Page {page}
 				{#if !apiPaginator}
-					of {totalPages.toLocaleString()}
+					of {totalPages ? totalPages.toLocaleString() : "1"}
 				{/if}
 				{#if isRangeBlock}
 					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}

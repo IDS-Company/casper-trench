@@ -1,36 +1,47 @@
 <script>
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import Tooltip from './Tooltip.svelte';
 
 	const dispatch = createEventDispatcher();
 
 	export let ascendingSelected = false;
 	export let descendingSelected = false;
+	export let autoDisabled = true;
+	export let left = false;
 
 	export let ascendingHandler = () => {
-		ascendingSelected = true;
-		descendingSelected = false;
 		dispatch('sort', { direction: 'asc' });
+		if (!autoDisabled) {
+			ascendingSelected = true;
+			descendingSelected = false;
+		}
 	};
 
 	export let descendingHandler = () => {
-		ascendingSelected = false;
-		descendingSelected = true;
 		dispatch('sort', { direction: 'desc' });
+		if (!autoDisabled) {
+			ascendingSelected = false;
+			descendingSelected = true;
+		}
 	};
 </script>
 
 <div class="table-sorter">
-	<div class="ascending" on:click={ascendingHandler}>
-		<div class="icon">
-			<PaginatorChevron color={ascendingSelected ? '#B5B5B5' : '#DCDCDC'} />
+	<Tooltip text="Lowest to Highest" {left}>
+		<div class="ascending" on:click={ascendingHandler}>
+			<div class="icon">
+				<PaginatorChevron color={ascendingSelected ? '#099B91' : '#DCDCDC'} />
+			</div>
 		</div>
-	</div>
-	<div class="descending" on:click={descendingHandler}>
-		<div class="icon">
-			<PaginatorChevron color={descendingSelected ? '#B5B5B5' : '#DCDCDC'} />
+	</Tooltip>
+	<Tooltip text="Highest to Lowest" {left}>
+		<div class="descending" on:click={descendingHandler}>
+			<div class="icon">
+				<PaginatorChevron color={descendingSelected ? '#099B91' : '#DCDCDC'} />
+			</div>
 		</div>
-	</div>
+	</Tooltip>
 </div>
 
 <style lang="postcss">

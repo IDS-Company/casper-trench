@@ -5,6 +5,10 @@
 	export let imgUrl: string;
 	export let name: string;
 	export let hash: string;
+	export let variant: 'center' | 'right' | 'righter' = 'right';
+	export let notValidator = false;
+	export let start = false;
+	export let noOfCharacters = 5;
 </script>
 
 <div class="validator">
@@ -18,15 +22,17 @@
 		</div>
 	{/if}
 	<div class="details">
-		<a href="/validators/{hash}">
-			<Hash
-				{hash}
-				variant="right"
-				on:click={() => {
+		<Hash
+			{hash}
+			{variant}
+			{start}
+			{noOfCharacters}
+			on:click={() => {
+				if (!notValidator) {
 					goto(`/validators/${hash}`);
-				}}
-			/>
-		</a>
+				}
+			}}
+		/>
 		<div class="name">
 			{#if name}
 				{name}

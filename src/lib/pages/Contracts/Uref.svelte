@@ -1,30 +1,8 @@
 <script lang="ts">
-	import TabMenu from '$lib/components/TabMenu/index.svelte';
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
-	import PackageDeploys from './PackageTabs/PackageDeploys.svelte';
-	import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
-	import ContractEntryPoints from './ContractTabs/ContractEntryPoints.svelte';
-	import ContractNamedKeys from './ContractTabs/ContractNamedKeys.svelte';
-
-	let menuOptions = [
-		{
-			title: 'Transactions',
-			component: PackageDeploys,
-			props: {}
-		},
-		{
-			title: 'Entry Points',
-			component: ContractEntryPoints,
-			props: {}
-		},
-        {
-			title: 'Named Keys',
-			component: ContractNamedKeys,
-			props: {}
-		},
-	];
+	import URefOverview from './URefOverview.svelte';
 </script>
 
 <div class="main">
@@ -34,7 +12,7 @@
 		</div>
 		<div class="address">
 			<div class="title">
-				<div class="text">Contract</div>
+				<div class="text">URef</div>
 			</div>
 			<div class="value">
 				<div class="text">
@@ -48,9 +26,8 @@
 	</div>
 
 	<div class="info">
-		<ContractsOverview />
+		<URefOverview />
 	</div>
-	<TabMenu {menuOptions} />
 </div>
 
 <style lang="postcss">

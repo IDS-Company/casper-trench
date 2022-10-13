@@ -2,11 +2,16 @@
 	import TooltipIcon from '$lib/icons/TooltipIcon.svelte';
 
 	export let text = '';
+	export let left = false;
 </script>
 
 <div class="tooltip">
-	<div class="tooltip-icon" style="--tooltip: '{text}'">
-		<TooltipIcon />
+	<div class="tooltip-icon" class:left style="--tooltip: '{text}'">
+		<slot>
+			<div class="h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)]">
+				<TooltipIcon />
+			</div>
+		</slot>
 	</div>
 </div>
 
@@ -17,7 +22,6 @@
 
 	.tooltip-icon {
 		@apply relative;
-		@apply h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)];
 		@apply cursor-pointer;
 	}
 
@@ -33,11 +37,17 @@
 		@apply p-[0.48vw];
 		@apply rounded-[0.71vw];
 		@apply bg-white;
+		@apply z-10;
 		content: var(--tooltip);
 	}
 
 	.tooltip-icon:hover::after,
 	.tooltip-icon:hover::before {
 		@apply scale-100;
+	}
+
+	.left::before,
+	.left::after {
+		@apply translate-x-[-9vw];
 	}
 </style>

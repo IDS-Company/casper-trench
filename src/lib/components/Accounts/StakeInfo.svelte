@@ -1,12 +1,12 @@
 <script lang="ts">
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
+	import { isLoading } from '$stores/loading';
 	import type { Account } from '$utils/types/account';
 
 	export let account: Account;
-	export let isLoading = true;
 </script>
 
-<div class:loading={isLoading} class="overview">
+<div class:loading={$isLoading} class="overview">
 	<div class="title">STAKE INFO</div>
 	<div class="extras ">
 		<table>

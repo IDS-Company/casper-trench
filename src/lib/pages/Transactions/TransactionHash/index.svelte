@@ -18,6 +18,7 @@
 	import { isLoading } from '$stores/loading';
 	import { getDeploy } from '$utils/api';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	let showRawData = false;
 	let deployResult;
@@ -40,7 +41,9 @@
 
 <div class="transaction-details">
 	<div class="top">
-		<span class="green">Transaction</span> / Transaction Details
+		<span class="green cursor-pointer" on:click={() => {
+			goto('/transactions');
+		}}>Transactions</span> / Transaction Details
 	</div>
 	{#if deployResult}
 		<div class="wrapper" bind:this={toDownload}>
@@ -415,11 +418,12 @@
 
 	.proofs-button {
 		@apply flex items-center gap-[0.3vw];
-		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
+		@apply px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
+		@apply min-h-[2.4vw];
 	}
 
 	.status {
@@ -486,10 +490,11 @@
 
 	.copy-button {
 		@apply flex items-center;
-		@apply py-[clamp(4px,0.48vw,0.48vw)] pl-[clamp(6px,0.71vw,0.71vw)];
+		@apply pl-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-copy-btn-bg;
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
+		@apply min-h-[2.4vw];
 	}
 </style>

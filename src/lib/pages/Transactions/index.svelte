@@ -11,6 +11,7 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 	import type { Transaction } from '$utils/types/transaction';
+	import TableFilter from '$lib/components/Reusables/TableFilter.svelte';
 	let transactions: Transaction[];
 	let transactionsPerPage = 10;
 	let startIndex = 1;
@@ -26,9 +27,22 @@
 			// transactions = await getAllTransactions();
 		}, 1);
 	}
+
+	let sortingOptions = {
+		index: 0,
+		order: null
+	};
+
 	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
 		transactions = tableSort(direction, transactions, field);
+		sortingOptions = {
+			index: 0,
+			order: direction
+		};
 	};
+
+	const typeFilterItems = ['Transfer', 'Delegate', 'Undelegate'];
+	let selectedFilter = -1;
 </script>
 
 <div class="delegators-tab">
@@ -40,9 +54,13 @@
 			<th class="">Public Key</th>
 			<th class="center sorter">
 				<div class="text">Age</div>
-				<TableSorter on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
+				<TableSorter ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+				descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'} on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
 			</th>
-			<th>Contract </th>
+			<th><div class="filter">
+				<div class="text">Contract</div>
+				<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
+			</div></th>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
 		</tr>
@@ -55,7 +73,7 @@
 							<a href="/transactions/{transaction.deployHash}">
 								<TxHash
 									hash={transaction.deployHash}
-									right
+									righter
 									color={transaction.status === 'success' ? 'text' : 'yellow'}
 								/>
 							</a>
@@ -146,6 +164,10 @@
 
 	.sorter {
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] justify-center;
+	}
+
+	.filter {
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
 	.wrapper-center {

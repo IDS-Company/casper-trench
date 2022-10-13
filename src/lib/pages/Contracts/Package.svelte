@@ -3,10 +3,10 @@
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
+	import ContractsPackageOverview from './ContractsPackageOverview.svelte';
 	import PackageDeploys from './PackageTabs/PackageDeploys.svelte';
-	import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
-	import ContractEntryPoints from './ContractTabs/ContractEntryPoints.svelte';
-	import ContractNamedKeys from './ContractTabs/ContractNamedKeys.svelte';
+	import PackageVersions from './PackageTabs/PackageVersions.svelte';
+	import PackageGroups from './PackageTabs/PackageGroups.svelte';
 
 	let menuOptions = [
 		{
@@ -15,13 +15,13 @@
 			props: {}
 		},
 		{
-			title: 'Entry Points',
-			component: ContractEntryPoints,
+			title: 'Versions',
+			component: PackageVersions,
 			props: {}
 		},
         {
-			title: 'Named Keys',
-			component: ContractNamedKeys,
+			title: 'Groups',
+			component: PackageGroups,
 			props: {}
 		},
 	];
@@ -34,7 +34,7 @@
 		</div>
 		<div class="address">
 			<div class="title">
-				<div class="text">Contract</div>
+				<div class="text">Contract Package</div>
 			</div>
 			<div class="value">
 				<div class="text">
@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="info">
-		<ContractsOverview />
+		<ContractsPackageOverview />
 	</div>
 	<TabMenu {menuOptions} />
 </div>
