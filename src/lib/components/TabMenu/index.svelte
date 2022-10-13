@@ -32,6 +32,10 @@
 </div>
 
 <style lang="postcss">
+	.tab-menu {
+		@apply max-w-full overflow-y-auto;
+	}
+
 	.header {
 		@apply flex items-center;
 	}
@@ -39,7 +43,7 @@
 	.option {
 		@apply px-[0.6vh] md:px-[0.6vw];
 		@apply cursor-pointer;
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 	}
 
 	.text {
@@ -56,6 +60,7 @@
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-color-tooltip-border border-opacity-100;
 		@apply p-[2.38vw];
 		@apply rounded-[0.6vw] rounded-tl-none;
+		@apply min-w-max;
 	}
 
 	.selector {
