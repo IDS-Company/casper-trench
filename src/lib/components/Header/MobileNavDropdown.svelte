@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { clickOutside } from '$utils/clickOutside.js';
 	import { page } from '$app/stores';
+	import { createEventDispatcher } from 'svelte';
 
 	export let navItem: {
 		text: string;
@@ -12,6 +13,8 @@
 			link: string;
 		}[];
 	};
+
+	const dispatch = createEventDispatcher();
 
 	let droppedDown = false;
 	let selected = false;
@@ -56,6 +59,7 @@
 					class:link-select={$page.url.pathname === dropdown.link}
 					on:click={() => {
 						droppedDown = false;
+						dispatch('close');
 					}}
 				>
 					<a href={dropdown.link}>{dropdown.text}</a>

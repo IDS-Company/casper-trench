@@ -58,7 +58,7 @@
 			{#each navItems as navItem}
 				<div class="nav-item">
 					{#if navItem.dropdown.length > 0}
-						<MobileNavDropdown {navItem} />
+						<MobileNavDropdown {navItem} on:close={close}/>
 					{:else}
 						<div class="text" class:selected={$page.url.pathname === navItem.link} on:click={close}>
 							<a href={navItem.link}>{navItem.text}</a>

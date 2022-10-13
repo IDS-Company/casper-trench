@@ -47,7 +47,7 @@
 
 <style lang="postcss">
 	.button {
-		@apply min-w-max h-max;
+		@apply w-full md:w-auto min-w-max h-max;
 		@apply text-[clamp(10px,1vw,1vw)];
 		@apply disabled:cursor-not-allowed cursor-pointer;
 	}
