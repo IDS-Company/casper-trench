@@ -40,9 +40,10 @@
 <style lang="postcss">
 	.filter {
 		@apply flex items-center;
-		@apply w-full md:w-[clamp(100px,34.58vw,34.58vw)] md:h-[clamp(10px,2.5vw,2.5vw)] rounded-r-[0.24vw] bg-color-filter-bg;
+		@apply md:w-[clamp(100px,34.58vw,34.58vw)] md:h-[clamp(10px,2.5vw,2.5vw)] rounded-r-[0.24vw] bg-color-filter-bg;
 		@apply text-[clamp(10px,0.83vw,0.83vw)] text-white;
 		@apply mb-4 md:mb-0;
+		@apply mx-4 md:mx-0;
 	}
 
 	.filter-dropdown {

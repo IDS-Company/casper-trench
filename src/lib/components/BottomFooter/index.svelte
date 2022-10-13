@@ -23,8 +23,8 @@
 
 <style lang="postcss">
 	.bottom-footer {
-		@apply relative py-[clamp(16px,3.21vw,3.21vw)] pl-[clamp(16px,3.75vw,3.75vw)] pr-[clamp(16px,9.94vw,9.94vw)];
-		@apply flex items-center justify-between;
+		@apply relative py-[clamp(16px,3.21vw,3.21vw)] md:pl-[clamp(16px,3.75vw,3.75vw)] md:pr-[clamp(16px,9.94vw,9.94vw)];
+		@apply flex items-center justify-between flex-col md:flex-row gap-4 md:gap-0;
 		@apply w-screen;
 	}
 
@@ -33,11 +33,12 @@
 	}
 
 	.darker {
-		@apply bg-black -z-10 bg-opacity-50;
+		@apply bg-black -z-10 bg-opacity-30 md:bg-opacity-50;
 	}
 
 	.versions {
 		@apply text-white text-[clamp(8px,0.65vw,0.65vw)];
+		@apply text-center md:text-left;
 	}
 
 	.logos {
@@ -45,10 +46,10 @@
 	}
 
 	.a-logo {
-		@apply w-[clamp(50px,8.39vw,8.39vw)] h-[clamp(25px,2.38vw,2.38vw)];
+		@apply h-5 md:w-[clamp(50px,8.39vw,8.39vw)] md:h-[clamp(25px,2.38vw,2.38vw)];
 	}
 
 	.c-logo {
-		@apply h-[clamp(25px,2.44vw,2.44vw)];
+		@apply h-8 md:h-[clamp(25px,2.44vw,2.44vw)];
 	}
 </style>

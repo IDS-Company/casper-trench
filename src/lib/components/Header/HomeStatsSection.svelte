@@ -94,8 +94,9 @@
 <style lang="postcss">
 	.home-stats-section {
 		@apply md:h-[clamp(100px,16.13vw,16.13vw)] md:w-[clamp(500px,92.44vw,92.44vw)];
-		@apply p-6 md:p-[clamp(10px,1.73vw,1.73vw)] rounded-[clamp(10px,1.19vw,1.19vw)] border-[clamp(1px,0.06vw,0.06vw)] border-color-border-header-stats border-opacity-50;
+		@apply p-4 md:p-[clamp(10px,1.73vw,1.73vw)] rounded-[clamp(10px,1.19vw,1.19vw)] border-[clamp(1px,0.06vw,0.06vw)] border-color-border-header-stats border-opacity-50;
 		@apply flex flex-col md:flex-row md:gap-[clamp(10px,1.43vw,1.43vw)] md:items-center backdrop-blur;
+		@apply mx-4 mb-4 md:mx-0 md:mb-0;
 	}
 
 	.stat-column {
@@ -125,19 +126,18 @@
 	}
 
 	.value {
-		@apply text-xl md:text-[clamp(14px,1.67vw,1.67vw)] text-white font-medium md:mb-[clamp(2px,0.4vw,0.4vw)];
+		@apply text-lg md:text-[clamp(14px,1.67vw,1.67vw)] text-white font-medium md:mb-[clamp(2px,0.4vw,0.4vw)];
 	}
 
 	.detail {
 		@apply text-sm md:text-[clamp(10px,1.07vw,1.07vw)] text-white;
 	}
 
-	.side {
-		@apply absolute;
-		@apply transform translate-x-[-1.5vw] translate-y-[-0.2vw];
-	}
-
 	.last-b {
 		@apply border-b-0;
+	}
+
+	.graph {
+		@apply mt-4 md:mt-0;
 	}
 </style>
