@@ -689,6 +689,6 @@
 	}
 
 	.time {
-		@apply max-w-[175px];
+		@apply max-w-[175px] md:max-w-none;
 	}
 </style>

@@ -3,6 +3,7 @@
 
 	import { page } from '$app/stores';
 	import BlockProofs from '$lib/components/Blocks/BlockProofs.svelte';
+	import MobileTransactionsTable from '$lib/components/Blocks/MobileTransactionsTable.svelte';
 	import TransactionsTable from '$lib/components/Blocks/TransactionsTable.svelte';
 	import Button from '$lib/components/Reusables/Button.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
@@ -156,18 +157,15 @@
 											<div class="text">
 												{validator?.name || ''}
 											</div>
-											<div class="verified-icon">
-												<VerifiedIcon />
-											</div>
+											{#if verified}
+												<div class="verified-icon">
+													<VerifiedIcon />
+												</div>
+											{/if}
 										</div>
 										<div class="hash">
 											<a href="/validators/{block.validatorPublicKey}">
-												{`${block.validatorPublicKey.substring(
-													0,
-													5
-												)}...${block.validatorPublicKey.substring(
-													block.validatorPublicKey.length - 5
-												)}`}
+												{block.validatorPublicKey}
 											</a>
 										</div>
 									</div>
@@ -310,11 +308,11 @@
 									<SwitchChevron />
 								</div>
 							</div>
-							{#if showTransfers}
-								<TransactionsTable {transfers} />
-							{/if}
 						</div>
 					</div>
+					{#if showTransfers}
+						<MobileTransactionsTable {transfers} />
+					{/if}
 					<div class="label mb-1">State Roof Hash</div>
 					<div class="value mb-4">
 						<div class="flex gap-4">
@@ -502,7 +500,7 @@
 	}
 
 	.time {
-		@apply max-w-[175px];
+		@apply max-w-[175px] md:max-w-none;
 	}
 
 	.extras {
