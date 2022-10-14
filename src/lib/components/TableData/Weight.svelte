@@ -40,7 +40,7 @@
 	}
 
 	.text {
-		@apply text-right text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-right text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[clamp(4px,0.71vw,0.71vw)];
 	}
 </style>

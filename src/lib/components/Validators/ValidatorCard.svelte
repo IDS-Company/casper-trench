@@ -103,9 +103,9 @@
 	}
 
 	.logo {
-		@apply w-[9.01vw] h-[9.01vw];
-		@apply p-[0.24vw];
-		@apply border-color-arcadia-green border-[clamp(1px,0.24vw,0.24vw)];
+		@apply w-[clamp(60px,9.01vw,9.01vw)] h-[clamp(60px,9.01vw,9.01vw)];
+		@apply p-[clamp(4px,0.24vw,0.24vw)];
+		@apply border-color-arcadia-green border-[clamp(2px,0.24vw,0.24vw)];
 		@apply rounded-full;
 		@apply relative;
 		@apply mb-[1.19vw];
@@ -122,7 +122,7 @@
 
 	.online-dot {
 		@apply absolute;
-		@apply w-[1.19vw] h-[1.19vw];
+		@apply w-[clamp(10px,1.19vw,1.19vw)] h-[clamp(10px,1.19vw,1.19vw)];
 		@apply bg-color-arcadia-green;
 		@apply rounded-full;
 		@apply bottom-0 right-0;

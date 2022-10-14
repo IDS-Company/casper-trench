@@ -36,7 +36,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Block</th>
+			<th class="blocky">Block</th>
 			<th>Era</th>
 			<th>Age</th>
 			<th>Transactions</th>
@@ -47,7 +47,7 @@
 		{#if blocks && blocks.length > 0}
 			{#each blocks as block}
 				<tr>
-					<td class="block">{block.blockHeight.toLocaleString('en')}</td>
+					<td class="blocky">{block.blockHeight.toLocaleString('en')}</td>
 					<td>{block.eraID.toLocaleString('en')}</td>
 					<td
 						>{`${timeAgo(
@@ -56,7 +56,14 @@
 					>
 					<td>{block.deploys}</td>
 					<td>{block.transfers}</td>
-					<td class="hash right"> <a href="/blocks/{block.blockHash}"> {block.blockHash}</a></td>
+					<td class="hash right">
+						<a href="/blocks/{block.blockHash}" class="hidden md:block"> {block.blockHash}</a>
+						<a href="/blocks/{block.blockHash}" class="md:hidden">
+							{`${block.blockHash.substring(0, 10)}...${block.blockHash.substring(
+								block.blockHash.length - 10
+							)}`}</a
+						>
+					</td>
 				</tr>
 			{/each}
 		{/if}
@@ -82,17 +89,17 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
