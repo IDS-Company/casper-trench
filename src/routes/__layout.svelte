@@ -39,9 +39,9 @@
 
 <Toast />
 
-<!-- {#if $isLoading}
+{#if $isLoading}
 	<SvelteLoader />
-{/if} -->
+{/if}
 <style lang="postcss">
 	main {
 		@apply max-w-[100vw] overflow-x-auto flex-grow;

@@ -176,6 +176,25 @@
 					}}
 				/>
 			</div>
+			<div class="date hidden md:block">
+				{`${formatDate(dateFrom)} - ${formatDate(dateTo)}`}
+			</div>
+			<div class="hidden md:block">
+				<div class="total">
+					<div class="label">Total TX Account</div>
+					<div class="value">
+						{totalTxAccount}
+					</div>
+				</div>
+			</div>
+			<LimitDropdown
+				bind:limit
+				on:change={() => {
+					updateSankey(false);
+				}}
+			/>
+		</div>
+		<div class="mobile footer">
 			<div class="date">
 				{`${formatDate(dateFrom)} - ${formatDate(dateTo)}`}
 			</div>
@@ -185,12 +204,6 @@
 					{totalTxAccount}
 				</div>
 			</div>
-			<LimitDropdown
-				bind:limit
-				on:change={() => {
-					updateSankey(false);
-				}}
-			/>
 		</div>
 	{/await}
 </div>
@@ -219,7 +232,7 @@
 
 	.footer {
 		@apply flex items-center justify-between;
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-black-text;
 		@apply mt-[clamp(16px,1.07vw,1.07vw)];
 		@apply w-full;
 	}
@@ -241,5 +254,9 @@
 
 	.total {
 		@apply flex gap-[clamp(16px,1.07vw,1.07vw)];
+	}
+
+	.mobile {
+		@apply flex md:hidden justify-between;
 	}
 </style>
