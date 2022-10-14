@@ -72,13 +72,13 @@
 	<table>
 		<tr>
 			<th class="blocky">Package Hash</th>
-			<th>Name</th>
+			<!-- <th>Name</th>
 			<th
 				><div class="sorter">
 					<div class="text">Type</div>
 					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
 				</div></th
-			>
+			> -->
 			<th>Age</th>
 			<th
 				><div class="sorter">
@@ -91,7 +91,7 @@
 					/>
 				</div></th
 			>
-			<th><div class="flex justify-end">Contract Owner</div></th>
+			<!-- <th><div class="flex justify-end">Contract Owner</div></th> -->
 		</tr>
 		<div class="divider table-header-border" />
 		{#each contracts as contract}
@@ -102,15 +102,15 @@
 							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 						</a>
 					</td>
-					<td class="grey">{contract.name || ''}</td>
-					<td>{contract.type || ''}</td>
+					<!-- <td class="grey">{contract.name || ''}</td> -->
+					<!-- <td>{contract.type || ''}</td> -->
 					<td>
 						<div class="grey">
 							{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 						</div>
 					</td>
 					<td>{contract.transactions}</td>
-					<td class="grey">
+					<!-- <td class="grey">
 						<div class="flex justify-end">
 							{#if contract.owner}
 								<a href="/accounts/{contract.owner}">
@@ -120,7 +120,7 @@
 								System
 							{/if}
 						</div>
-					</td>
+					</td> -->
 				</tr>
 			{:else if contract.type !== null}
 				{#if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
@@ -183,7 +183,7 @@
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
-		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max whitespace-nowrap;
 	}
 
 	.blocky {
