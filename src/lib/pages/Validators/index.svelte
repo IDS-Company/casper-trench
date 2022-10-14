@@ -118,14 +118,16 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
+		@apply whitespace-nowrap;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply whitespace-nowrap;
 	}
 
 	.grey {
@@ -149,7 +151,7 @@
 
 	.performance {
 		@apply text-center;
-		@apply flex justify-center gap-[0.48vw];
+		@apply flex justify-center gap-[clamp(8px,0.48vw,0.48vw)];
 	}
 
 	.network-perc {
@@ -166,6 +168,6 @@
 	}
 
 	.header-wrapper {
-		@apply flex items-center gap-[0.48vw];
+		@apply flex items-center gap-[clamp(8px,0.48vw,0.48vw)];
 	}
 </style>

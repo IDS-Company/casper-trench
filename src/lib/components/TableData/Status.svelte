@@ -9,7 +9,7 @@
 
 <style lang="postcss">
 	.status {
-		@apply text-[clamp(10px,0.95vw,0.95vw)] text-white;
+		@apply text-[clamp(14px,0.95vw,0.95vw)] text-white;
 		@apply py-[clamp(2px,0.24vw,0.24vw)] px-[clamp(4px,0.4vw,0.4vw)];
 		@apply max-w-max;
 		@apply rounded-full;

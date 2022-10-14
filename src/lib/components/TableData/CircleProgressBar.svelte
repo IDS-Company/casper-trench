@@ -35,13 +35,13 @@
 	}
 
 	.progress-circle {
-		@apply w-[clamp(10px,1.3vw,1.3vw)] h-[clamp(10px,1.3vw,1.3vw)];
+		@apply w-[clamp(14px,1.3vw,1.3vw)] h-[clamp(14px,1.3vw,1.3vw)];
 		@apply transition-all duration-500 ease-in will-change-transform;
 		@apply rounded-full;
 		background: var(--background);
 	}
 
 	.value {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 </style>
