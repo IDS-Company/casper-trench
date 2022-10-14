@@ -237,7 +237,7 @@
 
 	.validator-hash > img {
 		@apply rounded-full;
-		@apply h-full;
+		@apply h-5 md:h-full;
 	}
 
 	.input-wrapper {

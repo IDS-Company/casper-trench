@@ -33,7 +33,7 @@
 	}
 
 	.label {
-		@apply text-color-grey-footer-label text-[clamp(12px,0.83vw,0.83v)];
+		@apply text-color-grey-footer-label text-[clamp(14px,0.83vw,0.83vw)];
 		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
 	}
 
@@ -44,7 +44,7 @@
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.input > input {
@@ -54,7 +54,7 @@
 
 	.input {
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-black-text;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply flex items-center justify-between;
 		@apply mb-[clamp(4px,0.71vw,0.71vw)];
