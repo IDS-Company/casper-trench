@@ -53,7 +53,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="grey" noOfCharacters={20} hash={$account?.publicKey || ''} />
+			><div class="md:hidden">
+				<Hash start color="grey" noOfCharacters={5} hash={$account?.publicKey || ''} />
+			</div>
+			<div class="hidden md:block">
+				<Hash start color="grey" noOfCharacters={20} hash={$account?.publicKey || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if $account?.publicKey}
 					<CopyIcon text={$account?.publicKey || ''} />
@@ -98,24 +103,43 @@
 				editValidator = true;
 			}}
 		>
-			<div class="validator-hash">
-				<img src={validatorImg} alt="validator" />
-				<Hash color="black" noOfCharacters={10} hash={validatorPublicKey || ''} />
-				<div class="copy-icon">
-					{#if validatorPublicKey}
-						<CopyIcon text={validatorPublicKey || ''} />
-					{/if}
+			<div class="flex items-center justify-between">
+				<div class="validator-hash">
+					<img src={validatorImg} alt="validator" />
+					<div class="hidden md:block">
+						<Hash color="black" noOfCharacters={10} hash={validatorPublicKey || ''} />
+					</div>
+					<div class="md:hidden">
+						<Hash color="black" noOfCharacters={16} hash={validatorPublicKey || ''} />
+					</div>
+					<div class="copy-icon">
+						{#if validatorPublicKey}
+							<CopyIcon text={validatorPublicKey || ''} />
+						{/if}
+					</div>
+				</div>
+				<div class="validator-cspr hidden md:block">
+					<div class="cspr">
+						<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
+					</div>
+					<div class="perc">({numberOfDelegators} delegators)</div>
+				</div>
+				<div class="validator-cspr hidden md:block">
+					<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
+					<div class="perc">({Math.round(validatorCSPRPerc * 100)}%)</div>
 				</div>
 			</div>
-			<div class="validator-cspr">
-				<div class="cspr">
-					<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
+			<div class="flex md:hidden w-full">
+				<div class="validator-cspr w-full">
+					<div class="cspr">
+						<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
+					</div>
+					<div class="perc">({numberOfDelegators} delegators)</div>
 				</div>
-				<div class="perc">({numberOfDelegators} delegators)</div>
-			</div>
-			<div class="validator-cspr">
-				<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
-				<div class="perc">({Math.round(validatorCSPRPerc * 100)}%)</div>
+				<div class="validator-cspr w-full">
+					<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
+					<div class="perc">({Math.round(validatorCSPRPerc * 100)}%)</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -166,7 +190,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
+		@apply text-color-table-header font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
 	}
 
@@ -175,8 +199,8 @@
 	}
 
 	.sign-in-alert {
-		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)] text-color-black-text;
+		@apply flex md:items-center gap-[clamp(4px,0.6vw,0.6vw)];
+		@apply text-[clamp(14px,0.77vw,0.77vw)] text-color-black-text;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
 		@apply bg-color-tranfer-det-green;
 		@apply rounded-[0.24vh] md:rounded-[0.24vw];
@@ -184,22 +208,21 @@
 	}
 
 	.sign-in-alert > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-6 h-6 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.value {
 		@apply bg-color-sender-background;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
-		@apply flex items-center justify-between;
 		@apply border-color-sender-background border-[clamp(1px,0.12vw,0.12vw)];
 	}
 
@@ -228,7 +251,7 @@
 
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(14px,0.77vw,0.77vw)];
 	}
 
 	.terms,
@@ -249,7 +272,7 @@
 	}
 
 	.terms {
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 	}
 
 	.header {
@@ -259,7 +282,7 @@
 	}
 
 	.header > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.green {
@@ -269,13 +292,13 @@
 
 	.fee {
 		@apply flex justify-between items-center;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
 		@apply border-t-color-transfer-details-border border-t-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-bold;
 	}
 
 	.right {
