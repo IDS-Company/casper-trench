@@ -70,4 +70,8 @@
 		@apply text-color-black-text;
 		@apply bg-transparent;
 	}
+
+	.chevron {
+		@apply w-3 md:w-[0.73vw];
+	}
 </style>
