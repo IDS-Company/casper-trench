@@ -120,7 +120,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
+		@apply text-color-table-header font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
 	}
 
@@ -131,7 +131,7 @@
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.value {
@@ -166,7 +166,7 @@
 	}
 
 	.cspr {
-		@apply text-[clamp(10px,0.71vw,0.71vw)] leading-none;
+		@apply text-[clamp(12px,0.71vw,0.71vw)] leading-none;
 		@apply flex items-center justify-end gap-[clamp(4px,0.24vw,0.24vw)];
 	}
 
@@ -175,7 +175,7 @@
 	}
 
 	.terms {
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 	}
 
@@ -186,13 +186,13 @@
 
 	.fee {
 		@apply flex justify-between items-center;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
 		@apply border-b-color-transfer-details-border border-b-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-bold;
 	}
 
 	.right {
@@ -214,10 +214,10 @@
 	}
 
 	.bot-alert > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.bot-alert > .text {
-		@apply text-[clamp(12px,0.83vw,0.83vw)] text-color-table-header font-medium;
+		@apply text-[clamp(14px,0.83vw,0.83vw)] text-color-table-header font-medium;
 	}
 </style>

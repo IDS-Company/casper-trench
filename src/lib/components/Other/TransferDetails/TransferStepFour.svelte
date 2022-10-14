@@ -218,7 +218,7 @@
 	}
 
 	.home-button {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-medium;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-medium;
 		@apply mt-[clamp(16px,2.08vw,2.08vw)];
 	}
 </style>

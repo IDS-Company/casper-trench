@@ -19,7 +19,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={deployHash || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientHash || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientHash || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if deployHash}
 					<CopyIcon text={deployHash || ''} />
@@ -35,7 +40,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientPublicKey || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if recipientPublicKey}
 					<CopyIcon text={recipientPublicKey || ''} />
@@ -51,7 +61,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientAccountHash || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if recipientAccountHash}
 					<CopyIcon text={recipientAccountHash || ''} />
