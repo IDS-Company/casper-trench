@@ -23,6 +23,7 @@
 	let showRawData = false;
 	let deployResult;
 	let toDownload;
+	let verified = false;
 
 	onMount(async () => {
 		$isLoading = true;
@@ -36,14 +37,18 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
 		integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
 		crossorigin="anonymous"
-		referrerpolicy="no-referrer"></script>
+		referrerpolicy="no-referrer"
+	></script>
 </svelte:head>
 
 <div class="transaction-details">
 	<div class="top">
-		<span class="green cursor-pointer" on:click={() => {
-			goto('/transactions');
-		}}>Transactions</span> / Transaction Details
+		<span
+			class="green cursor-pointer"
+			on:click={() => {
+				goto('/transactions');
+			}}>Transactions</span
+		> / Transaction Details
 	</div>
 	{#if deployResult}
 		<div class="wrapper" bind:this={toDownload}>
@@ -97,9 +102,9 @@
 			</div>
 
 			<div class="details">
-				<table class="extras">
+				<table class="extras hidden md:block">
 					<tr>
-						<td class="label">Transactions Hash</td>
+						<td class="label">Transaction Hash</td>
 						<td class="value">{deployResult?.deploy?.hash}</td>
 					</tr>
 
@@ -143,9 +148,11 @@
 											<div class="text">
 												{validator?.name || ''}
 											</div>
-											<div class="verified-icon">
-												<VerifiedIcon />
-											</div>
+											{#if verified}
+												<div class="verified-icon">
+													<VerifiedIcon />
+												</div>
+											{/if}
 										</div>
 										<div class="hash">
 											<a href="/validators/{deployResult?.deploy?.header?.account}">
@@ -183,9 +190,11 @@
 												<div class="text">
 													{validator?.name || ''}
 												</div>
-												<div class="verified-icon">
-													<VerifiedIcon />
-												</div>
+												{#if verified}
+													<div class="verified-icon">
+														<VerifiedIcon />
+													</div>
+												{/if}
 											</div>
 											<div class="hash">
 												<a
@@ -292,6 +301,202 @@
 					</tr>
 				</table>
 			</div>
+			<div class="mobile-stuff">
+				<div class="label mb-1">Transaction Hash</div>
+				<div class="value mb-4">
+					<div class="flex gap-4">
+						<div class="text">
+							{`${deployResult?.deploy?.hash.substring(
+								0,
+								16
+							)}...${deployResult?.deploy?.hash.substring(deployResult?.deploy?.hash.length - 16)}`}
+						</div>
+						<div class="copy-icon">
+							<CopyIcon text={deployResult?.deploy?.hash} />
+						</div>
+					</div>
+				</div>
+				<div class="label mb-1">Block Hash</div>
+				<div class="value mb-4">
+					<div class="flex gap-4">
+						<div class="text">
+							{`${deployResult?.execution_results[0]?.block_hash.substring(
+								0,
+								16
+							)}...${deployResult?.execution_results[0]?.block_hash.substring(
+								deployResult?.execution_results[0]?.block_hash.length - 16
+							)}`}
+						</div>
+						<div class="copy-icon">
+							<CopyIcon text={deployResult?.execution_results[0]?.block_hash} />
+						</div>
+					</div>
+				</div>
+				<div class="flex justify-between">
+					<div class="label mb-1">Timestamp</div>
+					<div class="value mb-4">
+						<div class="time">{new Date(deployResult?.deploy?.header?.timestamp)}</div>
+						<div class="ago">
+							{`${timeAgo(
+								millisToFormat(Date.now() - Date.parse(deployResult?.deploy?.header?.timestamp))
+							)} ago`}
+						</div>
+					</div>
+				</div>
+				<div class="label mb-1">From (Public Key)</div>
+				<div class="value mb-4">
+					{#await getValidatorDetails(deployResult?.deploy?.header?.account)}
+						<div class="validator validator-placeholder" />
+					{:then validator}
+						<div class="validator">
+							<div class="logo">
+								{#if validator?.icon}
+									<img src={validator?.icon} alt="validator-icon" />
+								{:else}
+									<div class="image-placeholder">
+										<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+									</div>
+								{/if}
+							</div>
+							<div class="dets">
+								<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+									<div class="text">
+										{validator?.name || ''}
+									</div>
+									{#if verified}
+										<div class="verified-icon">
+											<VerifiedIcon />
+										</div>
+									{/if}
+								</div>
+								<div class="hash">
+									<a href="/validators/{deployResult?.deploy?.header?.account}">
+										{`${deployResult?.deploy?.header?.account.substring(
+											0,
+											16
+										)}...${deployResult?.deploy?.header?.account.substring(
+											deployResult?.deploy?.header?.account.length - 16
+										)}`}
+									</a>
+								</div>
+							</div>
+						</div>
+					{/await}
+				</div>
+				<div class="label mb-1">To (Public Key)</div>
+				{#if deployResult?.deploy?.session?.Transfer}
+					<div class="value mb-4">
+						{#await getValidatorDetails(deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed)}
+							<div class="validator validator-placeholder" />
+						{:then validator}
+							<div class="validator">
+								<div class="logo">
+									{#if validator?.icon}
+										<img src={validator?.icon} alt="validator-icon" />
+									{:else}
+										<div class="image-placeholder">
+											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
+										</div>
+									{/if}
+								</div>
+								<div class="dets">
+									<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
+										<div class="text">
+											{validator?.name || ''}
+										</div>
+										{#if verified}
+											<div class="verified-icon">
+												<VerifiedIcon />
+											</div>
+										{/if}
+									</div>
+									<div class="hash">
+										<a
+											href="/validators/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
+												?.parsed}"
+										>
+											{`${deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed.substring(
+												0,
+												16
+											)}...${deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed.substring(
+												deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed.length - 16
+											)}`}
+										</a>
+									</div>
+								</div>
+							</div>
+						{/await}
+					</div>
+				{/if}
+				<div class="flex justify-between">
+					<div class="label mb-1">Value</div>
+					<div class="value mb-4">
+						<BalanceTransferrable
+							cspr={parseStringValue(
+								deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+									deployResult?.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
+									deployResult.deploy?.session?.ModuleBytes?.args[7]?.[1]?.parsed ||
+									0
+							)}
+						/>
+					</div>
+				</div>
+				<div class="flex justify-between">
+					<div class="label mb-1">Transaction Fee</div>
+					<div class="value mb-4">
+						<BalanceTransferrable
+							cspr={parseStringValue(deployResult?.execution_results[0].result.Success.cost)}
+						/>
+					</div>
+				</div>
+				<div class="flex justify-between">
+					<div class="label mb-1">Gas Price</div>
+					<div class="value mb-4">
+						{deployResult?.deploy?.header?.gas_price} motes
+					</div>
+				</div>
+				<div class="flex justify-between">
+					<div class="label mb-1">TTL</div>
+					<div class="value mb-4">
+						{deployResult?.deploy?.header?.ttl}
+					</div>
+				</div>
+				<div class="flex justify-between">
+					<div class="label mb-1">Raw Data</div>
+					<div class="value">
+						<div
+							class="proofs-button green"
+							on:click={() => {
+								showRawData = !showRawData;
+							}}
+						>
+							<div class="text">
+								{#if !showRawData}
+									Show
+								{:else}
+									Hide
+								{/if}
+							</div>
+							<div class="eye-icon">
+								{#if !showRawData}
+									<div transition:slide>
+										<EyeIcon />
+									</div>
+								{:else}
+									<div transition:slide>
+										<CrossedEyeIcon />
+									</div>
+								{/if}
+							</div>
+						</div>
+					</div>
+				</div>
+				{#if deployResult && showRawData}
+					<div class="raw-data" transition:slide>
+						<TreeToggle text="" data={deployResult} />
+					</div>
+				{/if}
+			</div>
 		</div>
 	{/if}
 </div>
@@ -303,6 +508,7 @@
 
 	.top {
 		@apply mb-[clamp(8px,1.43vw,1.43vw)];
+		@apply hidden md:block;
 	}
 
 	.green {
@@ -323,6 +529,11 @@
 		@apply absolute top-[clamp(16px,1.79vw,1.79vw)] right-[clamp(16px,2.38vw,2.38vw)];
 		@apply w-[clamp(20px,2.86vw,2.86vw)];
 		@apply cursor-pointer;
+		@apply hidden md:block;
+	}
+
+	.mobile-stuff {
+		@apply md:hidden w-full;
 	}
 
 	.green {
@@ -330,14 +541,13 @@
 	}
 
 	.label {
-		@apply font-bold text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply md:min-w-[14.11vw];
 	}
 
 	.value {
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply flex flex-col gap-[0.24vw];
-		@apply w-full;
 	}
 
 	td {
@@ -409,21 +619,20 @@
 	}
 
 	.eye-icon {
-		@apply w-[1.19vh] md:w-[1.19vw];
+		@apply w-3 md:w-[1.19vw];
 	}
 
 	.copy-icon {
-		@apply w-[1.5vh] md:w-[1.5vw];
+		@apply w-5 md:w-[1.5vw];
 	}
 
 	.proofs-button {
-		@apply flex items-center gap-[0.3vw];
-		@apply px-[clamp(6px,0.71vw,0.71vw)];
+		@apply flex items-center gap-[clamp(4px,0.3vw,0.3vw)];
+		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
-		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply rounded-[4px] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
-		@apply min-h-[2.4vw];
 	}
 
 	.status {
@@ -431,11 +640,11 @@
 	}
 
 	.icon {
-		@apply w-[clamp(24px,7.5vw,7.5vw)] h-[clamp(24px,7.5vw,7.5vw)];
+		@apply w-[clamp(95px,7.5vw,7.5vw)] h-[clamp(95px,7.5vw,7.5vw)];
 	}
 
 	.status-text {
-		@apply uppercase text-color-arcadia-red font-bold text-[clamp(16px,1.43vw,1.43vw)];
+		@apply uppercase text-color-arcadia-red font-bold text-[clamp(14px,1.43vw,1.43vw)];
 		@apply mb-[clamp(8px,0.71vw,0.71vw)];
 	}
 
@@ -449,7 +658,7 @@
 	}
 
 	.amount > .value {
-		@apply text-[clamp(32px,2.86vw,2.86vw)] font-bold;
+		@apply text-[clamp(28px,2.86vw,2.86vw)] font-bold;
 	}
 
 	.amount > .cspr {
@@ -465,25 +674,6 @@
 		@apply overflow-x-auto;
 	}
 
-	/* pre {
-		@apply overflow-y-auto;
-		@apply max-h-[25.76vw];
-	}
-
-	pre::-webkit-scrollbar {
-		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
-	}
-
-	pre::-webkit-scrollbar-track {
-		@apply bg-transparent;
-	}
-
-	pre::-webkit-scrollbar-thumb {
-		@apply bg-color-tooltip-border;
-		@apply rounded-[0.77vh] md:rounded-[0.77vw];
-		@apply pr-[clamp(4px,0.48vw,0.48vw)];
-	} */
-
 	.raw-buttons {
 		@apply flex items-center gap-[clamp(4px,0.54vw,0.54vw)];
 	}
@@ -496,5 +686,9 @@
 		@apply max-w-max;
 		@apply cursor-pointer;
 		@apply min-h-[2.4vw];
+	}
+
+	.time {
+		@apply max-w-[175px];
 	}
 </style>
