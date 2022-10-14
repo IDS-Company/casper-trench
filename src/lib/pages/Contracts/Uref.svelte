@@ -16,7 +16,12 @@
 			</div>
 			<div class="value">
 				<div class="text">
-					{$page.params?.hash}
+					<div class="md:hidden">
+						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring($page.params?.hash.length - 20)}`}
+					</div>
+					<div class="hidden md:block">
+						{$page.params?.hash}
+					</div>
 				</div>
 				<div class="copy-icon">
 					<CopyIcon text={$page.params?.hash} />
@@ -39,12 +44,12 @@
 	}
 
 	.address > .title {
-		@apply font-bold text-[clamp(16px,1.19vw,1.19vw)];
+		@apply font-bold text-[clamp(14px,1.19vw,1.19vw)];
 		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
 	}
 
 	.address > .value {
-		@apply text-[clamp(8px,0.95vw,0.95vw)];
+		@apply text-[clamp(12px,0.95vw,0.95vw)];
 	}
 
 	.copy-icon {
@@ -53,7 +58,7 @@
 	}
 
 	.header {
-		@apply flex gap-[clamp(4px,1.31vw,1.31vw)] max-h-max;
+		@apply flex items-center md:items-start gap-[clamp(12px,1.31vw,1.31vw)] max-h-max;
 		@apply mb-[1.79vw];
 	}
 
