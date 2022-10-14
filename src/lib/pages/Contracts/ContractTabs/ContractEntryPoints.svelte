@@ -17,7 +17,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Name</th>
+			<th class="blocky">Name</th>
 			<th>Signature</th>
 			<th class="right">Access</th>
 			<th class="right">Execution Context</th>
@@ -26,12 +26,12 @@
 		{#if entryPoints && entryPoints.length > 0}
 			{#each entryPoints as entryPoint}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						{entryPoint.name}
 					</td>
 					<td>
 						({#each entryPoint.args as arg}
-                            <span class="data-type md:m-[0.15vw]">
+                            <span class="data-type">
                                 {arg.name} <span class="green">
                                     {arg.cl_type}
                                 </span>
@@ -74,22 +74,22 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
 	.total {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
 	}
 
@@ -98,18 +98,18 @@
 	}
 
     .data-type {
-        @apply text-[clamp(10px,0.95vw,0.95vw)];
+        @apply text-[clamp(12px,0.95vw,0.95vw)];
 		@apply bg-color-ago-background;
-		@apply p-[clamp(4px,0.3vw,0.3vw)];
+		@apply p-[clamp(4px,0.3vw,0.3vw)] m-[clamp(4px,0.15vw,0.15vw)];
 		@apply max-w-max;
     }
 
     .globe > .icon {
-        @apply md:w-[0.95vw] md:h-[0.95vw];
+        @apply h-4 md:w-[0.95vw] md:h-[0.95vw];
     }
 
     .globe {
-        @apply flex items-center md:gap-[0.83vw] justify-end;
+        @apply flex items-center gap-[clamp(8px,0.83vw,0.83vw)] justify-end;
     }
 
     .right {

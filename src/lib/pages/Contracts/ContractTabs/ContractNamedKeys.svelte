@@ -44,14 +44,14 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Key</th>
+			<th class="blocky">Key</th>
 			<th>Value</th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#if keys && keys.length > 0}
 			{#each keys as key}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						{key.name}
 					</td>
 					<td class='green'>
@@ -82,22 +82,22 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[4vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,4vw,4vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[4vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[clamp(16px,4vw,4vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
 	.total {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
 	}
 
