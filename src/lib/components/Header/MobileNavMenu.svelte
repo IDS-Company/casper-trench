@@ -87,14 +87,13 @@
 		height: 100vh;
 		width: 100vw;
 		transition: all 0.5s ease;
+		background-image: url('/images/png/rounds.png');
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 
 	.nav {
 		@apply flex flex-col px-4 py-4 text-sm;
-
-		background-image: url('/images/png/rounds.png');
-		background-repeat: no-repeat;
-		background-size: cover;
 	}
 
 	.bg {

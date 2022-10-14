@@ -71,7 +71,7 @@
 	<div class="title">Contracts</div>
 	<table>
 		<tr>
-			<th class="block">Package Hash</th>
+			<th class="blocky">Package Hash</th>
 			<th>Name</th>
 			<th
 				><div class="sorter">
@@ -97,7 +97,7 @@
 		{#each contracts as contract}
 			{#if selectedFilter === -1}
 				<tr>
-					<td class="block hash">
+					<td class="blocky hash">
 						<a href="/contract-package/{contract.packageHash}">
 							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
 						</a>
@@ -172,29 +172,29 @@
 	}
 
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply text-left whitespace-nowrap;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
 	.grey {
-		@apply text-color-grey-footer-label;
+		@apply text-color-grey-footer-label min-w-max whitespace-nowrap;
 	}
 
 	.hash {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link min-w-max;
 	}
 </style>
