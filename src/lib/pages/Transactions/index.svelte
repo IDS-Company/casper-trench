@@ -49,7 +49,7 @@
 	<div class="title">Transactions</div>
 	<table>
 		<tr>
-			<th class="block">Tx Hash</th>
+			<th class="blocky">Tx Hash</th>
 			<th class="">Block Hash</th>
 			<th class="">Public Key</th>
 			<th class="center sorter">
@@ -68,7 +68,7 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						<div class="wrapper-center">
 							<a href="/transactions/{transaction.deployHash}">
 								<TxHash
@@ -132,17 +132,19 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
+		@apply whitespace-nowrap;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply whitespace-nowrap;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
@@ -173,8 +175,5 @@
 	.wrapper-center {
 		@apply flex items-center;
 		@apply md:h-[3vw];
-	}
-	td > .loader {
-		@apply w-full h-[clamp(10px,1.2vw,1.2vw)] rounded-[clamp(2px,0.1vw,0.1vw)] animate-pulse bg-gray-200;
 	}
 </style>

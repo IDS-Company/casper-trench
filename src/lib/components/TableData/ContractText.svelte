@@ -15,7 +15,7 @@
 
 <style lang="postcss">
 	.contract-text {
-		@apply text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.type {
