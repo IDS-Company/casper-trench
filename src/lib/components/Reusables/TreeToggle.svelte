@@ -116,7 +116,7 @@
 	.jv-toggle {
 		@apply bg-[url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjE2IiB3aWR0aD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjNjY2IiBkPSJNMCAwbDggOC04IDh6Ii8+PC9zdmc+)] bg-no-repeat bg-contain bg-center;
 		@apply cursor-pointer;
-		@apply w-[0.52vh] h-[0.52vh] md:w-[0.52vw] md:h-[0.52vw];
+		@apply w-[8px] h-[8px] md:w-[0.52vw] md:h-[0.52vw];
 		@apply mr-[0.1vw];
 		@apply inline-block;
 		@apply transition-all;

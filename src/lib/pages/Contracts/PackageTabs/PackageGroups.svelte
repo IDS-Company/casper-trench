@@ -24,14 +24,14 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Group</th>
+			<th class="blocky">Group</th>
 			<th>Key</th>
 		</tr>
 		<div class="divider table-header-border" />
 		{#if groups && groups.length > 0}
 			{#each groups as group}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						{group.group}
 					</td>
 					<td>
@@ -60,17 +60,17 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[4vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,4vw,4vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[4vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[clamp(16px,4vw,4vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 

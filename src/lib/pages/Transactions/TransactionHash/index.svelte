@@ -155,7 +155,7 @@
 											{/if}
 										</div>
 										<div class="hash">
-											<a href="/validators/{deployResult?.deploy?.header?.account}">
+											<a href="/accounts/{deployResult?.deploy?.header?.account}">
 												{deployResult?.deploy?.header?.account}
 											</a>
 											<div>
@@ -198,7 +198,7 @@
 											</div>
 											<div class="hash">
 												<a
-													href="/validators/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
+													href="/accounts/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
 														?.parsed}"
 												>
 													{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed}</a
@@ -370,7 +370,7 @@
 									{/if}
 								</div>
 								<div class="hash">
-									<a href="/validators/{deployResult?.deploy?.header?.account}">
+									<a href="/accounts/{deployResult?.deploy?.header?.account}">
 										{`${deployResult?.deploy?.header?.account.substring(
 											0,
 											16
@@ -412,7 +412,7 @@
 									</div>
 									<div class="hash">
 										<a
-											href="/validators/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
+											href="/accounts/{deployResult?.deploy?.session?.Transfer?.args[1]?.[1]
 												?.parsed}"
 										>
 											{`${deployResult?.deploy?.session?.Transfer?.args[1]?.[1]?.parsed.substring(
