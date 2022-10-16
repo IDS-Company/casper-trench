@@ -2,7 +2,7 @@
 	import { scale } from 'svelte/transition';
 
 	export let hash = '';
-	export let variant: 'center' | 'right' | 'righter' = 'center';
+	export let variant: 'center' | 'right' | 'righter' | 'left' = 'center';
 	export let color: 'green' | 'yellow' | 'text' | 'black' | 'grey' = 'text';
 	export let noOfCharacters = 5;
 	export let start = false;
@@ -15,6 +15,7 @@
 	class="tooltip hash tooltip-icon {color}"
 	class:right={variant == 'right'}
 	class:righter={variant == 'righter'}
+	class:left={variant == 'left'}
 	class:bold
 	style={`--tooltip: '${hash}'`}
 	on:mouseenter={() => (showHash = true)}
@@ -98,6 +99,10 @@
 
 	.righter::before {
 		@apply translate-x-[90px] md:translate-x-[10vw];
+	}
+
+	.left::before {
+		@apply translate-x-[-90px] md:translate-x-[-10vw];
 	}
 
 	.bold {

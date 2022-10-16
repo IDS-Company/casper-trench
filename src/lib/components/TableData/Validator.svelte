@@ -5,7 +5,7 @@
 	export let imgUrl: string;
 	export let name: string;
 	export let hash: string;
-	export let variant: 'center' | 'right' | 'righter' = 'right';
+	export let variant: 'center' | 'right' | 'righter' | 'left' = 'right';
 	export let notValidator = false;
 	export let start = false;
 	export let noOfCharacters = 5;

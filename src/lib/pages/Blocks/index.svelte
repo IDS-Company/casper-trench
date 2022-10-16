@@ -128,9 +128,10 @@
 										imgUrl={validator.icon}
 										name={validator.name}
 										hash={block.validatorPublicKey}
+										variant='left'
 									/>
 								{:else}
-									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
+									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} variant='left'/>
 								{/if}
 							{/await}
 						</div>
