@@ -35,7 +35,7 @@
 			  name: "total_supply",
 			  key: "uref-231b1455f850ccf5770af12ebe32456726573d5cdf1a9f33bd547844a0788de4-003"
 			}
-		  ],;
+		  ];
 </script>
 
 <div class="delegators-tab">

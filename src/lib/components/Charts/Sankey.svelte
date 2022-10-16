@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { getLatestBlocks, getLatestChainState, getTransferFlow } from '$utils/api';
+	import { getLatestChainState, getTransferFlow } from '$utils/api';
 	import { externalSankeyTooltipHandler } from '$utils/tooltip';
 	import { truncateString } from '$utils/truncate';
-	import type { Block } from '$utils/types/block';
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import EraSlider from './EraSlider.svelte';
 	import LimitDropdown from './LimitDropdown.svelte';
 
 	let ctx: HTMLCanvasElement;
+	let ua: string;
 	let chart;
 	let pan = false;
 	let transferFlow: TransferFlow;
@@ -29,8 +29,14 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		Chart.defaults.font.size = 14;
-		Chart.defaults.font.lineHeight = 26;
+		ua = navigator.userAgent;
+		if (ua.toLowerCase().includes('mobile')) {
+			Chart.defaults.font.size = 0;
+			Chart.defaults.font.lineHeight = 0;
+		} else {
+			Chart.defaults.font.size = 14;
+			Chart.defaults.font.lineHeight = 26;
+		}
 		updateSankey(true);
 	});
 
@@ -257,6 +263,6 @@
 	}
 
 	.mobile {
-		@apply flex md:hidden justify-between;
+		@apply md:hidden justify-between flex-col;
 	}
 </style>
