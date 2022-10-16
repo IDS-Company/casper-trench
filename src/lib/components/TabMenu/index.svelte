@@ -41,13 +41,13 @@
 	}
 
 	.option {
-		@apply px-[clamp(8px,0.6vw,0.6vw)];
+		@apply px-[clamp(8px,0.6vw,0.6vw)] max-w-max;
 		@apply cursor-pointer;
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
 	}
 
 	.text {
-		@apply px-[clamp(10px,2.14vw,2.14vw)] py-[clamp(8px,1.19vw,1.19vw)];
+		@apply px-[clamp(10px,2.14vw,2.14vw)] py-[clamp(8px,1.19vw,1.19vw)] max-w-max;
 	}
 
 	.selected {
