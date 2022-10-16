@@ -167,18 +167,18 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(24px,1vw,1vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left min-w-max;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(24px,1vw,1vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
 	.blocky {
-		@apply px-0;
+		@apply px-0 pr-[clamp(24px,1vw,1vw)];
 	}
 
 	.wrapper {

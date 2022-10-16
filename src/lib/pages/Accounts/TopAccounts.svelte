@@ -156,14 +156,14 @@
 	th {
 		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2.4vw,2.4vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left;
+		@apply text-left whitespace-nowrap min-w-max;
 		/* @apply flex flex-row; */
 	}
 
 	td {
 		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2.4vw,2.4vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header align-top;
-		@apply min-w-max h-full;
+		@apply min-w-max h-full whitespace-nowrap;
 	}
 
 	.blocky {
