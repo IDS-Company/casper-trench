@@ -133,7 +133,7 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex justify-between">
+		<div class="flex justify-between mb-2">
 			<div class="label">Timestamp</div>
 			<div class="value">
 				<div class="time">{timestampDate}</div>
@@ -190,12 +190,12 @@
 	}
 
 	.label {
-		@apply font-bold text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply md:w-[15vw];
 	}
 
 	.value {
-		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
+		@apply text-[clamp(14px,0.95vw,0.95vw)] text-color-table-header;
 	}
 
 	td {
@@ -208,7 +208,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header text-[clamp(12px,1.19vw,1.19vw)] font-bold;
+		@apply text-color-table-header text-[clamp(16px,1.19vw,1.19vw)] font-bold;
 		@apply pb-[clamp(4px,1.19vw,1.19vw)] mb-[clamp(4px,1.61vw,1.61vw)];
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
 	}
@@ -216,7 +216,7 @@
 	.raw-data {
 		@apply rounded-[0.89vh] md:rounded-[0.89vw];
 		@apply p-[clamp(16px,1.43vw,1.43vw)];
-		@apply mt-[0.2vw];
+		@apply mt-[clamp(8px,0.2vw,0.2vw)];
 		@apply max-h-[clamp(300px,40vw,40vw)] overflow-y-auto;
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
@@ -233,8 +233,8 @@
 	}
 
 	.copy-button {
-		@apply flex items-center;
-		@apply pl-[clamp(6px,0.71vw,0.71vw)];
+		@apply flex items-center gap-[clamp(8px,0.3vw,0.3vw)];
+		@apply pl-[clamp(4px,0.71vw,0.71vw)];
 		@apply bg-color-copy-btn-bg;
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
@@ -243,14 +243,14 @@
 	}
 
 	.eye-icon {
-		@apply w-[1.19vh] md:w-[1.19vw];
+		@apply w-[16px] md:w-[1.19vw];
 	}
 
 	.proofs-button {
-		@apply flex items-center gap-[0.3vw];
-		@apply px-[clamp(6px,0.71vw,0.71vw)];
+		@apply flex items-center gap-[clamp(8px,0.3vw,0.3vw)];
+		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
-		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply rounded-[4px] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
 		@apply min-h-[2.4vw];

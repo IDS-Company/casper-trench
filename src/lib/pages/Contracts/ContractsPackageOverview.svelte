@@ -170,7 +170,7 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex justify-between">
+		<div class="flex justify-between mb-2">
 			<div class="label">Timestamp</div>
 			<div class="value">
 				<div class="time">{timestampDate}</div>
@@ -288,7 +288,7 @@
 		@apply flex items-center gap-[clamp(8px,0.3vw,0.3vw)];
 		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
-		@apply rounded-[0.3vh] md:rounded-[0.3vw];
+		@apply rounded-[4px] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
 	}
