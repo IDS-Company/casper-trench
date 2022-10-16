@@ -7,6 +7,7 @@
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import { sampleJsonData } from '$utils/sampleData';
+	import { notifySuccess } from '$utils/toast';
 	import { slide } from 'svelte/transition';
 
 	export let packageHash = '5f6d9f303310d7dd695b73830f241f9b3f670153c761c8775c5ea204d9fa637f';
@@ -84,6 +85,7 @@
 								on:click={() => {
 									navigator.clipboard &&
 										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+										notifySuccess('Copied');
 								}}
 								class="copy-button"
 							>
@@ -191,7 +193,7 @@
 
 	.label {
 		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
-		@apply md:w-[15vw];
+		@apply md:min-w-[15vw];
 	}
 
 	.value {

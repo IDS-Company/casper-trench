@@ -4,6 +4,7 @@
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import { sampleJsonData } from '$utils/sampleData';
+	import { notifySuccess } from '$utils/toast';
 	import { slide } from 'svelte/transition';
 
 	export let type = 'This URef is used as an access token or reference to a dictionary.';
@@ -53,6 +54,7 @@
 								on:click={() => {
 									navigator.clipboard &&
 										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+										notifySuccess('Copied');
 								}}
 								class="copy-button"
 							>
@@ -90,7 +92,7 @@
 
 	.label {
 		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
-		@apply w-[clamp(80px,10.83vw,10.83vw)];
+		@apply w-[clamp(80px,10.83vw,10.83vw)] md:min-w-[10.83vw];
 	}
 
 	.value {
