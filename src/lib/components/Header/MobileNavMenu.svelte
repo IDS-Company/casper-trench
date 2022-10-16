@@ -97,7 +97,7 @@
 	}
 
 	.bg {
-		@apply bg-[#00094B] bg-opacity-80;
+		@apply bg-[#00094B] bg-opacity-90;
 		@apply w-screen h-screen fixed z-50;
 		@apply md:hidden;
 	}
