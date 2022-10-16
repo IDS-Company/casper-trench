@@ -41,9 +41,9 @@
 	}
 
 	.option {
-		@apply px-[0.6vh] md:px-[0.6vw];
+		@apply px-[clamp(8px,0.6vw,0.6vw)];
 		@apply cursor-pointer;
-		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
 	}
 
 	.text {
