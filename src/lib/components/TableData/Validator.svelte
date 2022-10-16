@@ -52,11 +52,11 @@
 	}
 
 	.details {
-		@apply leading-none;
+		@apply leading-none flex items-center;
 	}
 	.image-placeholder {
 		@apply bg-gray-100;
-		@apply rounded-full;
+		@apply rounded-full w-[clamp(20px,2vw,2vw)];
 		@apply flex items-center justify-center;
 	}
 	.name {

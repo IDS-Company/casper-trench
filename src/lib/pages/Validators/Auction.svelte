@@ -40,8 +40,8 @@
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
-			<th class="validators">Validators</th>
-			<th class="status">Status</th>
+			<th> <div class="validators">Validators</div></th>
+			<th><div class="status">Status</div></th>
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
@@ -99,20 +99,30 @@
 		{#each displayedBidValidators as bid, i}
 			<tr>
 				<td class="rank-val">{bid.rank}</td>
-				<td class="validators"
-					><Validator
-						imgUrl={bid.information?.icon}
-						hash={bid.publicKey}
-						name={bid.information?.name}
-					/></td
+				<td
+					><div class="validators">
+						<Validator
+							imgUrl={bid.information?.icon}
+							hash={bid.publicKey}
+							name={bid.information?.name}
+						/>
+					</div></td
 				>
-				<td class="status"><Status inactive={bid.inactive && bid.inactive} /></td>
+				<td
+					><div class="status">
+						<Status inactive={bid.inactive && bid.inactive} />
+					</div></td
+				>
 				<td class="grey">{bid.delegationRate && bid.delegationRate.toFixed(2)}%</td>
 				<td>{bid.numOfDelegators && bid.numOfDelegators.toLocaleString('en')}</td>
 				<td class="stake">{bid.totalBid && bid.totalBid.toLocaleString('en')} CSPR</td>
 				<td class="grey self">{bid.selfStakePercentage && bid.selfStakePercentage.toFixed(2)}%</td>
-				<td class="grey network-perc">{bid.networkPercentage && bid.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={bid.performance && bid.performance || 0} /></td>
+				<td class="grey network-perc"
+					>{bid.networkPercentage && bid.networkPercentage.toFixed(2)}%</td
+				>
+				<td class="performance"
+					><CircleProgressBar progress={(bid.performance && bid.performance) || 0} /></td
+				>
 			</tr>
 		{/each}
 	</table>
@@ -159,6 +169,7 @@
 	.validators {
 		@apply pl-[3.69vw];
 		@apply text-left;
+		@apply flex justify-start;
 	}
 
 	.performance {

@@ -30,7 +30,7 @@
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
-			<th class="validators">Validators</th>
+			<th><div class="validators">Validators</div></th>
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
@@ -98,9 +98,17 @@
 				<td class="grey">{validator.delegationRate && validator.delegationRate}%</td>
 				<td>{validator.numOfDelegators && validator.numOfDelegators.toLocaleString('en')}</td>
 				<td class="stake">{validator.totalBid && validator.totalBid.toLocaleString('en')} CSPR</td>
-				<td class="grey self">{validator.selfStakePercentage && validator.selfStakePercentage.toFixed(2)}%</td>
-				<td class="grey network-perc">{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={validator.performance && validator.performance || 0} /></td>
+				<td class="grey self"
+					>{validator.selfStakePercentage && validator.selfStakePercentage.toFixed(2)}%</td
+				>
+				<td class="grey network-perc"
+					>{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td
+				>
+				<td
+					><div class="performance">
+						<CircleProgressBar progress={(validator.performance && validator.performance) || 0} />
+					</div></td
+				>
 			</tr>
 		{/each}
 	</table>
@@ -147,6 +155,7 @@
 	.validators {
 		@apply pl-[3.69vw];
 		@apply text-left;
+		@apply flex justify-start;
 	}
 
 	.performance {

@@ -38,7 +38,7 @@
 	}
 
 	.text {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link ;
 	}
 
 	.yellow {
@@ -89,14 +89,15 @@
 		@apply h-[1.56vw] w-[1.56vw];
 		@apply transform rotate-45;
 		@apply bg-white absolute mt-[-1.56vw];
+		@apply hidden md:block;
 	}
 
 	.right::before {
-		@apply translate-x-[5vw];
+		@apply translate-x-[45px] md:translate-x-[5vw];
 	}
 
 	.righter::before {
-		@apply translate-x-[10vw];
+		@apply translate-x-[90px] md:translate-x-[10vw];
 	}
 
 	.bold {
