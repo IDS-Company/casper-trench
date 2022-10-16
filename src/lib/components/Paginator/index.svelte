@@ -120,7 +120,7 @@
 <style lang="postcss">
 	.paginator {
 		@apply flex justify-between flex-col md:flex-row gap-3 md:gap-0;
-		@apply text-[clamp(14px,0.95vw,0.95vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
 	.paginator-buttons {
@@ -132,7 +132,10 @@
 	}
 
 	.text {
-		@apply mx-[0.6vw];
+		@apply mx-[clamp(8px,0.6vw,0.6vw)];
+		@apply min-w-max max-w-max whitespace-nowrap;
+		@apply text-center;
+		@apply flex-grow;
 	}
 
 	.right {
@@ -144,9 +147,9 @@
 	}
 
 	.button {
-		@apply px-[clamp(6px,0.83vw,0.83vw)] py-[clamp(6px,0.6vw,0.6vw)] h-full;
+		@apply px-[clamp(6px,0.83vw,0.83vw)] py-[clamp(6px,0.6vw,0.6vw)] h-full max-w-max;
 		@apply leading-none;
-		@apply border-[0.12vw] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
+		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply cursor-pointer;
 	}
 </style>
