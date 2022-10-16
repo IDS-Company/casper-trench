@@ -154,7 +154,7 @@
 	}
 
 	.logo {
-		@apply h-[40px] md:h-[clamp(16px,2.44vw,2.44vw)];
+		@apply h-[40px] w-[110px] md:h-[clamp(16px,2.44vw,2.44vw)] md:w-[clamp(16px,7vw,7vw)];
 		@apply transition-all;
 	}
 

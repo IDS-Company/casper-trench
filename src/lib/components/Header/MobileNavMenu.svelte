@@ -103,7 +103,7 @@
 	}
 
 	.c-logo {
-		@apply h-10;
+		@apply h-[40px] w-[110px];
 	}
 
 	.nav-items {

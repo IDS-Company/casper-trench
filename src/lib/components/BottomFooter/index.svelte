@@ -46,10 +46,10 @@
 	}
 
 	.a-logo {
-		@apply h-5 aspect-auto md:w-[clamp(50px,8.39vw,8.39vw)] md:h-[clamp(25px,2.38vw,2.38vw)];
+		@apply h-6 aspect-auto md:w-[clamp(50px,8.39vw,8.39vw)] md:h-[clamp(25px,2.38vw,2.38vw)];
 	}
 
 	.c-logo {
-		@apply h-8 aspect-auto md:h-[clamp(25px,2.44vw,2.44vw)];
+		@apply h-[40px] w-[110px] md:h-[clamp(25px,2.44vw,2.44vw)] md:w-[clamp(16px,7vw,7vw)];
 	}
 </style>
