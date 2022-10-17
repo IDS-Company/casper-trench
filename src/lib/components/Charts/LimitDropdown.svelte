@@ -84,4 +84,8 @@
 		@apply text-color-black-text;
 		@apply bg-transparent;
 	}
+
+	.chevron {
+		@apply h-[clamp(14px,0.95vw,0.95vw)] w-[clamp(14px,0.95vw,0.95vw)];
+	}
 </style>
