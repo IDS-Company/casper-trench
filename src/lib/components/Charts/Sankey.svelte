@@ -30,7 +30,8 @@
 	onMount(async () => {
 		// @ts-ignore
 		ua = navigator.userAgent;
-		if (ua.toLowerCase().includes('mobile')) {
+		console.log(ua)
+		if (ua.toLowerCase().includes('iphone') || ua.toLowerCase().includes('android')) {
 			Chart.defaults.font.size = 0;
 			Chart.defaults.font.lineHeight = 0;
 		} else {
