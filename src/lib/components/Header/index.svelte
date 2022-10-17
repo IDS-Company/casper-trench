@@ -44,7 +44,6 @@
 		@apply flex flex-col md:gap-y-[2vw];
 		@apply md:px-[clamp(16px,3.57vw,3.57vw)] md:py-[clamp(16px,0.95vw,0.95vw)];
 		@apply bg-no-repeat bg-center bg-auto;
-		@apply w-screen;
 		background: url('/images/png/header-bg.png') center/cover;
 	}
 

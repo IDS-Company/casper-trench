@@ -26,7 +26,7 @@
 	<script src={nodePackages}></script>
 </svelte:head>
 
-<div class="min-h-screen flex flex-col">
+<div class="min-h-screen max-w-screen flex flex-col">
 	<Header />
 	{#key $page.url.pathname}
 		<main>

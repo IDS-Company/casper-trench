@@ -140,7 +140,7 @@
 
 <style lang="postcss">
 	.navbar {
-		@apply flex justify-between items-center w-[90vw] md:items-start mb-3 md:mb-0;
+		@apply flex justify-between items-center md:items-start mb-3 md:mb-0;
 		@apply mx-4 mt-4 md:mx-0 md:mt-0;
 	}
 
