@@ -33,7 +33,7 @@
 
 <style lang="postcss">
 	.tab-menu {
-		@apply max-w-full overflow-y-auto;
+		@apply overflow-y-auto;
 	}
 
 	.header {
@@ -53,7 +53,7 @@
 	.selected {
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-b-0 border-color-tooltip-border border-opacity-100;
 		@apply rounded-[0.6vw] rounded-b-none;
-		@apply text-color-table-header font-medium;
+		@apply text-color-table-header font-medium max-w-max;
 	}
 
 	.content {
