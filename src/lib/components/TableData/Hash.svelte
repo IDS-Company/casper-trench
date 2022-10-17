@@ -2,7 +2,7 @@
 	import { scale } from 'svelte/transition';
 
 	export let hash = '';
-	export let variant: 'center' | 'right' | 'righter' = 'center';
+	export let variant: 'center' | 'right' | 'righter' | 'left' = 'center';
 	export let color: 'green' | 'yellow' | 'text' | 'black' | 'grey' = 'text';
 	export let noOfCharacters = 5;
 	export let start = false;
@@ -15,6 +15,7 @@
 	class="tooltip hash tooltip-icon {color}"
 	class:right={variant == 'right'}
 	class:righter={variant == 'righter'}
+	class:left={variant == 'left'}
 	class:bold
 	style={`--tooltip: '${hash}'`}
 	on:mouseenter={() => (showHash = true)}
@@ -33,12 +34,12 @@
 
 <style lang="postcss">
 	.hash {
-		@apply text-center text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-center text-[clamp(14px,1.07vw,1.07vw)];
 		@apply max-w-max;
 	}
 
 	.text {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link ;
 	}
 
 	.yellow {
@@ -89,14 +90,19 @@
 		@apply h-[1.56vw] w-[1.56vw];
 		@apply transform rotate-45;
 		@apply bg-white absolute mt-[-1.56vw];
+		@apply hidden md:block;
 	}
 
 	.right::before {
-		@apply translate-x-[5vw];
+		@apply translate-x-[45px] md:translate-x-[5vw];
 	}
 
 	.righter::before {
-		@apply translate-x-[10vw];
+		@apply translate-x-[90px] md:translate-x-[10vw];
+	}
+
+	.left::before {
+		@apply translate-x-[-90px] md:translate-x-[-10vw];
 	}
 
 	.bold {

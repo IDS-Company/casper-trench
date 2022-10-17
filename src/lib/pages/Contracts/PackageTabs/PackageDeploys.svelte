@@ -109,7 +109,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">TX Hash</th>
+			<th class="blocky">TX Hash</th>
 			<th>Block Hash</th>
 			<th>Public Key</th>
 			<th>
@@ -128,13 +128,8 @@
 		{#if contracts && contracts.length > 0}
 			{#each contracts as contract}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						<div class="tx-id">
-							<div class="eye">
-								<div class="icon">
-									<EyeIcon />
-								</div>
-							</div>
 							<a href="/transactions/{contract.id}">
 								<Hash hash={contract.id} variant={'righter'}/>
 							</a>
@@ -196,22 +191,22 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
 	.total {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
 	}
 
@@ -225,7 +220,6 @@
 
 	.tx-id {
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
-		@apply pt-[clamp(8px,0.8vw,0.8vw)];
 	}
 
 	.eye {

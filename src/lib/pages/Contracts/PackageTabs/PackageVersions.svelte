@@ -26,7 +26,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">Contract Version</th>
+			<th class="blocky">Contract Version</th>
 			<th>Major Protocol Version</th>
 			<th>Contract Version Hash</th>
 		</tr>
@@ -34,7 +34,7 @@
 		{#if versions && versions.length > 0}
 			{#each versions as version}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						{version.version}
 					</td>
 					<td>
@@ -68,17 +68,17 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.05vw,1.05vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 

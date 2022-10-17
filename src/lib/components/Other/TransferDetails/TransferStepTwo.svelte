@@ -97,7 +97,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
+		@apply text-color-table-header font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
 	}
 
@@ -108,13 +108,13 @@
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.value {
 		@apply bg-color-sender-background;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 		@apply flex items-center justify-between;
@@ -137,7 +137,7 @@
 	}
 
 	.terms {
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 	}
 
 	.green {
@@ -147,13 +147,13 @@
 
 	.fee {
 		@apply flex justify-between items-center;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply py-[clamp(16px,1.43vw,1.43vw)];
 		@apply border-b-color-transfer-details-border border-b-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.cash {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-bold;
 	}
 
 	.cash.total {

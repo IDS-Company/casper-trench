@@ -2,7 +2,6 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { isLoading } from '$stores/loading';
-	import { processType } from '$utils/converters';
 	import type { Account } from '$utils/types/account';
 	import type { Type } from '$utils/types/type';
 
@@ -17,22 +16,27 @@
 			<tr>
 				<td class="label"> Address type </td>
 				<td class="value">
-					{type?.type || ''}
+					<div class="w-full text-right md:w-auto md:text-left">
+						{type?.type || ''}
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Available </td>
 				<td class="value">
-					<BalanceTransferrable cspr={account?.availableBalance || 0} />
+					<div class="flex justify-end w-full md:justify-start md:w-auto">
+						<BalanceTransferrable cspr={account?.availableBalance || 0} />
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Balance </td>
 				<td class="value">
-					<BalanceTransferrable cspr={account?.totalBalance || 0} />
+					<div class="flex justify-end w-full md:justify-start md:w-auto"><BalanceTransferrable cspr={account?.totalBalance || 0} /></div>
+					
 				</td>
 			</tr>
-			<tr>
+			<tr class="hidden md:table-row">
 				<td class="label"> Account Hash </td>
 				<td class="value">
 					<div class="address-value hash">
@@ -48,6 +52,19 @@
 				</td>
 			</tr>
 		</table>
+		<div class="container">
+			<div class="label">Account Hash</div>
+			<div class="flex hash md:hidden">
+				<div class="text">
+					{`${account?.accountHash.substring(0, 16)}...${account?.accountHash.substring(account?.accountHash.length - 16)}`}
+				</div>
+				{#if account?.accountHash}
+					<div class="copy-icon">
+						<CopyIcon text={account?.accountHash} />
+					</div>
+				{/if}
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -61,12 +78,12 @@
 	}
 
 	.label {
-		@apply font-bold text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply w-full;
 	}
 
 	.value {
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
 	}
 
@@ -90,7 +107,11 @@
 	}
 
 	.hash {
-		@apply text-color-hover-footer-link;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-hover-footer-link;
+	}
+
+	.hash > .text {
+		@apply min-w-max md:min-w-0 mr-1;
 	}
 
 	.extras {
@@ -98,7 +119,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header text-[clamp(12px,1.19vw,1.19vw)] font-bold;
+		@apply text-color-table-header text-[clamp(16px,1.19vw,1.19vw)] font-bold;
 		@apply pb-[clamp(4px,1.19vw,1.19vw)] mb-[clamp(4px,1.61vw,1.61vw)];
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
 	}

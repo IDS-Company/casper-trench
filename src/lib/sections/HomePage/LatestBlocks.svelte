@@ -37,11 +37,48 @@
 						/></td
 					>
 					<td class="text-color-table-header">{block.eraID}</td>
-					<td> <a href="/blocks/{block.blockHash}"><Hash hash={block.blockHash} /></a></td>
+					<td><a href="/blocks/{block.blockHash}"><Hash hash={block.blockHash} /></a></td>
 					<td class="text-color-table-header">{block.deploys}</td>
 				</tr>
 			{/each}
 		</table>
+
+		<div class="mobile-stuff">
+			{#each blocks as block, i}
+				<div class="validator-mobile" class:noborder={i === blocks.length - 1}>
+					<div class="left">
+						<div class="item">
+							<div class="label">Block Height</div>
+							<div class="value">
+								<BlockHeight
+									blockDate={Date.parse(block.timestamp.toLocaleString())}
+									blockHeight={block.blockHeight.toLocaleString('en')}
+									flexed
+								/>
+							</div>
+						</div>
+						<div class="item">
+							<div class="label">Era</div>
+							<div class="value">
+								{block.eraID}
+							</div>
+						</div>
+						<div class="item">
+							<div class="label">Block Hash</div>
+							<div class="value">
+								<a href="/blocks/{block.blockHash}"><Hash hash={block.blockHash} /></a>
+							</div>
+						</div>
+					</div>
+					<div class="right">
+						<div>Deploys</div>
+						<div class="flex justify-end">
+							{block.deploys}
+						</div>
+					</div>
+				</div>
+			{/each}
+		</div>
 
 		<div class="button">
 			<Button outline on:click={() => goto(`/blocks`)}>View all Blocks</Button>
@@ -55,14 +92,15 @@
 		@apply w-full;
 	}
 	h3 {
-		@apply font-medium text-color-hover-footer-link text-sm md:text-[clamp(12px,1.07vw,1.07vw)] leading-[120%];
+		@apply font-medium text-color-hover-footer-link text-[clamp(14px,1.07vw,1.07vw)] leading-[120%];
 	}
 	h2 {
-		@apply font-bold text-color-table-header text-base md:text-[clamp(14px,1.4vw,1.4vw)] leading-[120%];
+		@apply font-bold text-color-table-header text-[clamp(18px,1.4vw,1.4vw)] leading-[120%];
 		@apply mt-[clamp(5px,0.3vw,0.3vw)] mb-[clamp(14px,1.6vw,1.6vw)];
 	}
 	table {
 		@apply table-auto w-full relative;
+		@apply hidden md:table;
 	}
 
 	.divider {
@@ -78,6 +116,30 @@
 	td {
 		@apply py-[clamp(8px,0.5vw,0.5vw)] md:h-[2.38vw] lg:h-[3.5vw];
 		@apply text-[clamp(10px,1.07vw,1.07vw)] min-w-max;
+	}
+
+	.validator-mobile {
+		@apply text-sm py-3;
+		@apply flex justify-between;
+		@apply border-b border-b-color-grey-border-line;
+		@apply w-full;
+	}
+
+	.mobile-stuff {
+		@apply w-full;
+		@apply md:hidden;
+	}
+
+	.noborder {
+		@apply border-transparent;
+	}
+
+	.item {
+		@apply flex items-center gap-2;
+	}
+
+	.left {
+		@apply flex flex-col gap-2;
 	}
 
 	.button {

@@ -4,10 +4,11 @@
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
 	import { sampleJsonData } from '$utils/sampleData';
-    import { slide } from 'svelte/transition';
+	import { notifySuccess } from '$utils/toast';
+	import { slide } from 'svelte/transition';
 
 	export let type = 'This URef is used as an access token or reference to a dictionary.';
-    export let jsonData = sampleJsonData;
+	export let jsonData = sampleJsonData;
 
 	let showRawData = false;
 </script>
@@ -24,53 +25,59 @@
 					</td>
 				</tr>
 			{/if}
-            <tr>
+			<tr>
 				<td class="label">Raw Data</td>
 				<td class="value">
 					<div class="raw-buttons">
-                        <div
-                            class="proofs-button green"
-                            on:click={() => {
-                                showRawData = !showRawData;
-                            }}
-                        >
-                            <div class="text">Show</div>
-                            <div class="eye-icon">
-                                {#if !showRawData}
-                                    <div transition:slide>
-                                        <EyeIcon />
-                                    </div>
-                                {:else}
-                                    <div transition:slide>
-                                        <CrossedEyeIcon />
-                                    </div>
-                                {/if}
-                            </div>
-                        </div>
-                        {#if showRawData}
-                            <button
-                                type="button"
-                                on:click={() => {
-                                    navigator.clipboard &&
-                                        navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-                                }}
-                                class="copy-button"
-                            >
-                                <div class="text">Copy</div>
-                                <div class="copy-icon">
-                                    <CopyIcon />
-                                </div>
-                            </button>
-                        {/if}
-                    </div>
-                    {#if jsonData && showRawData}
-                        <div class="raw-data" transition:slide>
-                            <TreeToggle text="" data={jsonData} />
-                        </div>
-                    {/if}
+						<div
+							class="proofs-button green"
+							on:click={() => {
+								showRawData = !showRawData;
+							}}
+						>
+							<div class="text">Show</div>
+							<div class="eye-icon">
+								{#if !showRawData}
+									<div transition:slide>
+										<EyeIcon />
+									</div>
+								{:else}
+									<div transition:slide>
+										<CrossedEyeIcon />
+									</div>
+								{/if}
+							</div>
+						</div>
+						{#if showRawData}
+							<button
+								type="button"
+								on:click={() => {
+									navigator.clipboard &&
+										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+										notifySuccess('Copied');
+								}}
+								class="copy-button"
+							>
+								<div class="text">Copy</div>
+								<div class="copy-icon">
+									<CopyIcon />
+								</div>
+							</button>
+						{/if}
+					</div>
+					{#if jsonData && showRawData}
+						<div class="raw-data hidden md:block" transition:slide>
+							<TreeToggle text="" data={jsonData} />
+						</div>
+					{/if}
 				</td>
 			</tr>
 		</table>
+		{#if jsonData && showRawData}
+			<div class="raw-data md:hidden" transition:slide>
+				<TreeToggle text="" data={jsonData} />
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -84,12 +91,12 @@
 	}
 
 	.label {
-		@apply font-bold text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
-		@apply md:w-[10.83vw];
+		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply w-[clamp(80px,10.83vw,10.83vw)] md:min-w-[10.83vw];
 	}
 
 	.value {
-		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-table-header;
+		@apply text-[clamp(14px,0.95vw,0.95vw)] text-color-table-header;
 	}
 
 	td {
@@ -102,22 +109,23 @@
 	}
 
 	.title {
-		@apply text-color-table-header text-[clamp(12px,1.19vw,1.19vw)] font-bold;
+		@apply text-color-table-header text-[clamp(16px,1.19vw,1.19vw)] font-bold;
 		@apply pb-[clamp(4px,1.19vw,1.19vw)] mb-[clamp(4px,1.61vw,1.61vw)];
 		@apply border-b-[clamp(1px,0.09vw,0.09vw)] border-color-tooltip-border;
 	}
 
-    .raw-data {
+	.raw-data {
 		@apply rounded-[0.89vh] md:rounded-[0.89vw];
 		@apply p-[clamp(16px,1.43vw,1.43vw)];
-        @apply mt-[0.2vw];
-		@apply md:max-h-[40vw] overflow-y-auto;
+		@apply mt-[clamp(8px,0.2vw,0.2vw)];
+		@apply max-h-[clamp(300px,40vw,40vw)] overflow-y-auto;
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.raw-buttons {
-		@apply flex items-center gap-[clamp(4px,0.54vw,0.54vw)];
+		@apply flex gap-[clamp(4px,0.54vw,0.54vw)];
 	}
 
 	.copy-button {
@@ -127,20 +135,23 @@
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
-		@apply min-h-[2.4vw];
+		@apply min-h-[2.4vw] h-full;
 	}
 
 	.eye-icon {
-		@apply w-[1.19vh] md:w-[1.19vw];
+		@apply w-[16px] md:w-[1.19vw];
 	}
 
-    .proofs-button {
-		@apply flex items-center gap-[0.3vw];
-		@apply px-[clamp(6px,0.71vw,0.71vw)];
+	.copy-icon {
+		@apply w-[20px] md:w-[1.19vw];
+	}
+
+	.proofs-button {
+		@apply flex items-center gap-[clamp(8px,0.3vw,0.3vw)];
+		@apply py-[clamp(4px,0.48vw,0.48vw)] px-[clamp(6px,0.71vw,0.71vw)];
 		@apply bg-color-translucent-green;
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply max-w-max;
 		@apply cursor-pointer;
-		@apply min-h-[2.4vw];
 	}
 </style>

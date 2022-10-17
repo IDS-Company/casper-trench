@@ -13,15 +13,25 @@
 			<table>
 				<tr>
 					<td class="label"> Public Key </td>
-					<td class="value key">
+					<td class="value key hidden md:table-cell">
 						<a href="/accounts/{proof.public_key}">
 							{proof.public_key || ''}
+						</a>
+					</td>
+					<td class="value key md:hidden">
+						<a href="/accounts/{proof.public_key}">
+							{`${proof.public_key.substring(0, 10)}...${proof.public_key.substring(
+								proof.public_key.length - 10
+							)}`}
 						</a>
 					</td>
 				</tr>
 				<tr>
 					<td class="label"> Signature </td>
-					<td class="value signature">
+					<td class="value signature hidden md:table-cell">
+						{proof.signature || ''}
+					</td>
+					<td class="value signature md:hidden max-w-[60vw]">
 						{proof.signature || ''}
 					</td>
 				</tr>
@@ -35,19 +45,19 @@
 
 <style lang="postcss">
 	.proof {
-		@apply flex;
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
+		@apply flex max-w-full;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 		@apply pb-[clamp(4px,0.48vw,0.48vw)] pt-[clamp(16px,1.19vw,1.19vw)];
 		@apply border-b-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 	}
 
 	.num {
 		@apply w-[1.55vh] h-[1.55vh] md:w-[1.55vw] md:h-[1.55vw];
-		@apply flex items-center justify-center;
+		@apply hidden md:flex items-center justify-center;
 		@apply rounded-full;
 		@apply bg-color-proof-num-background;
 		@apply mr-[clamp(20px,1.61vw,1.61vw)];
-		@apply text-[clamp(10px,0.95vw,0.95vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
 	.paginator-wrapper {
@@ -55,7 +65,7 @@
 	}
 
 	.label {
-		@apply md:w-[7.14vw];
+		@apply w-[20vw] md:w-[7.14vw];
 		@apply align-top;
 	}
 
@@ -89,7 +99,7 @@
 		@apply flex items-center justify-center;
 		@apply rounded-[0.3vh] md:rounded-[0.3vw];
 		@apply cursor-pointer;
-		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,0.95vw,0.95vw)] text-color-grey-footer-label;
 		@apply transition-all;
 	}
 

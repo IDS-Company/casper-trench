@@ -94,7 +94,7 @@
 	.switch {
 		@apply flex items-center gap-[clamp(10px,1.07vw,1.07vw)];
 		@apply w-max h-max;
-		@apply text-[clamp(10px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply cursor-pointer;
 	}
 
@@ -102,9 +102,9 @@
 		@apply p-[clamp(8px,0.6vw,0.6vw)];
 		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
 		@apply text-color-grey-footer-label;
-		@apply rounded-[0.48vh] md:rounded-[0.48vw];
+		@apply rounded-[clamp(4px,0.48vh,0.48vh)] md:rounded-[0.48vw];
 		@apply transition-all duration-300;
-		@apply flex items-center gap-[0.6vw];
+		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
 	}
 
 	.selected {
@@ -114,7 +114,7 @@
 	}
 
 	.icon {
-		@apply w-[0.54vw] h-[0.33vw];
+		@apply w-[clamp(12px,0.54vw,0.54vw)] h-[clamp(8px,0.33vw,0.33vw)];
 		@apply transition-all;
 	}
 
@@ -129,7 +129,7 @@
 		@apply text-color-hover-footer-link;
 		@apply bg-white;
 		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
-		@apply px-[1.31vw] py-[0.77vw] rounded-[0.3vw];
+		@apply px-[clamp(12px,1.31vw,1.31vw)] py-[clamp(8px,0.77vw,0.77vw)] rounded-[clamp(4px,0.3vw,0.3vw)];
 	}
 
 	.wrapper {
@@ -138,12 +138,12 @@
 
 	.dropdown {
 		@apply absolute z-50;
-		@apply text-color-table-header text-opacity-50 text-[clamp(10px,1.07vw,1.07vw)];
-		@apply flex flex-col gap-[0.4vw];
+		@apply text-color-table-header text-opacity-50 text-[clamp(14px,1.07vw,1.07vw)];
+		@apply flex flex-col gap-[clamp(4px,0.4vw,0.4vw)];
 		@apply min-w-max;
-		@apply rounded-[0.6vw];
+		@apply rounded-[clamp(4px,0.6vw,0.6vw)];
 		@apply bg-white;
-		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
+		@apply mt-[clamp(8px,0.89vw,0.89vw)] py-[clamp(8px,0.83vw,0.83vw)] px-[clamp(12px,1.07vw,1.07vw)];
 		@apply shadow-[0px_0px_0.65vw_0px_rgba(0,0,0,0.1)];
 	}
 

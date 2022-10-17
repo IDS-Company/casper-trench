@@ -35,7 +35,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="block">TX ID</th>
+			<th class="blocky">TX ID</th>
 			<th>TX Time</th>
 			<th class="right">From (Account Hash)</th>
 			<th class="right">TX Fee</th>
@@ -45,8 +45,15 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">
-						<a href="/transactions/{transaction.deployHash}"> {transaction.deployHash}</a></td
+					<td class="blocky">
+						<a class="hidden md:block" href="/transactions/{transaction.deployHash}">
+							{transaction.deployHash}</a
+						>
+						<a class="md:hidden" href="/transactions/{transaction.deployHash}">
+							{`${transaction.deployHash.substring(0, 5)}...${transaction.deployHash.substring(
+								transaction.deployHash.length - 5
+							)}`}</a
+						></td
 					>
 					<td class="time"
 						>{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}</td
@@ -107,21 +114,21 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[2vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,2vw,2vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	td.block {
+	td.blocky {
 		@apply text-color-hover-footer-link;
 	}
 
-	.block {
+	.blocky {
 		@apply px-0;
 	}
 
@@ -145,11 +152,11 @@
 
 	.value-crypto {
 		@apply flex items-center justify-end gap-[clamp(2px,0.24vw,0.24vw)];
-		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
 	}
 
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {

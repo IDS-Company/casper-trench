@@ -13,19 +13,25 @@
 			<tr>
 				<td class="label"> Stake Amount </td>
 				<td class="value">
-					<BalanceTransferrable cspr={account?.totalStaked || 0} />
+					<div class="flex justify-end w-full md:justify-start md:w-auto">
+						<BalanceTransferrable cspr={account?.totalStaked || 0} />
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Unstaking </td>
 				<td class="value">
-					<BalanceTransferrable cspr={account?.unstaking || 0} />
+					<div class="flex justify-end w-full md:justify-start md:w-auto">
+						<BalanceTransferrable cspr={account?.unstaking || 0} />
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="label"> Total Reward </td>
 				<td class="value">
-					<BalanceTransferrable cspr={account?.totalReward || 0} />
+					<div class="flex justify-end w-full md:justify-start md:w-auto">
+						<BalanceTransferrable cspr={account?.totalReward || 0} />
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -42,13 +48,13 @@
 	}
 
 	.label {
-		@apply font-bold text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply font-bold text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply w-full;
 	}
 
 	.value {
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
-		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
+		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)] w-full;
 	}
 
 	td {

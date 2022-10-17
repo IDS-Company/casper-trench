@@ -6,6 +6,9 @@
 	import { account } from '$stores/account';
 	import Hash from '../TableData/Hash.svelte';
 	import { disconnectWallet } from '$utils/wallets/connection';
+	import MobileNavMenuIcon from '$lib/icons/MobileNavMenuIcon.svelte';
+	import MobileNavMenu from './MobileNavMenu.svelte';
+	import { slide } from 'svelte/transition';
 
 	let navItems: {
 		text: string;
@@ -89,10 +92,16 @@
 			]
 		}
 	];
+
+	let openNavBackdrop = false;
 </script>
 
+{#if openNavBackdrop}
+	<MobileNavMenu handleClose={() => (openNavBackdrop = false)} {navItems}/>
+{/if}
+
 <div class="navbar">
-	<a href="/" class="logo">
+	<a href="/" class="logo" class:opacity-0={openNavBackdrop}>
 		<CasperTrenchLogo />
 	</a>
 	<div class="nav-items">
@@ -120,11 +129,19 @@
 			</a>
 		{/if}
 	</div>
+	{#if !openNavBackdrop}
+		<div class="nav-menu-mobile" on:click={() => (openNavBackdrop = true)} transition:slide>
+			<div class="icon">
+				<MobileNavMenuIcon />
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style lang="postcss">
 	.navbar {
-		@apply flex justify-between;
+		@apply flex justify-between items-center md:items-start mb-3 md:mb-0;
+		@apply mx-4 mt-4 md:mx-0 md:mt-0;
 	}
 
 	.nav-items {
@@ -137,7 +154,8 @@
 	}
 
 	.logo {
-		@apply h-[clamp(16px,2.44vw,2.44vw)];
+		@apply h-[40px] w-[110px] md:h-[clamp(16px,2.44vw,2.44vw)] md:w-[clamp(16px,7vw,7vw)];
+		@apply transition-all;
 	}
 
 	/* .chevron {
@@ -155,5 +173,13 @@
 
 	.user-icon {
 		@apply h-[clamp(14px,1.07vw,1.07vw)] w-[clamp(14px,1.07vw,1.07vw)] mr-[clamp(4px,0.36vw,0.36vw)];
+	}
+
+	.icon {
+		@apply h-6;
+	}
+
+	.nav-menu-mobile {
+		@apply md:hidden;
 	}
 </style>

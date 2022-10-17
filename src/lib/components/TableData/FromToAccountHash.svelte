@@ -49,10 +49,10 @@
 	}
 
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {
-		@apply text-color-grey-footer-label text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-color-grey-footer-label text-[clamp(10px,0.83vw,0.83vw)];
 	}
 </style>

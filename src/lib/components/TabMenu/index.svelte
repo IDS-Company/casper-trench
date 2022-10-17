@@ -32,30 +32,35 @@
 </div>
 
 <style lang="postcss">
+	.tab-menu {
+		@apply overflow-y-auto;
+	}
+
 	.header {
 		@apply flex items-center;
 	}
 
 	.option {
-		@apply px-[0.6vh] md:px-[0.6vw];
+		@apply px-[clamp(8px,0.6vw,0.6vw)] max-w-max;
 		@apply cursor-pointer;
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label text-center;
 	}
 
 	.text {
-		@apply px-[clamp(10px,2.14vw,2.14vw)] py-[clamp(8px,1.19vw,1.19vw)];
+		@apply px-[clamp(10px,2.14vw,2.14vw)] py-[clamp(8px,1.19vw,1.19vw)] max-w-max;
 	}
 
 	.selected {
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-b-0 border-color-tooltip-border border-opacity-100;
 		@apply rounded-[0.6vw] rounded-b-none;
-		@apply text-color-table-header font-medium;
+		@apply text-color-table-header font-medium max-w-max;
 	}
 
 	.content {
 		@apply border-[clamp(1px,0.15vw,0.15vw)] border-color-tooltip-border border-opacity-100;
 		@apply p-[2.38vw];
 		@apply rounded-[0.6vw] rounded-tl-none;
+		@apply min-w-max;
 	}
 
 	.selector {

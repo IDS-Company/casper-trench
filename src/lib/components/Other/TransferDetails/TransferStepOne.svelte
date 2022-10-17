@@ -129,7 +129,7 @@
 	}
 
 	.title {
-		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
+		@apply text-color-table-header font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
 	}
 
@@ -138,8 +138,8 @@
 	}
 
 	.sign-in-alert {
-		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)] text-color-black-text;
+		@apply flex md:items-center gap-[clamp(4px,0.6vw,0.6vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)] text-color-black-text;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
 		@apply bg-color-tranfer-det-green;
 		@apply rounded-[0.24vh] md:rounded-[0.24vw];
@@ -147,19 +147,19 @@
 	}
 
 	.sign-in-alert > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.value {
 		@apply bg-color-sender-background;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 		@apply flex items-center justify-between;
@@ -167,7 +167,7 @@
 
 	.input {
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-black-text;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply flex items-center justify-between;
 		@apply mb-[clamp(4px,0.71vw,0.71vw)];
@@ -197,16 +197,16 @@
 	}
 
 	.cspr {
-		@apply text-[clamp(10px,0.71vw,0.71vw)];
+		@apply text-[clamp(12px,0.71vw,0.71vw)];
 		@apply flex items-center justify-end gap-[clamp(4px,0.24vw,0.24vw)];
 	}
 
 	.cspr-fee {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.terms {
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 	}
 
 	.header {
@@ -216,7 +216,7 @@
 	}
 
 	.header > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.green {
@@ -226,12 +226,12 @@
 
 	.fee {
 		@apply flex justify-between items-center;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply mb-[clamp(16px,2.55vw,2.55vw)];
 	}
 
 	.cash {
-		@apply text-color-table-header text-[clamp(16px,1.07vw,1.07vw)] font-bold;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-bold;
 	}
 
 	.right {
@@ -241,5 +241,9 @@
 	.next-button {
 		@apply mt-[clamp(16px,2.92vw,2.92vw)];
 		@apply flex justify-center;
+	}
+
+	.info {
+		@apply text-[clamp(12px,1.07vw,1.07vw)];
 	}
 </style>

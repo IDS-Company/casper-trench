@@ -35,11 +35,11 @@
 	}
 
 	.crypto {
-		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.value-cash {
-		@apply text-color-table-header;
+		@apply text-color-table-header text-[clamp(12px,0.83vw,0.83vw)];
 	}
 
 	.cspr {

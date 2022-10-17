@@ -52,7 +52,7 @@
 	<div class="title">Blocks</div>
 	<table>
 		<tr>
-			<th class="block">
+			<th class="blocky">
 				<div class="sorter">
 					<div class="text">Block Height</div>
 					<TableSorter
@@ -99,7 +99,7 @@
 		{#if blocks && blocks.length > 0}
 			{#each blocks as block, i}
 				<tr>
-					<td class="block black">
+					<td class="blocky black">
 						{block.blockHeight.toLocaleString()}
 					</td>
 					<td class="era">
@@ -128,9 +128,10 @@
 										imgUrl={validator.icon}
 										name={validator.name}
 										hash={block.validatorPublicKey}
+										variant='left'
 									/>
 								{:else}
-									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
+									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} variant='left'/>
 								{/if}
 							{/await}
 						</div>
@@ -157,7 +158,7 @@
 	}
 
 	.title {
-		@apply text-[clamp(16px,1.43vw,1.43vw)] font-bold text-color-table-header;
+		@apply text-[clamp(18px,1.43vw,1.43vw)] font-bold text-color-table-header;
 	}
 
 	.divider {
@@ -166,18 +167,18 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(24px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply text-left min-w-max;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] md:px-[1vw];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(24px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
-	.block {
-		@apply px-0;
+	.blocky {
+		@apply px-0 pr-[clamp(24px,1vw,1vw)];
 	}
 
 	.wrapper {
@@ -193,7 +194,7 @@
 	}
 
 	.age {
-		@apply text-color-grey-footer-label;
+		@apply text-color-grey-footer-label whitespace-nowrap;
 	}
 
 	.black {
@@ -205,7 +206,7 @@
 	}
 
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
 	}
 
 	.center > .sorter {

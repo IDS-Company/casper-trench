@@ -41,7 +41,7 @@
 	}
 
 	.error {
-		@apply text-color-arcadia-red text-[clamp(12px,0.83vw,0.83vw)];
+		@apply text-color-arcadia-red text-[clamp(14px,0.83vw,0.83vw)];
 	}
 
 	.cspr-red {
@@ -49,7 +49,7 @@
 	}
 
 	.label {
-		@apply text-color-grey-footer-label text-[clamp(12px,0.83vw,0.83v)];
+		@apply text-color-grey-footer-label text-[clamp(14px,0.83vw,0.83v)];
 		@apply flex items-center gap-[clamp(2px,0.24vw,0.24vw)];
 	}
 
@@ -60,7 +60,7 @@
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.input > input {
@@ -69,8 +69,8 @@
 	}
 
 	.input {
-		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply px-[clamp(10px,1.25vw,1.25vw)] py-[clamp(8px,0.95vw,0.95vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-black-text;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply flex items-center justify-between;
 		@apply mb-[clamp(4px,0.71vw,0.71vw)];
@@ -78,12 +78,12 @@
 	}
 
 	.check-mark-icon {
-		@apply w-[clamp(4px,0.48vw,0.48vw)] h-[clamp(4px,0.48vw,0.48vw)];
+		@apply w-[clamp(10px,0.48vw,0.48vw)] h-[clamp(10px,0.48vw,0.48vw)];
 	}
 
 	.checkbox {
 		@apply border-color-grey-footer-label border-[clamp(1px,0.12vw,0.12vw)];
-		@apply rounded-[0.24vw] md:rounded-[0.24vw];
+		@apply rounded-[clamp(4px,0.24vw,0.24vw)] md:rounded-[0.24vw];
 	}
 
 	.checked.checkbox {

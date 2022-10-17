@@ -19,7 +19,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={deployHash || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientHash || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientHash || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if deployHash}
 					<CopyIcon text={deployHash || ''} />
@@ -35,7 +40,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientPublicKey || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientPublicKey || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if recipientPublicKey}
 					<CopyIcon text={recipientPublicKey || ''} />
@@ -51,7 +61,12 @@
 	</div>
 	<div class="value grey">
 		<span
-			><Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
+			><div class="hidden md:block">
+				<Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
+			</div>
+			<div class="md:hidden">
+				<Hash color="black" noOfCharacters={16} hash={recipientAccountHash || ''} />
+			</div>
 			<div class="copy-icon">
 				{#if recipientAccountHash}
 					<CopyIcon text={recipientAccountHash || ''} />
@@ -124,25 +139,25 @@
 	}
 
 	.title {
-		@apply text-color-table-header font-bold text-[clamp(20px,1.43vw,1.43vw)];
+		@apply text-color-table-header font-bold text-[clamp(16px,1.43vw,1.43vw)];
 		@apply mb-[clamp(12px,0.83vw,0.83vw)] mt-[clamp(16px,2.26vw,2.26vw)];
 	}
 
 	.value > span {
 		@apply flex items-center;
-		@apply text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.top {
 		@apply flex justify-between items-center;
 		@apply mb-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-color-black-text text-[clamp(16px,1.07vw,1.07vw)];
+		@apply text-color-black-text text-[clamp(14px,1.07vw,1.07vw)];
 	}
 
 	.value {
 		@apply bg-color-sender-background;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply mb-[clamp(16px,1.9vw,1.9vw)];
 		@apply flex items-center justify-between;
@@ -154,7 +169,7 @@
 	}
 
 	.terms {
-		@apply text-[clamp(10px,0.77vw,0.77vw)];
+		@apply text-[clamp(12px,0.77vw,0.77vw)];
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 	}
 
@@ -174,7 +189,7 @@
 
 	.sign-in-alert {
 		@apply flex items-center gap-[clamp(4px,0.6vw,0.6vw)];
-		@apply text-[clamp(10px,0.77vw,0.77vw)] text-color-black-text;
+		@apply text-[clamp(12px,0.77vw,0.77vw)] text-color-black-text;
 		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
 		@apply bg-color-tranfer-det-green;
 		@apply rounded-[0.24vh] md:rounded-[0.24vw];
@@ -182,7 +197,7 @@
 	}
 
 	.sign-in-alert > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.bot-alert {
@@ -191,7 +206,7 @@
 	}
 
 	.bot-alert > .icon {
-		@apply w-[0.95vh] h-[0.95vh] md:w-[0.95vw] md:h-[0.95vw];
+		@apply w-4 h-4 md:w-[0.95vw] md:h-[0.95vw];
 	}
 
 	.bot-alert > .text {

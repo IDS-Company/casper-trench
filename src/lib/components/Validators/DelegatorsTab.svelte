@@ -33,7 +33,7 @@
 	</div>
 	<table>
 		<tr>
-			<th class="rank">Rank</th>
+			<th class="rank blocky">Rank</th>
 			<th>Delegators (Public key)</th>
 			<!-- TODO confirm is staked amount -->
 			<!-- <th class="to"> To (Account Hash) </th> -->
@@ -45,11 +45,18 @@
 			{#each displayedDelegators as delegator, i}
 				<tr>
 					{#if props.validatorPublicKey === delegator.publicKey}
-						<td>Self Stake</td>
+						<td class="blocky">Self Stake</td>
 					{:else}
-						<td class:rank-val={i === 0}>{i}</td>
+						<td class="blocky" class:rank-val={i === 0}>{i}</td>
 					{/if}
-					<td class="key">{delegator.publicKey}</td>
+					<td class="key">
+						<a href="/accounts/{delegator.publicKey}" class="hidden md:block"> {delegator.publicKey}</a>
+						<a href="/accounts/{delegator.publicKey}" class="md:hidden">
+							{`${delegator.publicKey.substring(0, 10)}...${delegator.publicKey.substring(
+								delegator.publicKey.length - 10
+							)}`}</a
+						>
+						</td>
 					<td class="to">
 						<div class="value-crypto">
 							<div class="crypto">
@@ -79,23 +86,23 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
 	.value-crypto {
 		@apply flex items-center justify-end gap-[clamp(2px,0.24vw,0.24vw)];
-		@apply text-right text-[clamp(8px,0.83vw,0.83vw)];
+		@apply text-right text-[clamp(10px,0.83vw,0.83vw)];
 	}
 
 	.crypto {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.cspr {
@@ -116,7 +123,11 @@
 	}
 
 	.total {
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
+	}
+
+	.blocky {
+		@apply px-0;
 	}
 </style>

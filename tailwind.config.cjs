@@ -52,6 +52,7 @@ module.exports = {
 					'tranfer-det-green': '#F0FEFF',
 					'sender-background': '#F5F6F7',
 					'input-border': '#DEDEDE',
+					'grey-border-line': '#EDEDED',
 					'step-progress-bar-bg': '#E3E3E3',
 					'slider-line': '#D3D3D3',
 					'transfer-details-border': 'E4E4E4'

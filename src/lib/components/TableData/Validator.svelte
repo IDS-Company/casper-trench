@@ -5,7 +5,7 @@
 	export let imgUrl: string;
 	export let name: string;
 	export let hash: string;
-	export let variant: 'center' | 'right' | 'righter' = 'right';
+	export let variant: 'center' | 'right' | 'righter' | 'left' = 'right';
 	export let notValidator = false;
 	export let start = false;
 	export let noOfCharacters = 5;
@@ -52,15 +52,16 @@
 	}
 
 	.details {
-		@apply leading-none;
+		@apply leading-none flex items-center;
 	}
 	.image-placeholder {
 		@apply bg-gray-100;
-		@apply rounded-full;
+		@apply rounded-full w-[clamp(20px,2vw,2vw)];
 		@apply flex items-center justify-center;
 	}
 	.name {
 		@apply text-color-grey-footer-label;
 		@apply mt-[clamp(2px,0.24vw,0.24vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 	}
 </style>

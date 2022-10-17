@@ -82,6 +82,6 @@
 	}
 
 	.container {
-		@apply md:max-w-[39.29vw] mx-4 md:mx-auto;
+		@apply md:max-w-[39.29vw] md:mx-auto;
 	}
 </style>

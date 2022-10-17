@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { getLatestBlocks, getLatestChainState, getTransferFlow } from '$utils/api';
+	import { getLatestChainState, getTransferFlow } from '$utils/api';
 	import { externalSankeyTooltipHandler } from '$utils/tooltip';
 	import { truncateString } from '$utils/truncate';
-	import type { Block } from '$utils/types/block';
 	import type { TransferFlow } from '$utils/types/transfer';
 	import { onMount } from 'svelte';
 	import EraSlider from './EraSlider.svelte';
 	import LimitDropdown from './LimitDropdown.svelte';
 
 	let ctx: HTMLCanvasElement;
+	let ua: string;
 	let chart;
 	let pan = false;
 	let transferFlow: TransferFlow;
@@ -29,8 +29,15 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		Chart.defaults.font.size = 14;
-		Chart.defaults.font.lineHeight = 26;
+		ua = navigator.userAgent;
+		console.log(ua)
+		if (ua.toLowerCase().includes('iphone') || ua.toLowerCase().includes('android')) {
+			Chart.defaults.font.size = 0;
+			Chart.defaults.font.lineHeight = 0;
+		} else {
+			Chart.defaults.font.size = 14;
+			Chart.defaults.font.lineHeight = 26;
+		}
 		updateSankey(true);
 	});
 
@@ -176,6 +183,25 @@
 					}}
 				/>
 			</div>
+			<div class="date hidden md:block">
+				{`${formatDate(dateFrom)} - ${formatDate(dateTo)}`}
+			</div>
+			<div class="hidden md:block">
+				<div class="total">
+					<div class="label">Total TX Account</div>
+					<div class="value">
+						{totalTxAccount}
+					</div>
+				</div>
+			</div>
+			<LimitDropdown
+				bind:limit
+				on:change={() => {
+					updateSankey(false);
+				}}
+			/>
+		</div>
+		<div class="mobile footer">
 			<div class="date">
 				{`${formatDate(dateFrom)} - ${formatDate(dateTo)}`}
 			</div>
@@ -185,12 +211,6 @@
 					{totalTxAccount}
 				</div>
 			</div>
-			<LimitDropdown
-				bind:limit
-				on:change={() => {
-					updateSankey(false);
-				}}
-			/>
 		</div>
 	{/await}
 </div>
@@ -219,7 +239,7 @@
 
 	.footer {
 		@apply flex items-center justify-between;
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-black-text;
 		@apply mt-[clamp(16px,1.07vw,1.07vw)];
 		@apply w-full;
 	}
@@ -241,5 +261,9 @@
 
 	.total {
 		@apply flex gap-[clamp(16px,1.07vw,1.07vw)];
+	}
+
+	.mobile {
+		@apply md:hidden justify-between flex-col;
 	}
 </style>

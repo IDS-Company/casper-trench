@@ -17,7 +17,7 @@
 
 <style lang="postcss">
 	.tooltip {
-		@apply text-[0.95vw];
+		@apply text-[clamp(10px,0.95vw,0.95vw)];
 	}
 
 	.tooltip-icon {
@@ -48,6 +48,6 @@
 
 	.left::before,
 	.left::after {
-		@apply translate-x-[-9vw];
+		@apply translate-x-[-20vw] md:translate-x-[-9vw];
 	}
 </style>

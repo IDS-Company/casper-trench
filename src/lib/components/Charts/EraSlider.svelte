@@ -16,7 +16,7 @@
 <style lang="postcss">
 	.slidecontainer {
 		@apply w-full;
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-grey-footer-label;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-grey-footer-label;
 	}
 
 	.slider:hover {

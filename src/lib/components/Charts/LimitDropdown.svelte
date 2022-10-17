@@ -51,7 +51,7 @@
 
 <style lang="postcss">
 	.show-row {
-		@apply flex items-center gap-[0.71vw];
+		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
 	}
 
 	.dropdown-header {
@@ -63,12 +63,12 @@
 	}
 	.dropdown {
 		@apply absolute z-50;
-		@apply text-color-table-header text-opacity-50 text-[clamp(10px,1.07vw,1.07vw)];
-		@apply flex flex-col gap-[0.4vw] items-center;
+		@apply text-color-table-header text-opacity-50 text-[clamp(14px,1.07vw,1.07vw)];
+		@apply flex flex-col gap-[clamp(4px,0.4vw,0.4vw)] items-center;
 		@apply min-w-max;
-		@apply rounded-[0.6vw];
+		@apply rounded-[clamp(4px,0.4vw,0.4vw)];
 		@apply bg-white;
-		@apply mt-[0.89vw] py-[0.83vw] px-[1.07vw];
+		@apply mt-[clamp(8px,0.89vw,0.89vw)] py-[clamp(8px,0.83vw,0.83vw)] px-[clamp(16px,1.07vw,1.07vw)];
 		@apply shadow-[0px_0px_11px_0px_rgba(0,0,0,0.1)];
 	}
 
@@ -83,5 +83,9 @@
 	.value {
 		@apply text-color-black-text;
 		@apply bg-transparent;
+	}
+
+	.chevron {
+		@apply h-[clamp(14px,0.95vw,0.95vw)] w-[clamp(14px,0.95vw,0.95vw)];
 	}
 </style>

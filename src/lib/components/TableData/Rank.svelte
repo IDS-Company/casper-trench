@@ -14,11 +14,11 @@
 <style lang="postcss">
 	.rank {
 		@apply flex items-center justify-center;
-		@apply w-[1.71vw] h-[2.01vw];
+		@apply h-5 md:h-[2.01vw];
 	}
 
 	.text {
 		@apply absolute;
-		@apply text-[clamp(8px,0.89vw,0.89vw)] text-color-grey-footer-label;
+		@apply text-[clamp(10px,0.89vw,0.89vw)] text-color-grey-footer-label;
 	}
 </style>

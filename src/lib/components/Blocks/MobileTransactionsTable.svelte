@@ -59,8 +59,12 @@
 </div>
 
 <style lang="postcss">
+    .delegators-tab {
+        @apply max-w-[80vw] overflow-x-auto;
+    }
+
 	table {
-		@apply table-auto md:w-[58.75vw] relative;
+		@apply table-auto relative;
 	}
 
 	.divider {
@@ -69,13 +73,13 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-4;
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-4;
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 

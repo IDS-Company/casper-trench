@@ -30,7 +30,7 @@
 	<table>
 		<tr>
 			<th class="rank">Rank</th>
-			<th class="validators">Validators</th>
+			<th><div class="validators">Validators</div></th>
 			<th class="fee">
 				<div class="header-wrapper">
 					<div class="text">Fee</div>
@@ -98,9 +98,17 @@
 				<td class="grey">{validator.delegationRate && validator.delegationRate}%</td>
 				<td>{validator.numOfDelegators && validator.numOfDelegators.toLocaleString('en')}</td>
 				<td class="stake">{validator.totalBid && validator.totalBid.toLocaleString('en')} CSPR</td>
-				<td class="grey self">{validator.selfStakePercentage && validator.selfStakePercentage.toFixed(2)}%</td>
-				<td class="grey network-perc">{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td>
-				<td class="performance"><CircleProgressBar progress={validator.performance && validator.performance || 0} /></td>
+				<td class="grey self"
+					>{validator.selfStakePercentage && validator.selfStakePercentage.toFixed(2)}%</td
+				>
+				<td class="grey network-perc"
+					>{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td
+				>
+				<td
+					><div class="performance">
+						<CircleProgressBar progress={(validator.performance && validator.performance) || 0} />
+					</div></td
+				>
 			</tr>
 		{/each}
 	</table>
@@ -118,14 +126,16 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] font-normal text-color-table-header;
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
+		@apply whitespace-nowrap;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)];
-		@apply text-[clamp(10px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
+		@apply whitespace-nowrap;
 	}
 
 	.grey {
@@ -145,11 +155,12 @@
 	.validators {
 		@apply pl-[3.69vw];
 		@apply text-left;
+		@apply flex justify-start;
 	}
 
 	.performance {
 		@apply text-center;
-		@apply flex justify-center gap-[0.48vw];
+		@apply flex justify-center gap-[clamp(8px,0.48vw,0.48vw)];
 	}
 
 	.network-perc {
@@ -166,6 +177,6 @@
 	}
 
 	.header-wrapper {
-		@apply flex items-center gap-[0.48vw];
+		@apply flex items-center gap-[clamp(8px,0.48vw,0.48vw)];
 	}
 </style>

@@ -26,23 +26,25 @@
 	<script src={nodePackages}></script>
 </svelte:head>
 
-<Header />
-{#key $page.url.pathname}
-	<main>
-		<slot />
-	</main>
-{/key}
-<!-- <Footer /> -->
-<BottomFooter />
+<div class="min-h-screen max-w-screen flex flex-col">
+	<Header />
+	{#key $page.url.pathname}
+		<main>
+			<slot />
+		</main>
+	{/key}
+	<!-- <Footer /> -->
+	<BottomFooter />
+</div>
 
 <Toast />
+
 {#if $isLoading}
 	<SvelteLoader />
 {/if}
-
 <style lang="postcss">
 	main {
-		@apply min-w-full;
+		@apply max-w-[100vw] overflow-x-auto flex-grow;
 		@apply pt-[clamp(30px,3.6vw,3.6vw)] pb-[clamp(40px,4.6vw,4.6vw)] px-[clamp(20px,3.8vw,3.8vw)];
 	}
 </style>

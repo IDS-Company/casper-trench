@@ -49,7 +49,7 @@
 		@apply flex flex-col gap-[0.42vw];
 	}
 	.icon {
-		@apply w-[clamp(10px,0.7vw,0.7vw)] h-[clamp(10px,0.35vw,0.35vw)];
+		@apply w-[clamp(8px,0.7vw,0.7vw)] h-[clamp(8px,0.35vw,0.35vw)];
 	}
 
 	.ascending > .icon {
