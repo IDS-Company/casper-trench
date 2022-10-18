@@ -68,14 +68,16 @@
 			{/each}
 		{/if}
 	</table>
-	<Paginator
-		showTotalRows={false}
-		bind:itemsPerPage={blocksPerPage}
-		apiPaginator
-		bind:items={blocks}
-		bind:startIndex
-		on:load-page={async () => await fetchProposerBlocks()}
-	/>
+	<div class="w-[40%] lg:w-full">
+		<Paginator
+			showTotalRows={false}
+			bind:itemsPerPage={blocksPerPage}
+			apiPaginator
+			bind:items={blocks}
+			bind:startIndex
+			on:load-page={async () => await fetchProposerBlocks()}
+		/>
+	</div>
 </div>
 
 <style lang="postcss">
