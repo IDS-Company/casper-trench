@@ -11,12 +11,12 @@
 </script>
 
 <div class="filter">
-	<div class="filter-dropdown">
+	<!-- <div class="filter-dropdown">
 		<div class="text">Filter</div>
 		<div class="chevron">
 			<NavbarChevron />
 		</div>
-	</div>
+	</div> -->
 
 	<input
 		type="text"
