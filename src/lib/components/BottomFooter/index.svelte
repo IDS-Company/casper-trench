@@ -8,10 +8,10 @@
 	<div class="bg darker" />
 	<div class="logos">
 		<div class="a-logo">
-			<ArcadiaLogo />
+			<div><ArcadiaLogo /></div>
 		</div>
 		<div class="c-logo">
-			<CasperTrenchLogo />
+			<div><CasperTrenchLogo /></div>
 		</div>
 	</div>
 	<div class="versions">
@@ -42,7 +42,7 @@
 	}
 
 	.logos {
-		@apply flex items-center gap-[clamp(16px,1.19vw,1.19vw)] h-full;
+		@apply flex items-center gap-[clamp(16px,1.19vw,1.19vw)] h-full md:justify-between;
 	}
 
 	.a-logo {

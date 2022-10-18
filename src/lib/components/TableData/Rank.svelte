@@ -14,7 +14,6 @@
 <style lang="postcss">
 	.rank {
 		@apply flex items-center justify-center;
-		@apply h-5 md:h-[2.01vw];
 	}
 
 	.text {
