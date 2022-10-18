@@ -315,6 +315,7 @@
 		@apply bg-white absolute w-full z-50;
 		@apply rounded-[0.48vh] md:rounded-[0.48vw];
 		@apply border-color-sender-background border-[clamp(1px,0.12vw,0.12vw)];
+		@apply shadow-[0px_0px_11px_0px_rgba(0,0,0,0.1)];
 		@apply p-[clamp(8px,1.71vw,1.71vw)];
 	}
 
@@ -324,6 +325,7 @@
 
     th {
         @apply text-[clamp(14px,1.07vw,1.07vw)];
+		@apply pb-[clamp(12px,0.71vw,0.71vw)];
     }
 
 	td {
