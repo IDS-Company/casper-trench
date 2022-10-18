@@ -103,7 +103,9 @@
 						<div class="wrapper">
 							<!-- TOD use actual rank -->
 							<!-- <Rank rank={account.rank} /> -->
-							<Rank rank={i + 1} />
+							<div class="rank">
+								<Rank rank={i + 1} />
+							</div>
 							<Contract text="CONTRACT" />
 						</div>
 					</td>
@@ -167,7 +169,7 @@
 	}
 
 	.blocky {
-		@apply px-0;
+		@apply px-0 w-10 align-middle;
 	}
 
 	.right {
@@ -179,9 +181,13 @@
 	}
 
 	.wrapper {
-		@apply flex md:gap-[2.26vw] items-center gap-4 min-w-max;
+		@apply flex md:gap-[2.26vw] items-center gap-4 w-full;
 	}
 	.sorter {
 		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
+	}
+
+	.rank {
+		@apply md:h-5 md:w-5;
 	}
 </style>
