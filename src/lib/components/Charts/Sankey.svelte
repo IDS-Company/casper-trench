@@ -8,13 +8,15 @@
 	import LimitDropdown from './LimitDropdown.svelte';
 
 	let ctx: HTMLCanvasElement;
-	let ua: string;
+	let isMobile = false;
 	let chart;
 	let pan = false;
 	let transferFlow: TransferFlow;
 	let data: { from: string; to: string; flow: number }[] = [];
 	let limit = 20;
 	let totalTxAccount = 51;
+	let innerHeight = 0;
+	let innerWidth = 0;
 
 	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
 	let dateTo = new Date('Jul 7, 2022, 18:33');
@@ -29,9 +31,8 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		ua = navigator.userAgent;
-		console.log(ua)
-		if (ua.toLowerCase().includes('iphone') || ua.toLowerCase().includes('android')) {
+		isMobile = innerHeight > innerWidth;
+		if (isMobile) {
 			Chart.defaults.font.size = 0;
 			Chart.defaults.font.lineHeight = 0;
 		} else {
@@ -145,6 +146,8 @@
 <svelte:head>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-sankey@0.9.0"></script>
 </svelte:head>
+
+<svelte:window bind:innerHeight bind:innerWidth/>
 
 <div class="container">
 	<div class="title">Transfer Flow</div>
