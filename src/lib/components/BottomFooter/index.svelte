@@ -46,7 +46,7 @@
 	}
 
 	.a-logo {
-		@apply h-6 aspect-auto md:w-[clamp(50px,8.39vw,8.39vw)] md:h-[clamp(25px,2.38vw,2.38vw)];
+		@apply h-[40px] w-[110px] aspect-auto md:w-[clamp(50px,8.39vw,8.39vw)] md:h-[clamp(25px,2.38vw,2.38vw)];
 	}
 
 	.c-logo {
