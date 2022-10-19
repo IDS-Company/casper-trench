@@ -34,9 +34,6 @@
 	<div class="total paginator">{items && items.length} total rows</div>
 {/if}
 <div class="paginator">
-	{#if showRow}
-		<ShowRow bind:itemsPerPage />
-	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
 			{#if showRow}
