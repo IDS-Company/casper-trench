@@ -29,12 +29,10 @@
 	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
 </script>
 
+{#if showTotalRows}
+	<div class="total paginator">{items && items.length} total rows</div>
+{/if}
 <div class="paginator">
-	{#if showTotalRows}
-		<div class="total">{items && items.length} total rows</div>
-	{:else if showRow}
-		<ShowRow bind:itemsPerPage />
-	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
 			{#if showRow}
@@ -118,12 +116,13 @@
 
 <style lang="postcss">
 	.paginator {
-		@apply flex justify-between flex-col md:flex-row gap-3 md:gap-0;
+		@apply flex justify-between items-center flex-col max-w-max md:flex-row gap-3 md:gap-0;
+
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
 	.paginator-buttons {
-		@apply flex flex-col md:flex-row gap-[clamp(4px,1.19vw,1.19vw)];
+		@apply flex flex-col md:flex-row gap-[clamp(8px,1.19vw,1.19vw)];
 	}
 
 	.actual-paginator {
@@ -150,5 +149,9 @@
 		@apply leading-none;
 		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply cursor-pointer;
+	}
+
+	.total {
+		@apply mb-[clamp(8px,0.48vw,0.48vw)];
 	}
 </style>

@@ -67,10 +67,10 @@
 						},
 						ticks: {
 							autoSkip: true,
-							maxTicksLimit: 20,
+							maxTicksLimit: 10,
 							maxRotation: 0,
 							minRotation: 0,
-							padding: -175
+							padding: -30
 						}
 					},
 					y: {

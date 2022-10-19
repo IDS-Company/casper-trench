@@ -95,16 +95,18 @@
 						</div>
 					</td> -->
 					</tr>
-				{:else if contract.type !== null}
-					{#if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
+				{:else if contract.contractType !== null}
+					{#if contract.contractType
+						.toLowerCase()
+						.includes(typeFilterItems[selectedFilter].toLowerCase())}
 						<tr>
 							<td class="block hash">
-								<a href="/contract-package/{contract.packageHash}">
-									<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
+								<a href="/contract-package/{contract?.contractPackageHash}">
+									<Hash hash={contract?.contractPackageHash} noOfCharacters={5} variant="righter" />
 								</a>
 							</td>
 							<td class="grey">{contract.name || ''}</td>
-							<td>{contract.type || ''}</td>
+							<td>{contract.contractType || ''}</td>
 							<td>
 								<div class="grey">
 									{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
@@ -146,29 +148,33 @@
 	}
 
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,6vw,6vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left whitespace-nowrap;
+		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
-		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max whitespace-nowrap;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,6vw,6vw)];
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.blocky {
-		@apply px-0;
+		@apply pl-0;
 	}
 
 	.grey {
-		@apply text-color-grey-footer-label min-w-max whitespace-nowrap;
+		@apply text-color-grey-footer-label whitespace-nowrap;
 	}
 
 	.hash {
-		@apply text-color-hover-footer-link min-w-max;
+		@apply text-color-hover-footer-link;
+	}
+
+	a {
+		@apply max-w-max;
 	}
 </style>

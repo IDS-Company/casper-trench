@@ -16,10 +16,6 @@
 		<div class="icon">
 			<img src={imgUrl} alt="validator-icon" />
 		</div>
-	{:else}
-		<div class="image-placeholder">
-			<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-		</div>
 	{/if}
 	<div class="details">
 		<Hash

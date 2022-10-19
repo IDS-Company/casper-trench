@@ -8,7 +8,7 @@
 	import LimitDropdown from './LimitDropdown.svelte';
 
 	let ctx: HTMLCanvasElement;
-	let ua: string;
+	let isMobile = false;
 	let chart;
 	let pan = false;
 	let transferFlow: TransferFlow;
@@ -29,15 +29,8 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		ua = navigator.userAgent;
-		console.log(ua)
-		if (ua.toLowerCase().includes('iphone') || ua.toLowerCase().includes('android')) {
-			Chart.defaults.font.size = 0;
-			Chart.defaults.font.lineHeight = 0;
-		} else {
-			Chart.defaults.font.size = 14;
-			Chart.defaults.font.lineHeight = 26;
-		}
+		Chart.defaults.font.size = 8;
+		Chart.defaults.font.lineHeight = 10;
 		updateSankey(true);
 	});
 
