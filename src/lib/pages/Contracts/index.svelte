@@ -6,6 +6,7 @@
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import { getContracts } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
+	import { tableSort } from '$utils/sort';
 	import { onMount } from 'svelte';
 
 	let contracts = [];
@@ -15,8 +16,8 @@
 		order: null
 	};
 
-	const sortTransactions = (direction: 'asc' | 'desc', field: string) => {
-		// transactions = tableSort(direction, transactions, field);
+	const sortContracts = (direction: 'asc' | 'desc', field: string) => {
+		contracts = tableSort(direction, contracts, field);
 		sortingOptions = {
 			index: 0,
 			order: direction
@@ -31,6 +32,7 @@
 </script>
 
 <div class="delegators-tab">
+	<!-- {JSON.stringify(displayedContracts)} -->
 	<div class="title">Contracts</div>
 	<table>
 		<tr>
@@ -50,20 +52,20 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
-						on:sort={(e) => sortTransactions(e.detail?.direction, 'transactions')}
+						on:sort={(e) => sortContracts(e.detail?.direction, 'deploys')}
 					/>
 				</div></th
 			>
 			<!-- <th><div class="flex justify-end">Contract Owner</div></th> -->
 		</tr>
 		<div class="divider table-header-border" />
-		{#if displayedContracts && displayedContracts?.length}
+		{#if displayedContracts && displayedContracts?.length > 0}
 			{#each displayedContracts as contract}
 				{#if selectedFilter === -1}
 					<tr>
 						<td class="blocky hash">
-							<a href="/contract-package/{contract.contractPackageHash}">
-								<Hash hash={contract.contractPackageHash} noOfCharacters={5} variant="righter" />
+							<a href="/contract-package/{contract?.contractPackageHash}">
+								<Hash hash={contract?.contractPackageHash} noOfCharacters={5} variant="righter" />
 							</a>
 						</td>
 						<!-- <td class="grey">{contract.name || ''}</td> -->
@@ -80,7 +82,7 @@
 									)} ago
 							</div>
 						</td>
-						<td>{contract.transactions || 0}</td>
+						<td>{contract?.deploys || 0}</td>
 						<!-- <td class="grey">
 						<div class="flex justify-end">
 							{#if contract.owner}
@@ -108,7 +110,7 @@
 									{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 								</div>
 							</td>
-							<td>{contract.transactions}</td>
+							<td>{contract?.deploys}</td>
 							<td class="grey">
 								<div class="flex justify-end">
 									{#if contract.owner}
@@ -126,7 +128,7 @@
 			{/each}
 		{/if}
 	</table>
-	<Paginator bind:items={contracts} bind:pagedItems={displayedContracts} itemsPerPage={5} />
+	<Paginator bind:items={contracts} bind:pagedItems={displayedContracts} itemsPerPage={10} />
 </div>
 
 <style lang="postcss">
