@@ -15,8 +15,8 @@
 	let data: { from: string; to: string; flow: number }[] = [];
 	let limit = 20;
 	let totalTxAccount = 51;
-	let innerHeight = 0;
-	let innerWidth = 0;
+	let innerHeight;
+	let innerWidth;
 
 	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
 	let dateTo = new Date('Jul 7, 2022, 18:33');
