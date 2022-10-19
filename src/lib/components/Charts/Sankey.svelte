@@ -15,8 +15,6 @@
 	let data: { from: string; to: string; flow: number }[] = [];
 	let limit = 20;
 	let totalTxAccount = 51;
-	let innerHeight;
-	let innerWidth;
 
 	let dateFrom = new Date('Jul 7, 2022, 16:34:01');
 	let dateTo = new Date('Jul 7, 2022, 18:33');
@@ -31,14 +29,8 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		isMobile = innerHeight > innerWidth || innerWidth <= 375;
-		if (isMobile) {
-			Chart.defaults.font.size = 0;
-			Chart.defaults.font.lineHeight = 0;
-		} else {
-			Chart.defaults.font.size = 14;
-			Chart.defaults.font.lineHeight = 26;
-		}
+		Chart.defaults.font.size = 8;
+		Chart.defaults.font.lineHeight = 10;
 		updateSankey(true);
 	});
 
@@ -146,8 +138,6 @@
 <svelte:head>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-sankey@0.9.0"></script>
 </svelte:head>
-
-<svelte:window bind:innerHeight bind:innerWidth/>
 
 <div class="container">
 	<div class="title">Transfer Flow</div>
