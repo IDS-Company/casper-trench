@@ -150,4 +150,8 @@
 		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply cursor-pointer;
 	}
+
+	.total {
+		@apply mb-[clamp(4px,0.48vw,0.48vw)];
+	}
 </style>
