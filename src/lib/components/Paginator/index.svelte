@@ -123,7 +123,7 @@
 	}
 
 	.paginator-buttons {
-		@apply flex flex-col md:flex-row gap-[clamp(4px,1.19vw,1.19vw)];
+		@apply flex flex-col md:flex-row gap-[clamp(8px,1.19vw,1.19vw)];
 	}
 
 	.actual-paginator {
@@ -153,6 +153,6 @@
 	}
 
 	.total {
-		@apply mb-[clamp(4px,0.48vw,0.48vw)];
+		@apply mb-[clamp(8px,0.48vw,0.48vw)];
 	}
 </style>
