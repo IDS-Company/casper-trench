@@ -3,79 +3,104 @@
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
-	import { sampleJsonData } from '$utils/sampleData';
+	import { getUref } from '$utils/api';
 	import { notifySuccess } from '$utils/toast';
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-
-	export let type = 'This URef is used as an access token or reference to a dictionary.';
-	export let jsonData = sampleJsonData;
-
+	import { page } from '$app/stores';
+	import { isLoading } from '$stores/loading';
+	let uref: {
+		CLValue?: {
+			cl_type: string;
+			bytes: string;
+			parsed: number;
+		};
+	};
 	let showRawData = false;
+	onMount(async () => {
+		$isLoading = true;
+		uref = await getUref($page.params.uref);
+		$isLoading = false;
+	});
 </script>
 
 <div class="overview">
 	<div class="title">UREF OVERVIEW</div>
 	<div class="extras">
 		<table>
-			{#if type}
+			{#if uref?.CLValue?.cl_type === 'Unit'}
+				<tr>
+					<td class="label">Type</td>
+					<td class="value">This URef is used as an access token or reference to a dictionary. </td>
+				</tr>
+			{:else if uref?.CLValue}
 				<tr>
 					<td class="label">Type</td>
 					<td class="value">
-						{type}
+						{uref?.CLValue?.cl_type}
+					</td>
+				</tr>
+				<tr>
+					<td class="label">Value</td>
+					<td class="value">
+						{uref?.CLValue?.parsed}
 					</td>
 				</tr>
 			{/if}
-			<tr>
-				<td class="label">Raw Data</td>
-				<td class="value">
-					<div class="raw-buttons">
-						<div
-							class="proofs-button green"
-							on:click={() => {
-								showRawData = !showRawData;
-							}}
-						>
-							<div class="text">Show</div>
-							<div class="eye-icon">
-								{#if !showRawData}
-									<div transition:slide>
-										<EyeIcon />
-									</div>
-								{:else}
-									<div transition:slide>
-										<CrossedEyeIcon />
-									</div>
-								{/if}
-							</div>
-						</div>
-						{#if showRawData}
-							<button
-								type="button"
+
+			{#if uref?.CLValue}
+				<tr>
+					<td class="label">Raw Data</td>
+					<td class="value">
+						<div class="raw-buttons">
+							<div
+								class="proofs-button green"
 								on:click={() => {
-									navigator.clipboard &&
-										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-										notifySuccess('Copied');
+									showRawData = !showRawData;
 								}}
-								class="copy-button"
 							>
-								<div class="text">Copy</div>
-								<div class="copy-icon">
-									<CopyIcon />
+								<div class="text">Show</div>
+								<div class="eye-icon">
+									{#if !showRawData}
+										<div transition:slide>
+											<EyeIcon />
+										</div>
+									{:else}
+										<div transition:slide>
+											<CrossedEyeIcon />
+										</div>
+									{/if}
 								</div>
-							</button>
-						{/if}
-					</div>
-					{#if jsonData && showRawData}
-						<div class="raw-data hidden md:block" transition:slide>
-							<TreeToggle text="" data={jsonData} />
+							</div>
+							{#if showRawData}
+								<button
+									type="button"
+									on:click={() => {
+										navigator.clipboard &&
+											navigator.clipboard.writeText(JSON.stringify(uref, null, 2));
+										notifySuccess('Copied');
+									}}
+									class="copy-button"
+								>
+									<div class="text">Copy</div>
+									<div class="copy-icon">
+										<CopyIcon />
+									</div>
+								</button>
+							{/if}
 						</div>
-					{/if}
-				</td>
-			</tr>
+						{#if uref && showRawData}
+							<div class="raw-data hidden md:block" transition:slide>
+								<TreeToggle text="" data={uref} />
+							</div>
+						{/if}
+					</td>
+				</tr>
+			{/if}
 		</table>
-		{#if jsonData && showRawData}
+		{#if uref && showRawData}
 			<div class="raw-data md:hidden" transition:slide>
-				<TreeToggle text="" data={jsonData} />
+				<TreeToggle text="" data={uref} />
 			</div>
 		{/if}
 	</div>

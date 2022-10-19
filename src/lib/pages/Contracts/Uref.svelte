@@ -17,14 +17,16 @@
 			<div class="value">
 				<div class="text">
 					<div class="md:hidden">
-						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring($page.params?.hash.length - 20)}`}
+						{`${$page.params?.uref?.substring(0, 20)}...${$page.params?.uref?.substring(
+							$page.params?.uref?.length - 20
+						)}`}
 					</div>
 					<div class="hidden md:block">
-						{$page.params?.hash}
+						{$page.params?.uref}
 					</div>
 				</div>
 				<div class="copy-icon">
-					<CopyIcon text={$page.params?.hash} />
+					<CopyIcon text={$page.params?.uref} />
 				</div>
 			</div>
 		</div>

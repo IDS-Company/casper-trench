@@ -19,7 +19,6 @@
 	onMount(async () => {
 		$isLoading = true;
 		contract = await getContract($page.params.hash);
-		console.log(contract);
 		$isLoading = false;
 	});
 </script>

@@ -363,3 +363,12 @@ export const getContractDeploys = async (hash: string) => {
 		notifyError('Could not fetch contract deploys');
 	}
 };
+
+export const getUref = async (uref: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/contracts/uref/${uref}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch uref');
+	}
+};
