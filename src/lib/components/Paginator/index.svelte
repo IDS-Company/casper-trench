@@ -30,10 +30,11 @@
 	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
 </script>
 
+{#if showTotalRows}
+	<div class="total paginator">{items && items.length} total rows</div>
+{/if}
 <div class="paginator">
-	{#if showTotalRows}
-		<div class="total">{items && items.length} total rows</div>
-	{:else if showRow}
+	{#if showRow}
 		<ShowRow bind:itemsPerPage />
 	{/if}
 	<div class="paginator-buttons">
@@ -75,7 +76,7 @@
 			<div class="text">
 				Page {page}
 				{#if !apiPaginator}
-					of {totalPages ? totalPages.toLocaleString() : "1"}
+					of {totalPages ? totalPages.toLocaleString() : '1'}
 				{/if}
 				{#if isRangeBlock}
 					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}
