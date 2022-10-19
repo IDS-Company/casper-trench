@@ -14,7 +14,7 @@
 	let validatorPublicKey = '';
 	let selectedValidator = -1;
 	let noValidators = false;
-    let error = '';
+	let error = '';
 
 	$: if (!validatorPublicKey) {
 		validatorPublicKey = '';
@@ -55,7 +55,7 @@
 							<th class="text-right">Fee</th>
 							<th class="text-right">Total stake (self stake $)</th>
 						</tr>
-                        <tr class="md:hidden">
+						<tr class="md:hidden">
 							<th class="text-left">Validator</th>
 							<th class="text-right">Fee</th>
 							<th class="text-right">Self stake</th>
@@ -75,11 +75,13 @@
 								>
 									<td>
 										<div class="validator-hash">
-											<img
-												src={validator?.information?.icon ||
-													'/images/png/validator-placeholder.png'}
-												alt="validator"
-											/>
+											{#if validator?.information?.icon}
+												<img
+													src={validator?.information?.icon ||
+														'/images/png/validator-placeholder.png'}
+													alt="validator"
+												/>
+											{/if}
 											<div class="hidden md:block">
 												<Hash color="black" noOfCharacters={10} hash={validator.publicKey || ''} />
 											</div>
@@ -133,7 +135,8 @@
 										<div class="validator-cspr w-full">
 											<div class="cspr">
 												<span class="cspr-fee"
-													>{validator.totalBid && Number(validator.totalBid.toFixed(2)).toLocaleString()}</span
+													>{validator.totalBid &&
+														Number(validator.totalBid.toFixed(2)).toLocaleString()}</span
 												> CSPR
 											</div>
 											<div class="perc">
@@ -146,10 +149,8 @@
 							{/if}
 						{/each}
 					</table>
-                {:else}
-                    <div class="grey">
-                        No Validators
-                    </div>
+				{:else}
+					<div class="grey">No Validators</div>
 				{/if}
 			</div>
 		{/if}
@@ -160,18 +161,21 @@
 			<div>Validator</div>
 		</div>
 		<div
-			class="value validator-display mb-[clamp(16px,1.9vw,1.9vw)] vali-border" class:error
+			class="value validator-display mb-[clamp(16px,1.9vw,1.9vw)] vali-border"
+			class:error
 			on:click={() => {
 				editValidator = true;
 			}}
 		>
 			<div class="flex items-center justify-between">
 				<div class="validator-hash">
-					<img
-						src={availableValidators[selectedValidator]?.information?.icon ||
-							'/images/png/validator-placeholder.png'}
-						alt="validator"
-					/>
+					{#if availableValidators[selectedValidator]?.information?.icon}
+						<img
+							src={availableValidators[selectedValidator]?.information?.icon ||
+								'/images/png/validator-placeholder.png'}
+							alt="validator"
+						/>
+					{/if}
 					<div class="hidden md:block">
 						<Hash
 							color="black"
@@ -242,11 +246,11 @@
 				</div>
 			</div>
 		</div>
-        {#if error}
-            <div class="error-msg">
-                {error}
-            </div>
-        {/if}
+		{#if error}
+			<div class="error-msg">
+				{error}
+			</div>
+		{/if}
 	</div>
 {/if}
 
@@ -323,25 +327,25 @@
 		@apply w-full;
 	}
 
-    th {
-        @apply text-[clamp(14px,1.07vw,1.07vw)];
+	th {
+		@apply text-[clamp(14px,1.07vw,1.07vw)];
 		@apply pb-[clamp(12px,0.71vw,0.71vw)];
-    }
+	}
 
 	td {
 		@apply py-[clamp(12px,0.71vw,0.71vw)];
 	}
 
-    .vali-border {
-        @apply border-color-sender-background border-[clamp(1px,0.12vw,0.12vw)];
-        @apply rounded-[0.48vh] md:rounded-[0.48vw];
-    }
+	.vali-border {
+		@apply border-color-sender-background border-[clamp(1px,0.12vw,0.12vw)];
+		@apply rounded-[0.48vh] md:rounded-[0.48vw];
+	}
 
-    .error {
-        @apply border-color-arcadia-red;
-    }
+	.error {
+		@apply border-color-arcadia-red;
+	}
 
-    .error-msg {
-        @apply text-color-arcadia-red text-[clamp(12px,0.95vw,0.95vw)];
-    }
+	.error-msg {
+		@apply text-color-arcadia-red text-[clamp(12px,0.95vw,0.95vw)];
+	}
 </style>

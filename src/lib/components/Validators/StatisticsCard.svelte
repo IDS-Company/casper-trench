@@ -9,32 +9,14 @@
 </script>
 
 <div class="statistics-card">
-	<div class="md:hidden">
-		<div class="label">Public Key</div>
-		<div class="value mb-4">
-			<div class="text">
-				<div class="md:hidden">
-					{`${validator.publicKey.substring(0, 16)}...${validator.publicKey.substring(
-						validator.publicKey.length - 16
-					)}`}
-				</div>
-				<div class="hidden md:block">
-					{validator.publicKey}
-				</div>
-			</div>
-			<div class="copy-icon">
-				<CopyIcon text={validator.publicKey} />
-			</div>
-		</div>
-	</div>
-	<table class="extras">
-		<tr class="hidden md:table-row">
-			<td class="label">Public Key</td>
-			<td class="value"
-				><div class="text">
+	<div class="wrapper">
+		<div class="md:hidden">
+			<div class="label">Public Key</div>
+			<div class="value mb-4">
+				<div class="text">
 					<div class="md:hidden">
-						{`${validator.publicKey.substring(0, 5)}...${validator.publicKey.substring(
-							validator.publicKey.length - 5
+						{`${validator.publicKey.substring(0, 16)}...${validator.publicKey.substring(
+							validator.publicKey.length - 16
 						)}`}
 					</div>
 					<div class="hidden md:block">
@@ -43,41 +25,61 @@
 				</div>
 				<div class="copy-icon">
 					<CopyIcon text={validator.publicKey} />
-				</div></td
-			>
-		</tr>
-		<tr>
-			<td class="label">Total Validator Rewards</td>
-			<td class="value"><BalanceTransferrable cspr={validator.totalValidatorRewards} /></td>
-		</tr>
-		<tr>
-			<td class="label">Total Delegator Rewards</td>
-			<td class="value"><BalanceTransferrable cspr={validator.totalDelegatorRewards} /></td>
-		</tr>
-		<tr>
-			<td class="label">Total Stake</td>
-			<td class="value"><BalanceTransferrable cspr={validator.totalBid} /></td>
-		</tr>
-		<tr>
-			<td class="label">Self Stake</td>
-			<td class="value"><BalanceTransferrable cspr={validator.selfStake} /></td>
-		</tr>
-		<tr>
-			<td class="label">Commission Rate</td>
-			<td class="value commission">{validator.delegationRate.toFixed(2) || 0}%</td>
-		</tr>
-		<tr>
-			<td class="label">Performance</td>
-			<td class="value"><CircleProgressBar progress={validator.performance || 0} /></td>
-		</tr>
-	</table>
+				</div>
+			</div>
+		</div>
+		<table class="extras">
+			<tr class="hidden md:table-row">
+				<td class="label">Public Key</td>
+				<td class="value"
+					><div class="text">
+						<div class="md:hidden">
+							{`${validator.publicKey.substring(0, 5)}...${validator.publicKey.substring(
+								validator.publicKey.length - 5
+							)}`}
+						</div>
+						<div class="hidden md:block">
+							{validator.publicKey}
+						</div>
+					</div>
+					<div class="copy-icon">
+						<CopyIcon text={validator.publicKey} />
+					</div></td
+				>
+			</tr>
+			<tr>
+				<td class="label">Total Validator Rewards</td>
+				<td class="value"><BalanceTransferrable cspr={validator.totalValidatorRewards} /></td>
+			</tr>
+			<tr>
+				<td class="label">Total Delegator Rewards</td>
+				<td class="value"><BalanceTransferrable cspr={validator.totalDelegatorRewards} /></td>
+			</tr>
+			<tr>
+				<td class="label">Total Stake</td>
+				<td class="value"><BalanceTransferrable cspr={validator.totalBid} /></td>
+			</tr>
+			<tr>
+				<td class="label">Self Stake</td>
+				<td class="value"><BalanceTransferrable cspr={validator.selfStake} /></td>
+			</tr>
+			<tr>
+				<td class="label">Commission Rate</td>
+				<td class="value commission">{validator.delegationRate.toFixed(2) || 0}%</td>
+			</tr>
+			<tr>
+				<td class="label">Performance</td>
+				<td class="value"><CircleProgressBar progress={validator.performance || 0} /></td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 <style lang="postcss">
 	.statistics-card {
-		@apply flex flex-col md:items-center;
+		@apply flex flex-col;
 		@apply pt-[2.5vw] pb-[2.92vw] px-[2.5vw];
-		@apply w-full md:w-[57.38vw];
+		/* @apply w-full md:w-[57.38vw]; */
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply rounded-[0.89vw];
@@ -88,15 +90,23 @@
 		@apply md:w-full;
 	}
 
+	.wrapper {
+		@apply w-full md:w-[57.38vw];
+	}
+
 	.value {
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-hover-footer-link;
-		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)];
+		@apply flex items-center gap-[clamp(4px,0.24vw,0.24vw)] justify-end md:justify-start;
 		@apply w-full;
 	}
 
 	td {
 		@apply pb-[2.2vw];
 		@apply align-top;
+	}
+
+	table {
+		@apply w-full md:w-auto;
 	}
 
 	.copy-icon {

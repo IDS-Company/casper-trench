@@ -30,12 +30,10 @@
 	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
 </script>
 
+{#if showTotalRows}
+	<div class="total paginator">{items && items.length} total rows</div>
+{/if}
 <div class="paginator">
-	{#if showTotalRows}
-		<div class="total">{items && items.length} total rows</div>
-	{:else if showRow}
-		<ShowRow bind:itemsPerPage />
-	{/if}
 	<div class="paginator-buttons">
 		{#if showTotalRows}
 			{#if showRow}
@@ -125,7 +123,7 @@
 	}
 
 	.paginator-buttons {
-		@apply flex flex-col md:flex-row gap-[clamp(4px,1.19vw,1.19vw)];
+		@apply flex flex-col md:flex-row gap-[clamp(8px,1.19vw,1.19vw)];
 	}
 
 	.actual-paginator {
@@ -155,6 +153,6 @@
 	}
 
 	.total {
-		@apply lg:px-2;
+		@apply mb-[clamp(8px,0.48vw,0.48vw)];
 	}
 </style>

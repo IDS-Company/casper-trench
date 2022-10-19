@@ -39,7 +39,7 @@
 
 <style lang="postcss">
 	.show-row {
-		@apply flex items-center gap-[clamp(4px,2.8vw,2.8vw)] lg:px-2;
+		@apply flex items-center gap-[clamp(4px,1.07vw,1.07vw)];
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
