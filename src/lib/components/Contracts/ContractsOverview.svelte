@@ -5,20 +5,23 @@
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import { getContract } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import { sampleJsonData } from '$utils/sampleData';
 	import { notifySuccess } from '$utils/toast';
+	import type { Contract } from '$utils/types/contract';
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import { isLoading } from '$stores/loading';
 
-	export let packageHash = '5f6d9f303310d7dd695b73830f241f9b3f670153c761c8775c5ea204d9fa637f';
-	export let timestamp = '2021-03-31T15:00:40.000Z';
-	export let owner = '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071';
-	export let protocolVersion = '1.4.6';
-	export let type = 'ERC-20';
-	export let jsonData = sampleJsonData;
-
-	const timestampDate = new Date(timestamp);
 	let showRawData = false;
+	export let contract: Contract;
+	onMount(async () => {
+		$isLoading = true;
+		contract = await getContract($page.params.hash);
+		console.log(contract);
+		$isLoading = false;
+	});
 </script>
 
 <div class="overview">
@@ -28,31 +31,33 @@
 			<tr>
 				<td class="label">Contract Package Hash</td>
 				<td class="value">
-					<a href="/contract-package/{packageHash}">
-						<Hash hash={packageHash} noOfCharacters={50} start />
+					<a href="/contract-package/{contract?.contractPackageHash}">
+						<Hash hash={contract?.contractPackageHash} noOfCharacters={50} start />
 					</a>
 				</td>
 			</tr>
 			<tr>
 				<td class="label">Protocol Version</td>
 				<td class="value">
-					{protocolVersion}
+					{contract?.protocolVersion || ''}
 				</td>
 			</tr>
-			{#if type}
+			{#if contract?.contractType}
 				<tr>
 					<td class="label">Type</td>
 					<td class="value">
-						{type}
+						{contract?.contractType}
 					</td>
 				</tr>
 			{/if}
 			<tr>
-				<td class="label">Timestamp</td>
+				<td class="label">Active</td>
 				<td class="value">
-					<div class="time">{timestampDate}</div>
+					<div class="time">{new Date(contract?.timestamp || '2022-01-01')}</div>
 					<div class="ago">
-						{`${timeAgo(millisToFormat(Date.now() - timestampDate.getTime()))} ago`}
+						{`${timeAgo(
+							millisToFormat(Date.now() - new Date(contract?.timestamp || '2022-01-01').getTime())
+						)} ago`}
 					</div>
 				</td>
 			</tr>
@@ -84,8 +89,8 @@
 								type="button"
 								on:click={() => {
 									navigator.clipboard &&
-										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-										notifySuccess('Copied');
+										navigator.clipboard.writeText(JSON.stringify(contract?.rawData, null, 2));
+									notifySuccess('Copied');
 								}}
 								class="copy-button"
 							>
@@ -96,9 +101,9 @@
 							</button>
 						{/if}
 					</div>
-					{#if jsonData && showRawData}
+					{#if contract?.rawData && showRawData}
 						<div class="raw-data" transition:slide>
-							<TreeToggle text="" data={jsonData} />
+							<TreeToggle text="" data={contract?.rawData} />
 						</div>
 					{/if}
 				</td>
@@ -110,13 +115,18 @@
 			<div class="label">Contract Package Hash</div>
 			<div class="value flex items-center gap-2 hash">
 				<div class="text">
-					<a href="/contract-package/{packageHash}">
-						{`${packageHash.substring(0, 8)}...${packageHash.substring(packageHash.length - 8)}`}
+					<a href="/contract-package/{contract?.contractPackageHash}">
+						{`${contract?.contractPackageHash.substring(
+							0,
+							8
+						)}...${contract?.contractPackageHash.substring(
+							contract?.contractPackageHash.length - 8
+						)}`}
 					</a>
 				</div>
-				{#if packageHash}
+				{#if contract?.contractPackageHash}
 					<div class="copy-icon">
-						<CopyIcon text={packageHash} />
+						<CopyIcon text={contract?.contractPackageHash} />
 					</div>
 				{/if}
 			</div>
@@ -124,23 +134,25 @@
 		<div class="flex justify-between mb-2">
 			<div class="label">Protocol Version</div>
 			<div class="value">
-				{protocolVersion}
+				{contract?.protocolVersion}
 			</div>
 		</div>
-		{#if type}
+		{#if contract?.contractType}
 			<div class="flex justify-between mb-2">
 				<div class="label">Type</div>
 				<div class="value">
-					{type}
+					{contract?.contractType}
 				</div>
 			</div>
 		{/if}
 		<div class="flex justify-between mb-2">
 			<div class="label">Timestamp</div>
 			<div class="value">
-				<div class="time">{timestampDate}</div>
+				<div class="time">{new Date(contract?.timestamp || '2022-01-01')}</div>
 				<div class="ago">
-					{`${timeAgo(millisToFormat(Date.now() - timestampDate.getTime()))} ago`}
+					{`${timeAgo(
+						millisToFormat(Date.now() - new Date(contract?.timestamp || '2022-01-01').getTime())
+					)} ago`}
 				</div>
 			</div>
 		</div>
@@ -176,7 +188,7 @@
 		</div>
 		{#if showRawData}
 			<div class="raw-data" transition:slide>
-				<TreeToggle text="" data={jsonData} />
+				<TreeToggle text="" data={contract?.rawData} />
 			</div>
 		{/if}
 	</div>
@@ -223,7 +235,6 @@
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)];
-
 	}
 
 	.copy-icon {

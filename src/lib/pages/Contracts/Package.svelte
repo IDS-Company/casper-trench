@@ -4,14 +4,15 @@
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
 	import ContractsPackageOverview from './ContractsPackageOverview.svelte';
-	import PackageDeploys from './PackageTabs/PackageDeploys.svelte';
+	import ContractDeploys from './ContractDeploys.svelte';
 	import PackageVersions from './PackageTabs/PackageVersions.svelte';
 	import PackageGroups from './PackageTabs/PackageGroups.svelte';
-
+	import type { Contract } from '$utils/types/contract';
+	let contract: Contract;
 	let menuOptions = [
 		{
 			title: 'Transactions',
-			component: PackageDeploys,
+			component: ContractDeploys,
 			props: {}
 		},
 		{
@@ -19,12 +20,16 @@
 			component: PackageVersions,
 			props: {}
 		},
-        {
+		{
 			title: 'Groups',
 			component: PackageGroups,
 			props: {}
-		},
+		}
 	];
+	$: {
+		menuOptions[1].props['versions'] = contract?.contractPackage?.versions;
+		menuOptions[2].props['groups'] = contract?.contractPackage?.groups;
+	}
 </script>
 
 <div class="main">
@@ -39,7 +44,9 @@
 			<div class="value">
 				<div class="text">
 					<div class="md:hidden">
-						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring($page.params?.hash.length - 20)}`}
+						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring(
+							$page.params?.hash.length - 20
+						)}`}
 					</div>
 					<div class="hidden md:block">
 						{$page.params?.hash}
@@ -53,7 +60,7 @@
 	</div>
 
 	<div class="info">
-		<ContractsPackageOverview />
+		<ContractsPackageOverview bind:contract />
 	</div>
 	<TabMenu {menuOptions} />
 </div>

@@ -2,22 +2,11 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 
 	export let props: {
-		contractHash: string;
+		versions: any;
 	};
 	let versionsPerPage: number = 10;
-	let startIndex = 0;
-	let versions = [
-		{
-			version: 2,
-			majorProtocolVersion: 1,
-			versionHash: '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071'
-		},
-		{
-			version: 1,
-			majorProtocolVersion: 1,
-			versionHash: '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071'
-		}
-	];
+	let versions = props?.versions;
+	let displayedVersions = [];
 </script>
 
 <div class="delegators-tab">
@@ -31,18 +20,18 @@
 			<th>Contract Version Hash</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if versions && versions.length > 0}
-			{#each versions as version}
+		{#if displayedVersions && displayedVersions.length > 0}
+			{#each displayedVersions as version}
 				<tr>
 					<td class="blocky">
-						{version.version}
+						{version?.contractVersion}
 					</td>
 					<td>
-						{version.majorProtocolVersion}
+						{version?.protocolVersionMajor}
 					</td>
 					<td
-						><a href="/contracts/{version.versionHash}" class="green">
-							{version.versionHash}
+						><a href="/contracts/{version?.contractHash?.replace('contract-', '')}" class="green">
+							{version?.contractHash?.replace('contract-', '')}
 						</a></td
 					>
 				</tr>
@@ -50,10 +39,9 @@
 		{/if}
 	</table>
 	<Paginator
-		showTotalRows={false}
 		bind:itemsPerPage={versionsPerPage}
-		apiPaginator
-		bind:startIndex
+		bind:pagedItems={displayedVersions}
+		bind:items={versions}
 	/>
 </div>
 

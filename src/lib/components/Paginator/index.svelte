@@ -2,7 +2,6 @@
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
-	import { getLatestBlocks } from '$utils/chain/blocks';
 	import { getLatestChainState } from '$utils/api';
 	const dispatch = createEventDispatcher();
 	let page = 1;
@@ -75,7 +74,7 @@
 			<div class="text">
 				Page {page}
 				{#if !apiPaginator}
-					of {totalPages ? totalPages.toLocaleString() : "1"}
+					of {totalPages ? totalPages.toLocaleString() : '1'}
 				{/if}
 				{#if isRangeBlock}
 					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}

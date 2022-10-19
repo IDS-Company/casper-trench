@@ -3,15 +3,16 @@
 	import BlockIcon from '$lib/icons/BlockIcon.svelte';
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import { page } from '$app/stores';
-	import PackageDeploys from './PackageTabs/PackageDeploys.svelte';
+	import ContractDeploys from './ContractDeploys.svelte';
 	import ContractsOverview from '$lib/components/Contracts/ContractsOverview.svelte';
 	import ContractEntryPoints from './ContractTabs/ContractEntryPoints.svelte';
 	import ContractNamedKeys from './ContractTabs/ContractNamedKeys.svelte';
-
+	import type { Contract } from '$utils/types/contract';
+	let contract: Contract;
 	let menuOptions = [
 		{
 			title: 'Transactions',
-			component: PackageDeploys,
+			component: ContractDeploys,
 			props: {}
 		},
 		{
@@ -19,12 +20,16 @@
 			component: ContractEntryPoints,
 			props: {}
 		},
-        {
+		{
 			title: 'Named Keys',
 			component: ContractNamedKeys,
 			props: {}
-		},
+		}
 	];
+	$: {
+		menuOptions[1].props['entryPoints'] = contract?.entryPoints;
+		menuOptions[2].props['namedKeys'] = contract?.namedKeys;
+	}
 </script>
 
 <div class="main">
@@ -39,7 +44,9 @@
 			<div class="value">
 				<div class="text">
 					<div class="md:hidden">
-						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring($page.params?.hash.length - 20)}`}
+						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring(
+							$page.params?.hash.length - 20
+						)}`}
 					</div>
 					<div class="hidden md:block">
 						{$page.params?.hash}
@@ -53,7 +60,7 @@
 	</div>
 
 	<div class="info">
-		<ContractsOverview />
+		<ContractsOverview bind:contract />
 	</div>
 	<TabMenu {menuOptions} />
 </div>

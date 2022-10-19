@@ -336,3 +336,30 @@ export const searchPhrase = async (address: string) => {
 		notifyError('Sorry, nothing was found.');
 	}
 };
+
+export const getContracts = async () => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/contracts`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch contracts');
+	}
+};
+
+export const getContract = async (hash: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/contracts/${hash}`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch contract');
+	}
+};
+
+export const getContractDeploys = async (hash: string) => {
+	try {
+		const res = await axios.get(`${csprFyiBaseURL}/contracts/${hash}/deploys`);
+		return res && res.data;
+	} catch (error) {
+		notifyError('Could not fetch contract deploys');
+	}
+};
