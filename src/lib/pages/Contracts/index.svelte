@@ -176,14 +176,18 @@
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[16px,1vw,1vw];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,6vw,6vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
 		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[16px,1vw,1vw] max-w-max;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,6vw,6vw)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
+	}
+
+	.blocky {
+		@apply pl-0;
 	}
 
 	.grey {
@@ -192,14 +196,6 @@
 
 	.hash {
 		@apply text-color-hover-footer-link;
-	}
-
-	.blocky {
-		@apply md:max-w-[12vw];
-	}
-
-	.blocky-2 {
-		@apply md:max-w-[4vw];
 	}
 
 	a {
