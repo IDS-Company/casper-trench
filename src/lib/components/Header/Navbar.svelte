@@ -97,7 +97,7 @@
 </script>
 
 {#if openNavBackdrop}
-	<MobileNavMenu handleClose={() => (openNavBackdrop = false)} {navItems}/>
+	<MobileNavMenu handleClose={() => (openNavBackdrop = false)} {navItems} />
 {/if}
 
 <div class="navbar">
@@ -176,7 +176,7 @@
 	}
 
 	.icon {
-		@apply h-6;
+		@apply w-6;
 	}
 
 	.nav-menu-mobile {

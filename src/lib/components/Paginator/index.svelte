@@ -117,7 +117,8 @@
 
 <style lang="postcss">
 	.paginator {
-		@apply flex justify-between flex-col md:flex-row gap-3 md:gap-0;
+		@apply flex justify-between items-center flex-col max-w-max md:flex-row gap-3 md:gap-0;
+
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
