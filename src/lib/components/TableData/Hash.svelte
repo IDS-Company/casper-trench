@@ -26,9 +26,9 @@
 		<div class="pointer" transition:scale />
 	{/if}
 	{#if !start}
-		{`${hash.substring(0, noOfCharacters)}...${hash.substring(hash.length - noOfCharacters)}`}
+		{`${hash?.substring(0, noOfCharacters)}...${hash?.substring(hash?.length - noOfCharacters)}`}
 	{:else}
-		{`${hash.substring(0, noOfCharacters)}${hash.length > noOfCharacters ? '...' : ''}`}
+		{`${hash?.substring(0, noOfCharacters)}${hash?.length > noOfCharacters ? '...' : ''}`}
 	{/if}
 </div>
 
@@ -39,7 +39,7 @@
 	}
 
 	.text {
-		@apply text-color-hover-footer-link ;
+		@apply text-color-hover-footer-link;
 	}
 
 	.yellow {

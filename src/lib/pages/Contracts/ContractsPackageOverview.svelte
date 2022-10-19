@@ -5,21 +5,22 @@
 	import CopyIcon from '$lib/icons/CopyIcon.svelte';
 	import CrossedEyeIcon from '$lib/icons/CrossedEyeIcon.svelte';
 	import EyeIcon from '$lib/icons/EyeIcon.svelte';
+	import { getContract } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
-	import { sampleJsonData } from '$utils/sampleData';
 	import { notifySuccess } from '$utils/toast';
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import type { Contract } from '$utils/types/contract';
+	import { isLoading } from '$stores/loading';
 
-	export let accessKey =
-		'uref-be3a9a586b10eba01dc1392bcef73139ea2482be3af469eca12c5ae91a7ed6b4-007';
-	export let timestamp = '2021-03-31T15:00:40.000Z';
-	export let owner = '01d29b3abef3b25d4f43519bfaef6b6ec71cd9f115fcdb005bb287f54f67c57071';
-	export let name = 'Swappery Token';
-	export let type = 'ERC-20';
-	export let jsonData = sampleJsonData;
-
-	const timestampDate = new Date(timestamp);
 	let showRawData = false;
+	export let contract: Contract;
+	onMount(async () => {
+		$isLoading = true;
+		contract = await getContract($page.params.hash);
+		$isLoading = false;
+	});
 </script>
 
 <div class="overview">
@@ -29,12 +30,12 @@
 			<tr>
 				<td class="label">Access Key</td>
 				<td class="value">
-					<a href="/uref/{accessKey}">
-						<Hash hash={accessKey} noOfCharacters={50} start />
+					<a href="/uref/{contract?.contractPackage?.accessKey}">
+						<Hash hash={contract?.contractPackage?.accessKey} noOfCharacters={50} start />
 					</a>
 				</td>
 			</tr>
-			{#if name}
+			{#if contract?.name}
 				<tr>
 					<td class="label">Name</td>
 					<td class="value">
@@ -42,11 +43,11 @@
 					</td>
 				</tr>
 			{/if}
-			{#if owner}
+			{#if contract?.owner}
 				<tr>
 					<td class="label">Owner Public Key</td>
 					<td class="value">
-						<a href="/accounts/{owner}">
+						<a href="/accounts/{contract?.owner}">
 							<Validator
 								imgUrl={''}
 								name={''}
@@ -59,20 +60,22 @@
 					</td>
 				</tr>
 			{/if}
-			{#if type}
+			{#if contract?.contractType}
 				<tr>
 					<td class="label">Type</td>
 					<td class="value">
-						{type}
+						{contract?.contractType}
 					</td>
 				</tr>
 			{/if}
 			<tr>
-				<td class="label">Timestamp</td>
+				<td class="label">Active</td>
 				<td class="value">
-					<div class="time">{timestampDate}</div>
+					<div class="time">{new Date(contract?.timestamp || '2022-01-01')}</div>
 					<div class="ago">
-						{`${timeAgo(millisToFormat(Date.now() - timestampDate.getTime()))} ago`}
+						{`${timeAgo(
+							millisToFormat(Date.now() - new Date(contract?.timestamp || '2022-01-01').getTime())
+						)} ago`}
 					</div>
 				</td>
 			</tr>
@@ -104,8 +107,8 @@
 								type="button"
 								on:click={() => {
 									navigator.clipboard &&
-										navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-										notifySuccess('Copied');
+										navigator.clipboard.writeText(JSON.stringify(contract?.rawData, null, 2));
+									notifySuccess('Copied');
 								}}
 								class="copy-button"
 							>
@@ -116,9 +119,9 @@
 							</button>
 						{/if}
 					</div>
-					{#if jsonData && showRawData}
+					{#if contract?.rawData && showRawData}
 						<div class="raw-data" transition:slide>
-							<TreeToggle text="" data={jsonData} />
+							<TreeToggle text="" data={contract?.rawData} />
 						</div>
 					{/if}
 				</td>
@@ -130,55 +133,64 @@
 			<div class="label">Access Key</div>
 			<div class="value flex items-center gap-2 hash">
 				<div class="text">
-					<a href="/uref/{accessKey}">
-						{`${accessKey.substring(0, 8)}...${accessKey.substring(accessKey.length - 8)}`}
+					<a href="/uref/{contract?.contractPackage?.accessKey}">
+						{(contract &&
+							`${contract?.contractPackage?.accessKey.substring(
+								0,
+								8
+							)}...${contract?.contractPackage?.accessKey.substring(
+								contract?.contractPackage?.accessKey.length - 8
+							)}`) ||
+							''}
 					</a>
 				</div>
-				{#if accessKey}
+				{#if contract?.contractPackage?.accessKey}
 					<div class="copy-icon">
-						<CopyIcon text={accessKey} />
+						<CopyIcon text={contract?.contractPackage?.accessKey} />
 					</div>
 				{/if}
 			</div>
 		</div>
-		{#if name}
+		{#if contract?.name}
 			<div class="flex justify-between mb-2">
 				<div class="label">Name</div>
 				<div class="value">
-					{name}
+					{contract?.name}
 				</div>
 			</div>
 		{/if}
-		{#if owner}
+		{#if contract?.owner}
 			<div class="flex justify-between mb-2">
 				<div class="label">Owner Public Key</div>
 				<div class="value flex items-center gap-2 hash">
-					<a href="/accounts/{owner}">
-						{`${owner.substring(0, 8)}...${owner.substring(owner.length - 8)}`}
+					<a href="/accounts/{contract?.owner}">
+						{`${contract?.owner.substring(0, 8)}...${contract?.owner.substring(
+							contract?.owner.length - 8
+						)}`}
 					</a>
-					{#if accessKey}
+					{#if contract?.accessKey || ''}
 						<div class="copy-icon">
-							<CopyIcon text={accessKey} />
+							<CopyIcon text={contract?.accessKey || ''} />
 						</div>
 					{/if}
 				</div>
 			</div>
 		{/if}
-		{#if type}
+		{#if contract?.type}
 			<div class="flex justify-between mb-2">
 				<div class="label">Type</div>
 				<div class="value">
-					{type}
+					{contract?.type}
 				</div>
 			</div>
 		{/if}
 		<div class="flex justify-between mb-2">
 			<div class="label">Timestamp</div>
 			<div class="value">
-				<div class="time">{timestampDate}</div>
+				<div class="time">{new Date(contract?.timestamp || '2022-01-01')}</div>
 				<div class="ago">
 					{`${timeAgo(
-						millisToFormat(Date.now() - timestampDate.getTime())
+						millisToFormat(Date.now() - new Date(contract?.timestamp || '2022-01-01').getTime())
 					)} ago`}
 				</div>
 			</div>
@@ -215,7 +227,7 @@
 		</div>
 		{#if showRawData}
 			<div class="raw-data" transition:slide>
-				<TreeToggle text="" data={jsonData} />
+				<TreeToggle text="" data={contract?.rawData} />
 			</div>
 		{/if}
 	</div>

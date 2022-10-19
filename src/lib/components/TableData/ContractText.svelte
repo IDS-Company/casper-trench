@@ -1,14 +1,23 @@
 <script lang="ts">
+	import Hash from './Hash.svelte';
+
 	export let type: string;
+	export let contractHash: string;
 </script>
 
 <div class="contract-text">
 	<div class="type">
 		{type}
 	</div>
-	{#if type === 'delegate' || type === 'undelegate'}
+	{#if contractHash}
 		<div class="detail">
-			with <span class="auction">Auction</span> System Contract
+			{#if type === 'delegate' || type === 'undelegate'}
+				with <a href="/contracts/{contractHash}" class="auction">Auction</a> System Contract
+			{:else}
+				with <a href="/contracts/{contractHash}" class="auction"
+					><Hash hash={contractHash} color="green" /></a
+				>
+			{/if}
 		</div>
 	{/if}
 </div>

@@ -2,20 +2,12 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 
 	export let props: {
-		contractHash: string;
+		groups: any;
 	};
 	let groupsPerPage: number = 10;
 	let startIndex = 0;
-	let groups = [
-		{
-			group: "Tests",
-            key: "2bh2v23"
-        },
-        {
-			group: "Tests",
-            key: "2bh2v23"
-        }
-	];
+	let groups = props?.groups;
+	let displayedGroups = [];
 </script>
 
 <div class="delegators-tab">
@@ -28,8 +20,8 @@
 			<th>Key</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if groups && groups.length > 0}
-			{#each groups as group}
+		{#if displayedGroups && displayedGroups.length > 0}
+			{#each displayedGroups as group}
 				<tr>
 					<td class="blocky">
 						{group.group}
@@ -44,8 +36,8 @@
 	<Paginator
 		showTotalRows={false}
 		bind:itemsPerPage={groupsPerPage}
-		apiPaginator
-		bind:startIndex
+		bind:items={groups}
+		bind:pagedItems={displayedGroups}
 	/>
 </div>
 

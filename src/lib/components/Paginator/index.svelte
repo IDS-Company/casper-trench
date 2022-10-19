@@ -2,7 +2,6 @@
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
-	import { getLatestBlocks } from '$utils/chain/blocks';
 	import { getLatestChainState } from '$utils/api';
 	const dispatch = createEventDispatcher();
 	let page = 1;

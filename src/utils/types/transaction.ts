@@ -25,6 +25,7 @@ export type Transaction = {
 	timestamp: string;
 	toAccountHash: string;
 	validator: string;
+	contractHash: string;
 };
 
 export type TransactionDetail = {

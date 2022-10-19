@@ -4,11 +4,12 @@
 	import { sampleEntryPoints } from '$utils/sampleData';
 
 	export let props: {
-		contractHash: string;
+		entryPoints: any;
 	};
 	let groupsPerPage: number = 10;
 	let startIndex = 0;
-	let entryPoints = sampleEntryPoints;
+	let entryPoints = props?.entryPoints;
+	let displayedEntryPoints = [];
 </script>
 
 <div class="delegators-tab">
@@ -23,43 +24,45 @@
 			<th class="right">Execution Context</th>
 		</tr>
 		<div class="divider table-header-border" />
-		{#if entryPoints && entryPoints.length > 0}
-			{#each entryPoints as entryPoint}
+		{#if displayedEntryPoints && displayedEntryPoints.length > 0}
+			{#each displayedEntryPoints as entryPoint}
 				<tr>
 					<td class="blocky">
-						{entryPoint.name}
+						{entryPoint?.name}
 					</td>
 					<td>
-						({#each entryPoint.args as arg}
-                            <span class="data-type">
-                                {arg.name} <span class="green">
-                                    {arg.cl_type}
-                                </span>
-                            </span>
-                        {/each}): <span class="data-type green">{entryPoint.ret}</span>
+						<!-- {#if entryPoints?.args && entryPoints?.args?.length > 0} -->
+						({#each entryPoint?.args as arg}
+							<span class="data-type">
+								{arg.name}
+								<span class="green">
+									{arg?.clType}
+								</span>
+							</span>
+						{/each}): <span class="data-type green">{entryPoint?.ret}</span>
+						<!-- {/if} -->
 					</td>
-                    <td>
-                        <div class="globe">
-                            <div class="icon">
-                                <Globe active={entryPoint.access.toLowerCase() === 'public'}/>
-                            </div>
-                            <div class="text">
-                                {entryPoint.access}
-                            </div>
-                        </div>
+					<td>
+						<div class="globe">
+							<div class="icon">
+								<Globe active={entryPoint?.access?.toLowerCase() === 'public'} />
+							</div>
+							<div class="text">
+								{entryPoint.access}
+							</div>
+						</div>
 					</td>
-                    <td class="right">
-						{entryPoint.entry_point_type}
+					<td class="right">
+						{entryPoint?.entryPointType}
 					</td>
 				</tr>
 			{/each}
 		{/if}
 	</table>
 	<Paginator
-		showTotalRows={false}
 		bind:itemsPerPage={groupsPerPage}
-		apiPaginator
-		bind:startIndex
+		bind:items={entryPoints}
+		bind:pagedItems={displayedEntryPoints}
 	/>
 </div>
 
@@ -97,22 +100,22 @@
 		@apply text-color-hover-footer-link;
 	}
 
-    .data-type {
-        @apply text-[clamp(12px,0.95vw,0.95vw)];
+	.data-type {
+		@apply text-[clamp(12px,0.95vw,0.95vw)];
 		@apply bg-color-ago-background;
 		@apply p-[clamp(4px,0.3vw,0.3vw)] m-[clamp(4px,0.15vw,0.15vw)];
 		@apply max-w-max;
-    }
+	}
 
-    .globe > .icon {
-        @apply h-4 md:w-[0.95vw] md:h-[0.95vw];
-    }
+	.globe > .icon {
+		@apply h-4 md:w-[0.95vw] md:h-[0.95vw];
+	}
 
-    .globe {
-        @apply flex items-center gap-[clamp(8px,0.83vw,0.83vw)] justify-end;
-    }
+	.globe {
+		@apply flex items-center gap-[clamp(8px,0.83vw,0.83vw)] justify-end;
+	}
 
-    .right {
-        @apply text-right;
-    }
+	.right {
+		@apply text-right;
+	}
 </style>

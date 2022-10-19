@@ -4,10 +4,9 @@
 	import ContractText from '$lib/components/TableData/ContractText.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import TxHash from '$lib/components/TableData/TxHash.svelte';
-	import { millisToFormat, parseStringValue, timeAgo } from '$utils/converters';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 	import { getTransactions } from '$utils/api';
 	import { isLoading } from '$stores/loading';
-	import PlaceHolderIndicator from '$lib/components/PlaceHolderIndicator.svelte';
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import { tableSort } from '$utils/sort';
 	import type { Transaction } from '$utils/types/transaction';
@@ -24,7 +23,6 @@
 	$: if (transactionsPerPage) {
 		setTimeout(async () => {
 			await fetchTransactions();
-			// transactions = await getAllTransactions();
 		}, 1);
 	}
 
@@ -54,13 +52,18 @@
 			<th class="">Public Key</th>
 			<th class="center sorter">
 				<div class="text">Age</div>
-				<TableSorter ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
-				descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'} on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')} />
+				<TableSorter
+					ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
+					descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}
+					on:sort={(e) => sortTransactions(e.detail?.direction, 'timestamp')}
+				/>
 			</th>
-			<th><div class="filter">
-				<div class="text">Contract</div>
-				<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
-			</div></th>
+			<th
+				><div class="filter">
+					<div class="text">Contract</div>
+					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
+				</div></th
+			>
 			<th class="right">Amount</th>
 			<th class="right"> Cost</th>
 		</tr>
@@ -91,7 +94,7 @@
 						{`${timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago`}
 					</td>
 					<td>
-						<ContractText type={transaction.entryPoint} />
+						<ContractText type={transaction.entryPoint} contractHash={transaction?.contractHash} />
 					</td>
 					<td class="right">
 						<div class="wrapper">
