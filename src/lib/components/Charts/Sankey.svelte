@@ -31,7 +31,7 @@
 
 	onMount(async () => {
 		// @ts-ignore
-		isMobile = innerHeight > innerWidth;
+		isMobile = innerHeight > innerWidth || innerWidth <= 375;
 		if (isMobile) {
 			Chart.defaults.font.size = 0;
 			Chart.defaults.font.lineHeight = 0;
