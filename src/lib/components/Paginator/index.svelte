@@ -75,7 +75,7 @@
 			<div class="text">
 				Page {page}
 				{#if !apiPaginator}
-					of {totalPages ? totalPages.toLocaleString() : "1"}
+					of {totalPages ? totalPages.toLocaleString() : '1'}
 				{/if}
 				{#if isRangeBlock}
 					of {parseFloat((latestBlock / itemsPerPage).toFixed()).toLocaleString()}
@@ -119,7 +119,8 @@
 
 <style lang="postcss">
 	.paginator {
-		@apply flex justify-between flex-col md:flex-row gap-3 md:gap-0;
+		@apply flex justify-between items-center flex-col max-w-max md:flex-row gap-3 md:gap-0;
+
 		@apply text-[clamp(12px,0.95vw,0.95vw)] text-color-grey-footer-label;
 	}
 
@@ -151,5 +152,9 @@
 		@apply leading-none;
 		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply cursor-pointer;
+	}
+
+	.total {
+		@apply lg:px-2;
 	}
 </style>

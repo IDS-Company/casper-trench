@@ -50,13 +50,15 @@
 						<td class="blocky" class:rank-val={i === 0}>{i}</td>
 					{/if}
 					<td class="key">
-						<a href="/accounts/{delegator.publicKey}" class="hidden md:block"> {delegator.publicKey}</a>
+						<a href="/accounts/{delegator.publicKey}" class="hidden md:block">
+							{delegator.publicKey}</a
+						>
 						<a href="/accounts/{delegator.publicKey}" class="md:hidden">
 							{`${delegator.publicKey.substring(0, 10)}...${delegator.publicKey.substring(
 								delegator.publicKey.length - 10
 							)}`}</a
 						>
-						</td>
+					</td>
 					<td class="to">
 						<div class="value-crypto">
 							<div class="crypto">
@@ -72,7 +74,13 @@
 			{/each}
 		{/if}
 	</table>
-	<Paginator showTotalRows={false} bind:items={delegators} bind:pagedItems={displayedDelegators} />
+	<div class="w-[40%] lg:w-full">
+		<Paginator
+			showTotalRows={false}
+			bind:items={delegators}
+			bind:pagedItems={displayedDelegators}
+		/>
+	</div>
 </div>
 
 <style lang="postcss">
