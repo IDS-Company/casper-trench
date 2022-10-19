@@ -37,7 +37,11 @@
 				<tr>
 					<td class="label">Type</td>
 					<td class="value">
-						{uref?.CLValue?.cl_type}
+						{#if typeof uref?.CLValue?.cl_type === 'object'}
+							{Object.keys(uref?.CLValue?.cl_type)[0]}
+						{:else}
+							{uref?.CLValue?.cl_type}
+						{/if}
 					</td>
 				</tr>
 				<tr>
