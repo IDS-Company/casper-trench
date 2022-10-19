@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { getValidator, getValidatorDelegators } from '$utils/api';
+	import Button from '$lib/components/Reusables/Button.svelte';
 
 	let delegators: {
 		publicKey: string;
@@ -51,8 +52,12 @@
 
 <div class="main">
 	{#if validator}
+		<div class="buttons">
+			<Button gradient>Delegate</Button>
+			<Button red>Undelegate</Button>
+		</div>
 		<div class="header-content">
-			<ValidatorCard {validator} />
+			<!-- <ValidatorCard {validator} /> -->
 			<StatisticsCard {validator} />
 		</div>
 		{#if validator && delegators?.length > 0}
@@ -63,7 +68,12 @@
 
 <style lang="postcss">
 	.header-content {
-		@apply flex flex-col md:flex-row gap-y-[clamp(10px,1vw,1vw)] justify-between;
+		/* @apply flex flex-col md:flex-row gap-y-[clamp(10px,1vw,1vw)] justify-between; */
+		@apply mb-[3.51vw];
+	}
+	
+	.buttons {
+		@apply flex items-center justify-center md:justify-start gap-[clamp(16px,1.5vw,1.5vw)] flex-row;
 		@apply mb-[3.51vw];
 	}
 </style>
