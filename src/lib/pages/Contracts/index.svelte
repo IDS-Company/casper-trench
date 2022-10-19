@@ -79,7 +79,7 @@
 					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
 				</div></th
 			> -->
-			<th>Age</th>
+			<th>Last Active</th>
 			<th
 				><div class="sorter">
 					<div class="text">30d Transactions</div>
@@ -99,12 +99,12 @@
 				<tr>
 					<td class="blocky hash">
 						<a href="/contract-package/{contract.packageHash}">
-							<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
+							{contract.packageHash}
 						</a>
 					</td>
 					<!-- <td class="grey">{contract.name || ''}</td> -->
 					<!-- <td>{contract.type || ''}</td> -->
-					<td>
+					<td class="blocky-2">
 						<div class="grey">
 							{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 						</div>
@@ -125,20 +125,20 @@
 			{:else if contract.type !== null}
 				{#if contract.type.toLowerCase().includes(typeFilterItems[selectedFilter].toLowerCase())}
 					<tr>
-						<td class="block hash">
+						<td class="blocky hash">
 							<a href="/contract-package/{contract.packageHash}">
-								<Hash hash={contract.packageHash} noOfCharacters={5} variant="righter" />
+								{contract.packageHash}
 							</a>
 						</td>
-						<td class="grey">{contract.name || ''}</td>
-						<td>{contract.type || ''}</td>
-						<td>
+						<!-- <td class="grey">{contract.name || ''}</td> -->
+						<!-- <td>{contract.type || ''}</td> -->
+						<td class="blocky-2">
 							<div class="grey">
 								{timeAgo(millisToFormat(Date.now() - new Date(contract.timestamp).getTime()))} ago
 							</div>
 						</td>
 						<td>{contract.transactions}</td>
-						<td class="grey">
+						<!-- <td class="grey">
 							<div class="flex justify-end">
 								{#if contract.owner}
 									<a href="/accounts/{contract.owner}">
@@ -148,7 +148,7 @@
 									System
 								{/if}
 							</div>
-						</td>
+						</td> -->
 					</tr>
 				{/if}
 			{/if}
@@ -172,29 +172,37 @@
 	}
 
 	.sorter {
-		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)] min-w-max;
+		@apply flex items-center gap-[clamp(4px,0.5vw,0.5vw)];
 	}
 
 	th {
-		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[clamp(16px,1vw,1vw)];
+		@apply py-[clamp(8px,0.5vw,0.5vw)] px-[16px,1vw,1vw];
 		@apply text-[clamp(14px,1.07vw,1.07vw)] font-normal text-color-table-header;
-		@apply text-left whitespace-nowrap;
+		@apply text-left;
 	}
 
 	td {
-		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[clamp(16px,1vw,1vw)];
-		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max whitespace-nowrap;
-	}
-
-	.blocky {
-		@apply px-0;
+		@apply py-[clamp(8px,1.19vw,1.19vw)] px-[16px,1vw,1vw] max-w-max;
+		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header;
 	}
 
 	.grey {
-		@apply text-color-grey-footer-label min-w-max whitespace-nowrap;
+		@apply text-color-grey-footer-label whitespace-nowrap;
 	}
 
 	.hash {
-		@apply text-color-hover-footer-link min-w-max;
+		@apply text-color-hover-footer-link;
+	}
+
+	.blocky {
+		@apply md:max-w-[12vw];
+	}
+
+	.blocky-2 {
+		@apply md:max-w-[4vw];
+	}
+
+	a {
+		@apply max-w-max;
 	}
 </style>
