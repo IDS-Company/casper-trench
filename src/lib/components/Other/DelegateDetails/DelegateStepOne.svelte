@@ -10,23 +10,18 @@
 	import { getStats } from '$utils/api';
 	import { getAccountBalance } from '$utils/wallets/balance';
 	import NumberInput from '$lib/components/Reusables/NumberInput.svelte';
+	import ValidatorPicker from '../ValidatorPicker.svelte';
 
-	export let validatorPublicKey: string;
+	export let validatorPublicKey: string = '';
 	export let amount = 500; // Minimum CSPR delegatable
 	export let balance;
 	export let csprFee = 2.5;
 	export let account;
 
 	let sendMax = false;
-	let editValidator = true;
 	$: amount = sendMax ? parseFloat(balance) - csprFee : 500;
 
 	const limit = 500;
-
-	let validatorImg = 'https://foreststaking.com/static/media/logo.3392a286.svg';
-	let validatorCSPRPerc = 0.12;
-	let delegatorPerc = 0.0123;
-	let numberOfDelegators = 14;
 </script>
 
 <div class="title">Delegation details</div>
@@ -75,75 +70,9 @@
 	</div>
 </div>
 
-{#if editValidator}
-	<div class="input-wrapper">
-		<div class="top">Validator</div>
-		<div class="input">
-			<input
-				type="text"
-				bind:value={validatorPublicKey}
-				placeholder="Enter address or contract"
-				on:blur={() => {
-					// TODO Change condition to when validator is found
-					if (validatorPublicKey.length > 0) {
-						editValidator = false;
-					}
-				}}
-			/>
-		</div>
-	</div>
-{:else}
-	<div class="sender">
-		<div class="top">
-			<div>Validator</div>
-		</div>
-		<div
-			class="value validator-display"
-			on:click={() => {
-				editValidator = true;
-			}}
-		>
-			<div class="flex items-center justify-between">
-				<div class="validator-hash">
-					<img src={validatorImg} alt="validator" />
-					<div class="hidden md:block">
-						<Hash color="black" noOfCharacters={10} hash={validatorPublicKey || ''} />
-					</div>
-					<div class="md:hidden">
-						<Hash color="black" noOfCharacters={16} hash={validatorPublicKey || ''} />
-					</div>
-					<div class="copy-icon">
-						{#if validatorPublicKey}
-							<CopyIcon text={validatorPublicKey || ''} />
-						{/if}
-					</div>
-				</div>
-				<div class="validator-cspr hidden md:block">
-					<div class="cspr">
-						<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
-					</div>
-					<div class="perc">({numberOfDelegators} delegators)</div>
-				</div>
-				<div class="validator-cspr hidden md:block">
-					<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
-					<div class="perc">({Math.round(validatorCSPRPerc * 100)}%)</div>
-				</div>
-			</div>
-			<div class="flex md:hidden w-full">
-				<div class="validator-cspr w-full">
-					<div class="cspr">
-						<span class="cspr-fee">{Math.round(delegatorPerc * 10000) / 100}%</span>
-					</div>
-					<div class="perc">({numberOfDelegators} delegators)</div>
-				</div>
-				<div class="validator-cspr w-full">
-					<div class="cspr"><span class="cspr-fee">{(amount + csprFee).toFixed(5)}</span> CSPR</div>
-					<div class="perc">({Math.round(validatorCSPRPerc * 100)}%)</div>
-				</div>
-			</div>
-		</div>
-	</div>
-{/if}
+<ValidatorPicker on:select={(e)=> {
+	validatorPublicKey = e.detail.publicKey
+}}/>
 
 <NumberInput bind:amount {limit} bind:sendMax>Delegate max</NumberInput>
 
@@ -226,29 +155,6 @@
 		@apply border-color-sender-background border-[clamp(1px,0.12vw,0.12vw)];
 	}
 
-	.validator-display {
-		@apply bg-white;
-		@apply py-[clamp(12px,0.71vw,0.71vw)];
-	}
-
-	.validator-hash {
-		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-	}
-
-	.validator-hash > img {
-		@apply rounded-full;
-		@apply h-5 md:h-full;
-	}
-
-	.input-wrapper {
-		@apply mb-[clamp(16px,1.9vw,1.9vw)];
-	}
-
-	.input > input {
-		@apply outline-none;
-		@apply w-[90%];
-	}
-
 	.warning {
 		@apply mb-[clamp(16px,1.43vw,1.43vw)];
 		@apply text-[clamp(14px,0.77vw,0.77vw)];
@@ -305,21 +211,8 @@
 		@apply text-right;
 	}
 
-	.input {
-		@apply px-[clamp(16px,1.25vw,1.25vw)] py-[clamp(12px,0.95vw,0.95vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-black-text;
-		@apply rounded-[0.48vh] md:rounded-[0.48vw];
-		@apply flex items-center justify-between;
-		@apply mb-[clamp(4px,0.71vw,0.71vw)];
-		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-input-border;
-	}
-
 	.next-button {
 		@apply mt-[clamp(16px,2.92vw,2.92vw)];
 		@apply flex justify-center;
-	}
-
-	.perc {
-		@apply text-[clamp(12px,0.83vw,0.83vw)] text-right;
 	}
 </style>
