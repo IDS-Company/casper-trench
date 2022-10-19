@@ -14,10 +14,10 @@
 	import type { Transaction } from '$utils/types/transaction';
 
 	let transactionsPerPage: number = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	let transactions: Transaction[];
 	onMount(async () => {
-		transactions = await getContractDeploys($page.params.hash);
+		transactions = await getContractDeploys($page.params.hash, startIndex, transactionsPerPage);
 	});
 </script>
 

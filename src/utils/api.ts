@@ -355,9 +355,14 @@ export const getContract = async (hash: string) => {
 	}
 };
 
-export const getContractDeploys = async (hash: string) => {
+export const getContractDeploys = async (hash: string, startIndex: number, count: number) => {
 	try {
-		const res = await axios.get(`${csprFyiBaseURL}/contracts/${hash}/deploys`);
+		const res = await axios.get(`${csprFyiBaseURL}/contracts/${hash}/deploys`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch contract deploys');
