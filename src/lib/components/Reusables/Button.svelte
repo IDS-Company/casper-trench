@@ -50,6 +50,7 @@
 		@apply w-full md:w-auto min-w-max h-max;
 		@apply text-[clamp(14px,1vw,1vw)];
 		@apply disabled:cursor-not-allowed cursor-pointer;
+		@apply transition-all duration-200;
 	}
 
 	.gradient {
@@ -69,6 +70,7 @@
 		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply text-color-hover-footer-link;
+		@apply hover:bg-color-hover-footer-link hover:text-white;
 	}
 
 	.outline > .content {
