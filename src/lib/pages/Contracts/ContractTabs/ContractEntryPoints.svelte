@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import Globe from '$lib/icons/Globe.svelte';
-	import { sampleEntryPoints } from '$utils/sampleData';
 
 	export let props: {
 		entryPoints: any;
@@ -30,16 +29,16 @@
 					<td class="blocky">
 						{entryPoint?.name}
 					</td>
-					<td>
+					<td class="md:max-w-[50vw]">
 						<!-- {#if entryPoints?.args && entryPoints?.args?.length > 0} -->
 						({#each entryPoint?.args as arg}
 							<span class="data-type">
 								{arg.name}
 								<span class="green">
-									{arg?.clType}
+									{JSON.stringify(arg?.clType)}
 								</span>
 							</span>
-						{/each}): <span class="data-type green">{entryPoint?.ret}</span>
+						{/each}): <span class="data-type green">{JSON.stringify(entryPoint?.ret)}</span>
 						<!-- {/if} -->
 					</td>
 					<td>
@@ -48,7 +47,7 @@
 								<Globe active={entryPoint?.access?.toLowerCase() === 'public'} />
 							</div>
 							<div class="text">
-								{entryPoint.access}
+								{entryPoint.access || "Private"}
 							</div>
 						</div>
 					</td>
