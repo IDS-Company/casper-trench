@@ -88,7 +88,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Confirm and transfer</Button>
+	<Button wider outline on:click>Confirm and transfer</Button>
 </div>
 
 <style lang="postcss">

@@ -126,7 +126,7 @@
 </div>
 
 <div class="next-button">
-	<Button wider gradient on:click>Confirm and Delegate Stake</Button>
+	<Button wider outline on:click>Confirm and Delegate Stake</Button>
 </div>
 
 <style lang="postcss">

@@ -130,7 +130,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Sign with Casper Signer</Button>
+	<Button wider outline on:click>Sign with Casper Signer</Button>
 </div>
 
 <style lang="postcss">

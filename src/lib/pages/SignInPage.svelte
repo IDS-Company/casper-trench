@@ -44,7 +44,7 @@
 			<div class="button">
 				{#if wallet.name.toLowerCase().includes('casper')}
 					<Button
-						gradient
+						outline
 						wide
 						on:click={async () => {
 							if (wallet.name.toLowerCase().includes('casper')) {
@@ -63,7 +63,7 @@
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{:else}
-					<Button gradient wide>
+					<Button outline wide>
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{/if}

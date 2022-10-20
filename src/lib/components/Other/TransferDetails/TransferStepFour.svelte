@@ -105,7 +105,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Make Another Transfer</Button>
+	<Button wider outline on:click>Make Another Transfer</Button>
 	<button
 		class="home-button"
 		on:click={() => {

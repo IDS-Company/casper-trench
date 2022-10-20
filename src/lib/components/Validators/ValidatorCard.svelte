@@ -86,7 +86,7 @@
 			</div>
 		</div>
 		<div class="buttons">
-			<Button gradient>Delegate</Button>
+			<Button outline>Delegate</Button>
 			<Button red>Undelegate</Button>
 		</div>
 	</div>

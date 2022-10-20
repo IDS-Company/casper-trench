@@ -118,7 +118,7 @@
 			!recipientPublicKey ||
 			!isPublicKey(recipientPublicKey)}
 		wider
-		gradient
+		outline
 		on:click>Next</Button
 	>
 </div>

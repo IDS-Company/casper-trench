@@ -117,7 +117,7 @@
 
 	.button {
 		@apply p-[clamp(8px,0.6vw,0.6vw)];
-		@apply border-color-progress-bg border-[clamp(1px,0.06vw,0.06vw)];
+		@apply border-color-progress-bg border-[clamp(1px,0.12vw,0.12vw)];
 		@apply text-color-grey-footer-label hover:text-color-hover-footer-link;
 		@apply rounded-[clamp(4px,0.48vh,0.48vh)] md:rounded-[0.48vw];
 		@apply transition-all duration-300;
@@ -127,7 +127,7 @@
 	.selected {
 		@apply bg-color-hover-footer-link;
 		@apply text-white;
-		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
+		@apply border-color-hover-footer-link border-[clamp(1px,0.12vw,0.12vw)];
 	}
 
 	.icon {
@@ -145,7 +145,7 @@
 	.outlined > div > .selected {
 		@apply text-color-hover-footer-link;
 		@apply bg-white;
-		@apply border-color-hover-footer-link border-[clamp(1px,0.06vw,0.06vw)];
+		@apply border-color-hover-footer-link border-[clamp(1px,0.12vw,0.12vw)];
 		@apply px-[clamp(12px,1.31vw,1.31vw)] py-[clamp(8px,0.77vw,0.77vw)] rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply hover:bg-color-hover-footer-link hover:text-white;
 	}

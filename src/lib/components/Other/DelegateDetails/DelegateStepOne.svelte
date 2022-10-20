@@ -110,7 +110,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Next</Button>
+	<Button wider outline on:click>Next</Button>
 </div>
 
 <style lang="postcss">

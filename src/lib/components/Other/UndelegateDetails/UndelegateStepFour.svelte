@@ -136,7 +136,7 @@
 </div>
 
 <div class="next-button">
-	<Button wider gradient on:click>Make Another Undelegation</Button>
+	<Button wider outline on:click>Make Another Undelegation</Button>
 	<button
 		class="home-button"
 		on:click={() => {
