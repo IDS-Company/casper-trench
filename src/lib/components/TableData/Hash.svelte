@@ -40,22 +40,27 @@
 
 	.text {
 		@apply text-color-hover-footer-link;
+		@apply text-opacity-100 hover:text-opacity-70;
 	}
 
 	.yellow {
 		@apply text-color-arcadia-yellow;
+		@apply text-opacity-100 hover:text-opacity-70;
 	}
 
 	.green {
 		@apply text-color-arcadia-green;
+		@apply text-opacity-100 hover:text-opacity-70;
 	}
 
 	.black {
 		@apply text-color-table-header;
+		@apply text-opacity-100 hover:text-opacity-70;
 	}
 
 	.grey {
 		@apply text-color-grey-footer-label;
+		@apply text-opacity-100 hover:text-opacity-70;
 	}
 
 	.tooltip {

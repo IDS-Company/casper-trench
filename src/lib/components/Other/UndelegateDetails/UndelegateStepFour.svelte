@@ -136,7 +136,7 @@
 </div>
 
 <div class="next-button">
-	<Button wider gradient on:click>Make Another Undelegation</Button>
+	<Button wider outline on:click>Make Another Undelegation</Button>
 	<button
 		class="home-button"
 		on:click={() => {
@@ -213,7 +213,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 
@@ -260,7 +260,7 @@
 	}
 
 	.home-button {
-		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] font-medium;
+		@apply text-color-table-header text-[clamp(14px,1.07vw,1.07vw)] hover:text-opacity-70 font-medium;
 		@apply mt-[clamp(16px,2.08vw,2.08vw)];
 	}
 </style>

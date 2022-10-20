@@ -2,7 +2,6 @@
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
-	import Hash from '$lib/components/TableData/Hash.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
 	import { getContracts } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
@@ -44,7 +43,7 @@
 					<TableFilter dropdownItems={typeFilterItems} bind:selectedFilter />
 				</div></th
 			> -->
-			<th>Active</th>
+			<th>Last Active</th>
 			<th
 				><div class="sorter">
 					<div class="text">30d Transactions</div>
@@ -65,7 +64,7 @@
 					<tr>
 						<td class="blocky hash">
 							<a href="/contract-package/{contract?.contractPackageHash}">
-								<Hash hash={contract?.contractPackageHash} noOfCharacters={5} variant="righter" />
+								{contract?.contractPackageHash}
 							</a>
 						</td>
 						<!-- <td class="grey">{contract.name || ''}</td> -->
@@ -102,7 +101,7 @@
 						<tr>
 							<td class="block hash">
 								<a href="/contract-package/{contract?.contractPackageHash}">
-									<Hash hash={contract?.contractPackageHash} noOfCharacters={5} variant="righter" />
+									{contract?.contractPackageHash}
 								</a>
 							</td>
 							<td class="grey">{contract.name || ''}</td>

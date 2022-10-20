@@ -53,7 +53,7 @@
 <div class="main">
 	{#if validator}
 		<div class="buttons">
-			<Button gradient>Delegate</Button>
+			<Button outline>Delegate</Button>
 			<Button red>Undelegate</Button>
 		</div>
 		<div class="header-content">

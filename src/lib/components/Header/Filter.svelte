@@ -1,5 +1,4 @@
 <script lang="ts">
-	import NavbarChevron from '$lib/icons/NavbarChevron.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import { searchPhrase } from '$utils/api';
 
@@ -26,7 +25,7 @@
 				search();
 			}
 		}}
-		placeholder="Search by Address /Hash / Block / Public Key"
+		placeholder="Search by Address / Hash / Block / Public Key"
 		bind:value
 	/>
 
@@ -64,6 +63,7 @@
 		@apply bg-gradient-to-r from-color-search-btn-blue to-color-search-btn-green;
 		@apply rounded-r-[clamp(4px,0.24vw,0.24vw)];
 		@apply py-[14px] md:py-0 px-4 md:px-0;
+		@apply transition-all duration-200 hover:opacity-70;
 	}
 
 	.search-icon {

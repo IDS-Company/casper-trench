@@ -48,6 +48,8 @@
 
 	.text {
 		@apply px-4 py-[clamp(8px,1.19vw,1.19vw)] w-max mx-auto xl:mx-0 lg:text-left;
+		@apply flex items-center justify-center;
+		@apply w-full;
 	}
 
 	.selected {

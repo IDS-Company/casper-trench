@@ -126,7 +126,7 @@
 </div>
 
 <div class="next-button">
-	<Button wider gradient on:click>Confirm and Delegate Stake</Button>
+	<Button wider outline on:click>Confirm and Delegate Stake</Button>
 </div>
 
 <style lang="postcss">
@@ -195,7 +195,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 

@@ -44,9 +44,11 @@
 			<div class="value">
 				<div class="text">
 					<div class="md:hidden">
-						{`${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring(
-							$page.params?.hash.length - 20
-						)}`}
+						{$page.params?.hash
+							? `${$page.params?.hash.substring(0, 20)}...${$page.params?.hash.substring(
+									$page.params?.hash.length - 20
+							  )}`
+							: ''}
 					</div>
 					<div class="hidden md:block">
 						{$page.params?.hash}

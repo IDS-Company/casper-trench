@@ -31,14 +31,14 @@
 	<Tooltip text="Lowest to Highest" {left}>
 		<div class="ascending" on:click={ascendingHandler}>
 			<div class="icon">
-				<PaginatorChevron color={ascendingSelected ? '#099B91' : '#DCDCDC'} />
+				<PaginatorChevron hover color={ascendingSelected ? '#099B91' : '#8F9398'} />
 			</div>
 		</div>
 	</Tooltip>
 	<Tooltip text="Highest to Lowest" {left}>
 		<div class="descending" on:click={descendingHandler}>
 			<div class="icon">
-				<PaginatorChevron color={descendingSelected ? '#099B91' : '#DCDCDC'} />
+				<PaginatorChevron hover color={descendingSelected ? '#099B91' : '#8F9398'} />
 			</div>
 		</div>
 	</Tooltip>

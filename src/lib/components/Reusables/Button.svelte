@@ -2,7 +2,6 @@
 	import ActiveBlockIcon from '$lib/icons/ActiveBlockIcon.svelte';
 	import InactiveBlockIcon from '$lib/icons/InactiveBlockIcon.svelte';
 
-	export let gradient = false;
 	export let outline = false;
 	export let solid = false;
 	export let translucent = false;
@@ -29,19 +28,15 @@
 	<button
 		{disabled}
 		class="button"
-		class:gradient
-		class:outline
+		class:outlined={outline}
 		class:solid
 		class:translucent
 		class:red
-		class:button-border-gradient={gradient}
 		class:wide
 		class:wider
 		on:click
 	>
-		<div class="content">
-			<slot />
-		</div>
+		<slot />
 	</button>
 {/if}
 
@@ -50,29 +45,15 @@
 		@apply w-full md:w-auto min-w-max h-max;
 		@apply text-[clamp(14px,1vw,1vw)];
 		@apply disabled:cursor-not-allowed cursor-pointer;
+		@apply transition-all duration-200;
 	}
 
-	.gradient {
-		@apply text-color-hover-footer-link font-medium;
-		@apply p-[clamp(1px,0.12vw,0.12vw)];
-		@apply rounded-[clamp(4px,0.48vw,0.48vw)];
-	}
-
-	.gradient > .content {
-		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
-		@apply bg-white;
-		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
-	}
-
-	.outline {
-		@apply border-[clamp(0,0.06vw,0.06vw)] border-color-hover-footer-link;
+	.outlined {
+		@apply border-[clamp(1px,0.12vw,0.12vw)] border-color-hover-footer-link;
 		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply text-color-hover-footer-link;
-	}
-
-	.outline > .content {
-		@apply border-none;
+		@apply hover:bg-color-hover-footer-link hover:text-white;
 	}
 
 	.solid {
@@ -104,14 +85,11 @@
 	}
 
 	.red {
-		@apply border-[0.06vw] border-color-arcadia-red;
+		@apply border-[clamp(1px,0.12vw,0.12vw)] border-color-arcadia-red;
 		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply text-color-arcadia-red;
-	}
-
-	.red > .content {
-		@apply border-none;
+		@apply hover:bg-color-arcadia-red hover:text-white;
 	}
 
 	.wide {

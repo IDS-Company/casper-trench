@@ -148,6 +148,7 @@
 		@apply px-[clamp(6px,0.83vw,0.83vw)] py-[clamp(6px,0.6vw,0.6vw)] h-full max-w-max;
 		@apply leading-none;
 		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
+		@apply duration-200 transition-all hover:border-color-hover-footer-link hover:text-color-hover-footer-link;
 		@apply cursor-pointer;
 	}
 

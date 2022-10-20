@@ -12,6 +12,7 @@
 			link: string;
 		}[];
 	};
+	export let isHovering = false;
 
 	let droppedDown = false;
 	let selected = false;
@@ -41,7 +42,7 @@
 		}}
 	>
 		<!-- TODO make this use pathname instead -->
-		<div class="text" class:selected>
+		<div class="text" class:selected class:isHovering>
 			{navItem.text}
 		</div>
 		<div class="chevron" class:flipped={droppedDown}>
@@ -103,4 +104,8 @@
 	.link-select {
 		@apply text-color-hover-footer-link;
 	}
+
+	/* .isHovering {
+		@apply text-white text-opacity-30;
+	} */
 </style>

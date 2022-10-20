@@ -97,7 +97,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Next</Button>
+	<Button wider outline on:click>Next</Button>
 </div>
 
 <style lang="postcss">
@@ -157,7 +157,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 

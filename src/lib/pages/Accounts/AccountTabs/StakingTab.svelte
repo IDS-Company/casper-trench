@@ -168,7 +168,7 @@
 	}
 
 	td.blocky {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link text-opacity-100 hover:text-opacity-70;
 	}
 
 	.blocky {

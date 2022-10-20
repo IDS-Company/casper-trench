@@ -94,6 +94,7 @@
 	];
 
 	let openNavBackdrop = false;
+	let isHovering = false;
 </script>
 
 {#if openNavBackdrop}
@@ -104,11 +105,12 @@
 	<a href="/" class="logo" class:opacity-0={openNavBackdrop}>
 		<CasperTrenchLogo />
 	</a>
-	<div class="nav-items">
+	<div class="nav-items" class:isHovering on:mouseenter={() => (isHovering = true)}
+		on:mouseleave={() => (isHovering = false)}>
 		{#each navItems as navItem}
-			<div class="nav-item">
+			<div class="nav-item fillup">
 				{#if navItem.dropdown.length > 0}
-					<NavbarDropdown {navItem} />
+					<NavbarDropdown {navItem} {isHovering}/>
 				{:else}
 					<div class="text" class:selected={$page.url.pathname === navItem.link}>
 						<a href={navItem.link}>{navItem.text}</a>
@@ -146,11 +148,12 @@
 
 	.nav-items {
 		@apply hidden md:flex md:items-center gap-[clamp(16px,1.79vw,1.79vw)];
-		@apply text-white text-opacity-50 text-[clamp(10px,0.83vw,0.83vw)];
+		@apply text-white text-opacity-50 text-[clamp(10px,0.83vw,0.83vw)] transition-all;
 	}
 
 	.nav-item {
 		@apply flex items-center cursor-pointer min-w-max;
+		@apply transition-all duration-200;
 	}
 
 	.logo {
@@ -168,7 +171,7 @@
 
 	.signin {
 		@apply flex items-center cursor-pointer;
-		@apply text-white text-opacity-100;
+		@apply text-white text-opacity-50 hover:text-opacity-70;
 	}
 
 	.user-icon {
@@ -181,5 +184,13 @@
 
 	.nav-menu-mobile {
 		@apply md:hidden;
+	}
+
+	.isHovering > div {
+		@apply opacity-70;
+	}
+
+	.fillup {
+		@apply hover:opacity-100;
 	}
 </style>

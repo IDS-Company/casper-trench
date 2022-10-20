@@ -118,7 +118,7 @@
 			!recipientPublicKey ||
 			!isPublicKey(recipientPublicKey)}
 		wider
-		gradient
+		outline
 		on:click>Next</Button
 	>
 </div>
@@ -220,7 +220,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 

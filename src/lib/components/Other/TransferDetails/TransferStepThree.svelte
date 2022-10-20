@@ -20,10 +20,10 @@
 	<div class="value grey">
 		<span
 			><div class="hidden md:block">
-				<Hash start color="black" noOfCharacters={100} hash={recipientHash || ''} />
+				<Hash start color="black" noOfCharacters={100} hash={recipientAccountHash || ''} />
 			</div>
 			<div class="md:hidden">
-				<Hash color="black" noOfCharacters={16} hash={recipientHash || ''} />
+				<Hash color="black" noOfCharacters={16} hash={recipientAccountHash || ''} />
 			</div>
 			<div class="copy-icon">
 				{#if deployHash}
@@ -130,7 +130,7 @@
 	>
 </div>
 <div class="next-button">
-	<Button wider gradient on:click>Sign with Casper Signer</Button>
+	<Button wider outline on:click>Sign with Casper Signer</Button>
 </div>
 
 <style lang="postcss">
@@ -174,7 +174,7 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 

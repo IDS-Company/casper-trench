@@ -44,7 +44,7 @@
 			<div class="button">
 				{#if wallet.name.toLowerCase().includes('casper')}
 					<Button
-						gradient
+						outline
 						wide
 						on:click={async () => {
 							if (wallet.name.toLowerCase().includes('casper')) {
@@ -63,7 +63,7 @@
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{:else}
-					<Button gradient wide>
+					<Button outline wide>
 						{wallet.name.toLowerCase().includes('ledger') ? 'Connect' : 'Sign In'}
 					</Button>
 				{/if}
@@ -132,7 +132,7 @@
 
 	.download {
 		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link whitespace-nowrap;
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link hover:opacity-70 transition-all whitespace-nowrap;
 		@apply cursor-pointer;
 		@apply mt-[clamp(16px,1.79vw,1.79vw)] mx-auto;
 	}
