@@ -1,5 +1,6 @@
 <script>
 	export let color = '#8F9398';
+	export let hover = false;
 
 	let isHovering = false;
 </script>
@@ -12,10 +13,12 @@
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 	on:mouseover={() => {
+		if (!hover) return;
 		isHovering = true;
 	}}
 	on:focus
 	on:mouseout={() => {
+		if (!hover) return;
 		isHovering = false;
 	}}
 	on:blur
