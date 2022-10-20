@@ -16,12 +16,10 @@
 		if (!hover) return;
 		isHovering = true;
 	}}
-	on:focus
 	on:mouseout={() => {
 		if (!hover) return;
 		isHovering = false;
 	}}
-	on:blur
 >
 	<path
 		d="M7.50049 1.5L2.00049 7.5L7.50049 13"
