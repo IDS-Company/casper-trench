@@ -26,7 +26,7 @@
 				search();
 			}
 		}}
-		placeholder="Search by Address /Hash / Block / Public Key"
+		placeholder="Search by Address / Hash / Block / Public Key"
 		bind:value
 	/>
 
