@@ -132,7 +132,7 @@
 
 	.download {
 		@apply flex items-center gap-[clamp(4px,0.48vw,0.48vw)];
-		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link whitespace-nowrap;
+		@apply text-[clamp(16px,1.07vw,1.07vw)] text-color-hover-footer-link hover:text-opacity-70 whitespace-nowrap;
 		@apply cursor-pointer;
 		@apply mt-[clamp(16px,1.79vw,1.79vw)] mx-auto;
 	}
