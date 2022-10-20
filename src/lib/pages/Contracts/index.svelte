@@ -64,7 +64,7 @@
 					<tr>
 						<td class="blocky hash">
 							<a href="/contract-package/{contract?.contractPackageHash}">
-								{contract.packageHash}
+								{contract?.contractPackageHash}
 							</a>
 						</td>
 						<!-- <td class="grey">{contract.name || ''}</td> -->
@@ -101,7 +101,7 @@
 						<tr>
 							<td class="block hash">
 								<a href="/contract-package/{contract?.contractPackageHash}">
-									{contract.packageHash}
+									{contract?.contractPackageHash}
 								</a>
 							</td>
 							<td class="grey">{contract.name || ''}</td>
