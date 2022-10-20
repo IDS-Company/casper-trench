@@ -177,17 +177,12 @@
 	}
 
 	.green {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 
 	.next-button {
 		@apply flex justify-center;
-	}
-
-	.green {
-		@apply text-color-hover-footer-link;
-		@apply cursor-pointer;
 	}
 
 	.sign-in-alert {
