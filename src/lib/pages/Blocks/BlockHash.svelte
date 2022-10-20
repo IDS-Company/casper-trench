@@ -143,15 +143,11 @@
 								<div class="validator validator-placeholder" />
 							{:then validator}
 								<div class="validator">
-									<div class="logo">
-										{#if validator?.icon}
+									{#if validator?.icon}
+										<div class="logo">
 											<img src={validator?.icon} alt="validator-icon" />
-										{:else}
-											<div class="image-placeholder">
-												<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-											</div>
-										{/if}
-									</div>
+										</div>
+									{/if}
 									<div class="dets">
 										<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 											<div class="text">
@@ -245,15 +241,11 @@
 							<div class="validator validator-placeholder" />
 						{:then validator}
 							<div class="validator">
-								<div class="logo">
-									{#if validator?.icon}
+								{#if validator?.icon}
+									<div class="logo">
 										<img src={validator?.icon} alt="validator-icon" />
-									{:else}
-										<div class="image-placeholder">
-											<img src="/images/png/validator-placeholder.png" alt="validator-icon" />
-										</div>
-									{/if}
-								</div>
+									</div>
+								{/if}
 								<div class="dets">
 									<div class="name {validator?.name ? 'gap-[clamp(8px,0.5vw,0.5vw)]' : ''}">
 										<div class="text">
@@ -430,7 +422,7 @@
 
 	.validator {
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
-		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
+		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(0,0,0,0.12)];
 		@apply p-[clamp(16px,1.19vw,1.19vw)];
 		@apply rounded-[0.6vh] md:rounded-[0.6vw];
 		@apply flex items-center gap-[clamp(8px,0.71vw,0.71vw)];
@@ -467,7 +459,7 @@
 	}
 
 	.dets > .hash {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 		@apply cursor-pointer;
 	}
 

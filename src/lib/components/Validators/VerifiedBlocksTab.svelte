@@ -111,7 +111,7 @@
 	}
 
 	.hash {
-		@apply text-color-hover-footer-link;
+		@apply text-color-hover-footer-link hover:text-opacity-70;
 	}
 
 	.right {

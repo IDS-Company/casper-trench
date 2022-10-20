@@ -27,7 +27,7 @@
 						{namedKey?.name}
 					</td>
 					<td class="green">
-						<a href="/uref/{namedKey?.key}">
+						<a href="/uref/{namedKey?.key}" class="key-item">
 							{namedKey?.key}
 						</a>
 					</td>
@@ -63,6 +63,10 @@
 		@apply text-[clamp(14px,1.07vw,1.07vw)] text-color-table-header min-w-max;
 	}
 
+	.key-item {
+		@apply cursor-pointer text-color-hover-footer-link hover:text-opacity-70;
+	}
+
 	.blocky {
 		@apply px-0;
 	}
@@ -70,9 +74,5 @@
 	.total {
 		@apply text-[clamp(12px,1.07vw,1.07vw)] text-color-grey-footer-label;
 		@apply mb-[2.38vw];
-	}
-
-	.green {
-		@apply text-color-hover-footer-link cursor-pointer;
 	}
 </style>
