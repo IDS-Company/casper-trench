@@ -2,7 +2,6 @@
 	import ActiveBlockIcon from '$lib/icons/ActiveBlockIcon.svelte';
 	import InactiveBlockIcon from '$lib/icons/InactiveBlockIcon.svelte';
 
-	export let gradient = false;
 	export let outline = false;
 	export let solid = false;
 	export let translucent = false;
@@ -66,7 +65,7 @@
 	}
 
 	.outline {
-		@apply border-[clamp(0,0.06vw,0.06vw)] border-color-hover-footer-link;
+		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-hover-footer-link;
 		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply text-color-hover-footer-link;
@@ -106,10 +105,11 @@
 	}
 
 	.red {
-		@apply border-[0.06vw] border-color-arcadia-red;
+		@apply border-[clamp(1px,0.12vw,0.12vw)] border-color-arcadia-red;
 		@apply py-[clamp(8px,0.71vw,0.71vw)] px-[clamp(8px,0.95vw,0.95vw)];
 		@apply rounded-[clamp(4px,0.3vw,0.3vw)];
 		@apply text-color-arcadia-red;
+		@apply hover:bg-color-arcadia-red hover:text-white;
 	}
 
 	.red > .content {
