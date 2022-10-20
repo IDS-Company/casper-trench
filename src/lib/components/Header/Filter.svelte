@@ -1,5 +1,4 @@
 <script lang="ts">
-	import NavbarChevron from '$lib/icons/NavbarChevron.svelte';
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import { searchPhrase } from '$utils/api';
 
