@@ -63,6 +63,7 @@
 		@apply bg-gradient-to-r from-color-search-btn-blue to-color-search-btn-green;
 		@apply rounded-r-[clamp(4px,0.24vw,0.24vw)];
 		@apply py-[14px] md:py-0 px-4 md:px-0;
+		@apply transition-all duration-200 hover:opacity-70;
 	}
 
 	.search-icon {
