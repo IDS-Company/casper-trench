@@ -14,7 +14,7 @@
 				{itemsPerPage}
 			</div>
 			<div class="chevron">
-				<ShowRowChevron />
+				<ShowRowChevron hover/>
 			</div>
 		</button>
 
