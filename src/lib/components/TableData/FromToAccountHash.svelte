@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
+	import { goto } from '$app/navigation';
 	import { getAccountBalance } from '$utils/api';
 	import { isPublicKey } from '$utils/wallets/verifications';
 	const { CLPublicKey } = browser && window.CasperSDK;
@@ -16,9 +17,15 @@
 
 <div class="from-to-hash">
 	{#if link}
-		<a href={link}>
-			<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
-		</a>
+		<Hash
+			{hash}
+			on:click={() => {
+				location.reload();
+				goto(link);
+			}}
+			noOfCharacters={6}
+			color={`${isFrom ? 'black' : 'text'}`}
+		/>
 	{:else}
 		<Hash {hash} noOfCharacters={6} color={`${isFrom ? 'black' : 'text'}`} />
 	{/if}
