@@ -155,6 +155,7 @@
 
 	.icon {
 		@apply h-[clamp(10px,0.95vw,0.95vw)];
+		@apply flex items-center justify-center;
 	}
 
 	.button {

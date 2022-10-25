@@ -1,15 +1,9 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
-	import {
-		getValidatorDetails,
-		millisToFormat,
-		parseStringValue,
-		timeAgo
-	} from '$utils/converters';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 	import Switch from '$components/Reusables/Switch.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
-	import Validator from '$components/TableData/Validator.svelte';
 	import { onMount } from 'svelte';
 	import type { Delegation, DelegationData, Undelegation } from '$utils/types/stake';
 	import { getAccountDelegation, getAccountUndelegations } from '$utils/api';

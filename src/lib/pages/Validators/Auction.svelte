@@ -6,7 +6,7 @@
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import { tableSort } from '$utils/sort';
-	import { bidValidators, currentPage, showSwitch } from '$stores/validatorsSwitch';
+	import { bidValidators, currentPage } from '$stores/validatorsSwitch';
 	import { onMount } from 'svelte';
 	import { getBids } from '$utils/api';
 	import type { Bid } from '$utils/types/validator';
