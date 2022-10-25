@@ -1,21 +1,21 @@
 <script lang="ts">
 	export let progress;
 
-	const angle = 360 * progress;
+	$: angle = 360 * progress;
 	let color = 'green';
 
 	// May be subject to change
-	if (progress === 1) {
+	$: if (progress >= 0.9) {
 		color = '#31DE91';
-	} else if (progress >= 0.97) {
+	} else if (progress >= 0.7) {
 		color = '#BBDE31';
-	} else if (progress >= 0.95) {
+	} else if (progress >= 0.5) {
 		color = '#F1BF0B';
 	} else {
 		color = '#E6332A';
 	}
 
-	const background = `radial-gradient(white 50%, transparent 51%),
+	$: background = `radial-gradient(white 50%, transparent 51%),
         conic-gradient(transparent 0deg ${angle}deg, white ${angle}deg 360deg),
         ${color}`;
 

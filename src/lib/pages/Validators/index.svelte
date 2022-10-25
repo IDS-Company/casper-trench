@@ -74,7 +74,7 @@
 				</div></th
 			>
 			<th>
-				<div class="justify-center performance">
+				<div class="performance center">
 					<div class="text">Performance</div>
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'asc'}
@@ -105,7 +105,7 @@
 					>{validator.networkPercentage && validator.networkPercentage.toFixed(2)}%</td
 				>
 				<td
-					><div class="performance">
+					><div class="performance md:ml-[5vw]">
 						<CircleProgressBar progress={(validator.performance && validator.performance) || 0} />
 					</div></td
 				>
@@ -160,7 +160,7 @@
 
 	.performance {
 		@apply text-center;
-		@apply flex justify-center gap-[clamp(8px,0.48vw,0.48vw)];
+		@apply flex justify-start gap-[clamp(8px,0.48vw,0.48vw)];
 	}
 
 	.network-perc {
@@ -178,5 +178,9 @@
 
 	.header-wrapper {
 		@apply flex items-center gap-[clamp(8px,0.48vw,0.48vw)];
+	}
+
+	.center {
+		@apply justify-center;
 	}
 </style>
