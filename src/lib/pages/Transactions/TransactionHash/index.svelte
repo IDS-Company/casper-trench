@@ -19,6 +19,7 @@
 	import { getDeploy } from '$utils/api';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { notifySuccess } from '$utils/toast';
 
 	let showRawData = false;
 	let deployResult;
@@ -278,6 +279,7 @@
 										on:click={() => {
 											navigator.clipboard &&
 												navigator.clipboard.writeText(JSON.stringify(deployResult, null, 2));
+												notifySuccess('Copied');
 										}}
 										class="copy-button"
 									>
