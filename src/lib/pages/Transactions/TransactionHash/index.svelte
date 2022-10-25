@@ -91,7 +91,7 @@
 				<div class="amount">
 					<div class="value">
 						{parseStringValue(
-							deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+							deployResult?.deploy?.session.StoredContractByHash?.args[2]?.[1]?.parsed ||
 								deployResult.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
 								deployResult.deploy?.session?.ModuleBytes?.args[0]?.[1]?.parsed ||
 								0
@@ -221,7 +221,7 @@
 							<!-- deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed) || -->
 							<BalanceTransferrable
 								cspr={parseStringValue(
-									deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+									deployResult?.deploy?.session.StoredContractByHash?.args[2]?.[1].parsed ||
 										deployResult?.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
 										deployResult.deploy?.session?.ModuleBytes?.args[7]?.[1]?.parsed ||
 										0
@@ -429,10 +429,9 @@
 					<div class="value mb-4">
 						<BalanceTransferrable
 							cspr={parseStringValue(
-								deployResult?.deploy?.session.StoredContractByHash?.args[2][1].parsed ||
+								deployResult?.deploy?.session.StoredContractByHash?.args[2]?.[1].parsed ||
 									deployResult?.deploy?.session?.Transfer?.args[0]?.[1]?.parsed ||
-									deployResult.deploy?.session?.ModuleBytes?.args[7]?.[1]?.parsed ||
-									0
+									deployResult.deploy?.session?.ModuleBytes?.args[7]?.[1]?.parsed
 							)}
 						/>
 					</div>
