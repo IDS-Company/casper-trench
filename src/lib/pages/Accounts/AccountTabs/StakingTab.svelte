@@ -1,27 +1,21 @@
 <script lang="ts">
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import EmptyIcon from '$lib/icons/EmptyIcon.svelte';
-	import {
-		getValidatorDetails,
-		millisToFormat,
-		parseStringValue,
-		timeAgo
-	} from '$utils/converters';
+	import { millisToFormat, timeAgo } from '$utils/converters';
 	import Switch from '$components/Reusables/Switch.svelte';
 	import TransactionStatus from '$components/TableData/TransactionStatus.svelte';
 	import Validator from '$components/TableData/Validator.svelte';
 	import { onMount } from 'svelte';
-	import type { Delegation, DelegationData, Undelegation } from '$utils/types/stake';
 	import { getAccountDelegation, getAccountUndelegations } from '$utils/api';
 	import { page } from '$app/stores';
 	import { isLoading } from '$stores/loading';
+	import type { Transaction } from '$utils/types/transaction';
 
-	let transactions = [];
-	let delegation: Delegation;
-	let delegationData: DelegationData[];
-	let undelegations: Undelegation[];
+	let transactions: Transaction[];
+	let delegations: Transaction[];
+	let undelegations: Transaction[];
 	let itemsPerPage = 10;
-	let startIndex = 0;
+	let startIndex = 1;
 	let dataset: 'delegations' | 'undelegations' = 'delegations';
 	const switchOptions = [
 		{
@@ -39,7 +33,7 @@
 
 	$: if (selected === 0) {
 		dataset = 'delegations';
-		transactions = delegationData;
+		transactions = delegations;
 	} else {
 		dataset = 'undelegations';
 		transactions = undelegations;
@@ -52,19 +46,19 @@
 
 	const fetchDelegations = async () => {
 		$isLoading = true;
-		delegation = await getAccountDelegation($page.params.address);
-		delegationData = delegation && delegation.data;
+		delegations = await getAccountDelegation($page.params.address, itemsPerPage, startIndex);
 		$isLoading = false;
 	};
 
 	const fetchUndelegations = async () => {
 		$isLoading = true;
-		undelegations = await getAccountUndelegations($page.params.address);
+		undelegations = await getAccountUndelegations($page.params.address, itemsPerPage, startIndex);
+		console.log(undelegations);
 		$isLoading = false;
 	};
 	$: if (itemsPerPage) {
 		setTimeout(async () => {
-			dataset == 'delegations' ? await fetchDelegations() : fetchUndelegations();
+			dataset == 'delegations' ? await fetchDelegations() : await fetchUndelegations();
 		}, 1);
 	}
 </script>
@@ -88,7 +82,7 @@
 		{#if transactions && transactions.length > 0}
 			{#each transactions as transaction}
 				<tr>
-					<td class="block">
+					<td class="blocky">
 						<a class="hidden md:block" href="/transactions/{transaction.deployHash}">
 							{transaction.deployHash}</a
 						>
@@ -99,14 +93,11 @@
 						></td
 					>
 					<td>
-						<!-- TODO add validator data -->
-						<!-- <Validator
-							hash={transaction.validator_public_key}
-							imgUrl={transaction.validator_icon}
-							name={transaction.validator_name}
-						/> -->
+						<Validator hash={transaction.validator} />
 					</td>
-					<td class="time">{timeAgo(millisToFormat(Date.now() - transaction.timestamp))} ago</td>
+					<td class="time"
+						>{timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago</td
+					>
 					<td>
 						<div class="value-crypto">
 							<div class="crypto">
@@ -130,9 +121,11 @@
 		<Paginator
 			showTotalRows={false}
 			bind:itemsPerPage
+			apiPaginator
 			bind:items={transactions}
 			bind:startIndex
-			bind:pagedItems={transactions}
+			on:load-page={async () =>
+				dataset == 'delegations' ? await fetchDelegations() : await fetchUndelegations()}
 		/>
 	{:else}
 		<div class="empty">

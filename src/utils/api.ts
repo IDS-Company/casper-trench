@@ -165,18 +165,32 @@ export const getAccountDeploys = async (address: string, count: number, startInd
 	}
 };
 
-export const getAccountDelegation = async (address: string) => {
+export const getAccountDelegation = async (address: string, count: number, startIndex: number) => {
 	try {
-		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/delegations`);
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/delegations`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch account delegations');
 	}
 };
 
-export const getAccountUndelegations = async (address: string) => {
+export const getAccountUndelegations = async (
+	address: string,
+	count: number,
+	startIndex: number
+) => {
 	try {
-		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/undelegations`);
+		const res = await axios.get(`${csprFyiBaseURL}/accounts/${address}/undelegations`, {
+			params: {
+				startIndex,
+				count
+			}
+		});
 		return res && res.data;
 	} catch (error) {
 		notifyError('Could not fetch account undelegations');

@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import Hash from './Hash.svelte';
 
-	export let imgUrl: string;
-	export let name: string;
+	export let imgUrl: string = '';
+	export let name: string = '';
 	export let hash: string;
 	export let variant: 'center' | 'right' | 'righter' | 'left' = 'right';
 	export let notValidator = false;
