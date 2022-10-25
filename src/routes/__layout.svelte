@@ -10,7 +10,7 @@
 	import nodePackages from '$utils/nodePackages?url';
 	import { account } from '$stores/account';
 	import { beforeUpdate } from 'svelte';
-	import { setCSPRPrice } from '$utils';
+	import { setCSPRPrice, setValidatorsInfo } from '$utils';
 	import { setConstructors } from '$utils/chain/helper';
 	import { page } from '$app/stores';
 
@@ -18,6 +18,7 @@
 		setConstructors();
 		$account = JSON.parse(localStorage.getItem('account'));
 		await setCSPRPrice();
+		await setValidatorsInfo();
 	});
 </script>
 
@@ -42,6 +43,7 @@
 {#if $isLoading}
 	<SvelteLoader />
 {/if}
+
 <style lang="postcss">
 	main {
 		@apply max-w-[100vw] overflow-x-auto flex-grow;

@@ -15,19 +15,14 @@
 	import { getBlock, getBlockTransfers, getLatestChainState } from '$utils/api';
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
 	import { blockHistory } from '$utils/history';
-	import type { Block } from '$utils/types/block';
-	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	let showTransfers = false;
 	let showProofs = false;
-	let block: Block;
+	let block;
 	let transfers = [];
 	let currentHeight = 0;
 	let proofs = [];
-	// onMount(async () => {
-	// 	await fetchBlock();
-	// });
 	const fetchBlock = async () => {
 		$isLoading = true;
 		block = await getBlock($page.params.hash);

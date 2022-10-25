@@ -1,3 +1,4 @@
+import { browser } from '$app/env';
 import { getValidator } from './api';
 import type { ValidatorDetails } from './types/validator';
 
@@ -112,6 +113,7 @@ export const parseStringValue = (value: string): number => {
 export const getValidatorDetails = async (
 	address: string
 ): Promise<{ name: string; icon: string }> => {
-	const validator: ValidatorDetails = await getValidator(address);
+	const validators = browser && JSON.parse(window.localStorage.getItem('validatorsInfo'));
+	const validator = validators.find((validator) => validator.publicKey === address);
 	return validator && { name: validator.information?.name, icon: validator.information?.icon };
 };
