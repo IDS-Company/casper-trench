@@ -54,7 +54,7 @@
 			text: 'CSPR Live Charts & Stats',
 			link: '/charts',
 			dropdown: []
-		},
+		}
 		// {
 		// 	text: 'More',
 		// 	link: '',
@@ -73,24 +73,25 @@
 		// 		}
 		// 	]
 		// },
-		{
-			text: 'Wallet',
-			link: '',
-			dropdown: [
-				{
-					text: 'Transfer',
-					link: '/wallet/transfer'
-				},
-				{
-					text: 'Delegate Stake',
-					link: '/wallet/delegate'
-				},
-				{
-					text: 'Undelegate Stake',
-					link: '/wallet/undelegate'
-				}
-			]
-		}
+		// TODO uncomment if wallet functionality is needed -->
+		// {
+		// 	text: 'Wallet',
+		// 	link: '',
+		// 	dropdown: [
+		// 		{
+		// 			text: 'Transfer',
+		// 			link: '/wallet/transfer'
+		// 		},
+		// 		{
+		// 			text: 'Delegate Stake',
+		// 			link: '/wallet/delegate'
+		// 		},
+		// 		{
+		// 			text: 'Undelegate Stake',
+		// 			link: '/wallet/undelegate'
+		// 		}
+		// 	]
+		// }
 	];
 
 	let openNavBackdrop = false;
@@ -105,12 +106,16 @@
 	<a href="/" class="logo" class:opacity-0={openNavBackdrop}>
 		<CasperTrenchLogo />
 	</a>
-	<div class="nav-items" class:isHovering on:mouseenter={() => (isHovering = true)}
-		on:mouseleave={() => (isHovering = false)}>
+	<div
+		class="nav-items"
+		class:isHovering
+		on:mouseenter={() => (isHovering = true)}
+		on:mouseleave={() => (isHovering = false)}
+	>
 		{#each navItems as navItem}
 			<div class="nav-item fillup">
 				{#if navItem.dropdown.length > 0}
-					<NavbarDropdown {navItem} {isHovering}/>
+					<NavbarDropdown {navItem} {isHovering} />
 				{:else}
 					<div class="text" class:selected={$page.url.pathname === navItem.link}>
 						<a href={navItem.link}>{navItem.text}</a>
@@ -118,7 +123,8 @@
 				{/if}
 			</div>
 		{/each}
-		{#if $account}
+		<!-- TODO uncomment if sign in functionality is needed -->
+		<!-- {#if $account}
 			<button on:click={disconnectWallet}>
 				<Hash hash={$account.publicKey} />
 			</button>
@@ -129,7 +135,7 @@
 				</div>
 				<div class="text">Sign In</div>
 			</a>
-		{/if}
+		{/if} -->
 	</div>
 	{#if !openNavBackdrop}
 		<div class="nav-menu-mobile" on:click={() => (openNavBackdrop = true)} transition:slide>
