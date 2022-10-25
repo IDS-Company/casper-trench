@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import ShowRow from './ShowRow.svelte';
 	import { getLatestChainState } from '$utils/api';
 	const dispatch = createEventDispatcher();
@@ -25,12 +25,24 @@
 				}
 			});
 	};
+	let currentBlockHeight;
+	onMount(async () => {
+		const chainState = await getLatestChainState();
+		currentBlockHeight = chainState && chainState.last_added_block_info?.height;
+	});
 	$: items && itemsPerPage && pageItems();
 	$: totalPages = items && pageItems && Math.ceil(items.length / itemsPerPage);
 </script>
 
 {#if showTotalRows}
-	<div class="total paginator">{items && items.length} total rows</div>
+	<div class="total paginator">
+		{#if isRangeBlock}
+			{currentBlockHeight?.toLocaleString('en') || 0}
+		{:else}
+			{items && items.length}
+		{/if}
+		total rows
+	</div>
 {/if}
 <div class="paginator">
 	<div class="paginator-buttons">
@@ -45,14 +57,15 @@
 				on:click={async () => {
 					if (isRangeBlock) {
 						const chainState = await getLatestChainState();
-						startIndex = chainState && chainState.last_added_block_info?.height;
+						startIndex = currentBlockHeight =
+							chainState && chainState.last_added_block_info?.height;
 					} else {
-						startIndex = 0;
+						startIndex = 1;
 					}
 					page = 1;
 					apiPaginator ? dispatch('load-page') : pageItems();
 				}}
-				class="button">First</button
+				class="button cursor-pointer">First</button
 			>
 			<button
 				type="button"
@@ -63,7 +76,7 @@
 						apiPaginator ? dispatch('load-page') : pageItems();
 					}
 				}}
-				class="button"
+				class="button cursor-pointer"
 			>
 				<div class="icon">
 					<PaginatorChevron />
@@ -94,7 +107,7 @@
 						}
 					}
 				}}
-				class="button"
+				class="button cursor-pointer"
 			>
 				<div class="icon right">
 					<PaginatorChevron />
@@ -108,7 +121,7 @@
 					startIndex = (totalPages - 1) * itemsPerPage;
 					pageItems();
 				}}
-				class="button">Last</button
+				class="button {apiPaginator ? 'cursor-not-allowed' : 'cursor-pointer'}">Last</button
 			>
 		</div>
 	</div>
@@ -149,7 +162,7 @@
 		@apply leading-none;
 		@apply border-[clamp(1px,0.12vw,0.12vw)] rounded-[clamp(4px,0.3vw,0.3vw)] border-color-paginator-border;
 		@apply duration-200 transition-all hover:border-color-hover-footer-link hover:text-color-hover-footer-link;
-		@apply cursor-pointer;
+		/* @apply cursor-pointer; */
 	}
 
 	.total {
