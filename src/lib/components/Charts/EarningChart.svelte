@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { externalTooltipHandler } from '$utils/tooltip';
-
+	import { onMount } from 'svelte';
 	import ChartToolbar from './ChartToolbar.svelte';
 
 	let ctx: HTMLCanvasElement;
 	let chart;
 
 	export let data: [{ x?: Date; y?: number }];
-	export let isLoading = true;
 
-	$: if (!isLoading) {
+	onMount(() => {
 		data?.length > 0 && renderChart(data);
-	}
+	})
 
 	const renderChart = (chartData1: [{ x?: Date; y?: number }]) => {
 		// @ts-ignore
