@@ -20,6 +20,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { notifySuccess } from '$utils/toast';
+	import RedFailureIcon from '$lib/icons/RedFailureIcon.svelte';
 
 	let showRawData = false;
 	let deployResult;
@@ -74,20 +75,20 @@
 
 			<div class="status">
 				<div class="icon">
-					{#if deployResult?.deploy?.approvals?.length > 0}
+					{#if deployResult.execution_results[0].result.Success}
 						<TransactionDetailsSuccessIcon />
 					{:else}
-						<!-- TODO Fail Icon -->
+						<RedFailureIcon />
 					{/if}
 				</div>
-				<div class="status-text" class:success={deployResult?.deploy?.approvals?.length > 0}>
+				<div class="status-text" class:success={deployResult.execution_results[0].result.Success}>
 					{#if deployResult?.deploy?.session.StoredContractByHash}
 						{deployResult?.deploy?.session.StoredContractByHash.entry_point}
 					{:else if deployResult.deploy?.session?.Transfer}
 						Transfer
 					{:else if deployResult.deploy?.session?.ModuleBytes}
 						Deploy
-					{/if} SUCCESS
+					{/if} {deployResult.execution_results[0].result.Success ? "SUCCESS" : "FAILED"}
 				</div>
 				<div class="amount">
 					<div class="value">
@@ -235,7 +236,7 @@
 						<td class="label">Transaction Fee</td>
 						<td class="value"
 							><BalanceTransferrable
-								cspr={parseStringValue(deployResult?.execution_results[0].result.Success.cost)}
+								cspr={parseStringValue(deployResult?.execution_results[0]?.result?.Success?.cost || deployResult?.execution_results[0]?.result?.Failure?.cost)}
 							/></td
 						>
 					</tr>
@@ -443,7 +444,7 @@
 					<div class="label mb-1">Transaction Fee</div>
 					<div class="value mb-4">
 						<BalanceTransferrable
-							cspr={parseStringValue(deployResult?.execution_results[0].result.Success.cost)}
+							cspr={parseStringValue(deployResult?.execution_results[0]?.result?.Success?.cost || deployResult?.execution_results[0]?.result?.Failure?.cost)}
 						/>
 					</div>
 				</div>
