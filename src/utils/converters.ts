@@ -62,7 +62,7 @@ export const timeAgo = (time: {
 };
 
 export const aTimeAgo = (diff: number): string => {
-	const time = millisToFormat(diff);
+	const time = millisToFormat(Math.abs(diff));
 
 	let textString = '';
 	if (time.years >= 1) {
