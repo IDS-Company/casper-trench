@@ -147,7 +147,7 @@
 		@apply rounded-[0.89vh] md:rounded-[0.89vw];
 		@apply p-[clamp(16px,1.43vw,1.43vw)];
 		@apply mt-[clamp(8px,0.2vw,0.2vw)];
-		@apply max-h-[clamp(300px,40vw,40vw)] overflow-y-auto;
+		@apply max-h-[clamp(300px,40vw,40vw)] md:max-w-[63vw] overflow-x-auto overflow-y-auto;
 		@apply border-[clamp(1px,0.06vw,0.06vw)] border-color-tooltip-border;
 		@apply shadow-[0px_0.18vw_1.37vw_0px_rgba(244,246,255,0.5)];
 		@apply text-[clamp(14px,1.07vw,1.07vw)];
