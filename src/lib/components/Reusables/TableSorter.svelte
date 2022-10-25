@@ -1,5 +1,5 @@
 <script>
-	import PaginatorChevron from '$lib/icons/PaginatorChevron.svelte';
+	import SorterChevron from '$lib/icons/SorterChevron.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import Tooltip from './Tooltip.svelte';
 
@@ -31,14 +31,14 @@
 	<Tooltip text="Lowest to Highest" {left}>
 		<div class="ascending" on:click={ascendingHandler}>
 			<div class="icon">
-				<PaginatorChevron hover color={ascendingSelected ? '#099B91' : '#8F9398'} />
+				<SorterChevron hover color={ascendingSelected ? '#099B91' : '#8F9398'} />
 			</div>
 		</div>
 	</Tooltip>
 	<Tooltip text="Highest to Lowest" {left}>
 		<div class="descending" on:click={descendingHandler}>
 			<div class="icon">
-				<PaginatorChevron hover color={descendingSelected ? '#099B91' : '#8F9398'} />
+				<SorterChevron hover color={descendingSelected ? '#099B91' : '#8F9398'} />
 			</div>
 		</div>
 	</Tooltip>

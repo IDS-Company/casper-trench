@@ -9,15 +9,15 @@
 	import { getValidatorDetails, millisToFormat, timeAgo } from '$utils/converters';
 	import { blockHistory } from '$utils/history';
 	import { tableSort } from '$utils/sort';
-	import type { DBBlock } from '$utils/types/block';
+	import type { Block } from '$utils/types/block';
 	import { onMount } from 'svelte';
-	let blocks: DBBlock[];
+	let blocks: Block[];
 	let latestBlock = 0;
 	let blocksPerPage = 10;
 	let startIndex = 0;
 	onMount(async () => {
 		$isLoading = true;
-		const latestBlocks: DBBlock[] = await getLatestBlocks(1);
+		const latestBlocks: Block[] = await getLatestBlocks(1);
 		startIndex = latestBlocks && latestBlocks[0].blockHeight;
 		latestBlock = startIndex;
 		$isLoading = false;
@@ -109,7 +109,7 @@
 						{block.deploys}
 					</td>
 					<td class="center age">
-						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp)))} ago`}
+						{`${timeAgo(millisToFormat(Date.now() - Date.parse(block.timestamp.toString())))} ago`}
 					</td>
 					<td class="flex justify-end">
 						<div class="wrapper">
@@ -128,10 +128,10 @@
 										imgUrl={validator.icon}
 										name={validator.name}
 										hash={block.validatorPublicKey}
-										variant='left'
+										variant="left"
 									/>
 								{:else}
-									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} variant='left'/>
+									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} variant="left" />
 								{/if}
 							{/await}
 						</div>
