@@ -71,9 +71,10 @@
 		/* @apply flex flex-col md:flex-row gap-y-[clamp(10px,1vw,1vw)] justify-between; */
 		@apply mb-[3.51vw];
 	}
-	
+
 	.buttons {
-		@apply flex items-center justify-center md:justify-start gap-[clamp(16px,1.5vw,1.5vw)] flex-row;
+		@apply hidden;
+		/* @apply flex items-center justify-center md:justify-start gap-[clamp(16px,1.5vw,1.5vw)] flex-row; */
 		@apply mb-[3.51vw];
 	}
 </style>
