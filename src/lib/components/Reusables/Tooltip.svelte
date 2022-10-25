@@ -3,10 +3,11 @@
 
 	export let text = '';
 	export let left = false;
+	export let lefter = false;
 </script>
 
 <div class="tooltip">
-	<div class="tooltip-icon" class:left style="--tooltip: '{text}'">
+	<div class="tooltip-icon" class:left class:lefter style="--tooltip: '{text}'">
 		<slot>
 			<div class="h-[clamp(10px,0.83vw,0.83vw)] w-[clamp(10px,0.83vw,0.83vw)]">
 				<TooltipIcon />
@@ -49,5 +50,10 @@
 	.left::before,
 	.left::after {
 		@apply translate-x-[-20vw] md:translate-x-[-9vw];
+	}
+
+	.lefter::before,
+	.lefter::after {
+		@apply translate-x-[-20vw] md:translate-x-[-19vw];
 	}
 </style>
