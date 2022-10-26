@@ -3,6 +3,7 @@
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
 	import Tooltip from '$lib/components/Reusables/Tooltip.svelte';
 	import Validator from '$lib/components/TableData/Validator.svelte';
+	import { isLoading } from '$stores/loading';
 	import { getContracts } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
 	import { tableSort } from '$utils/sort';
@@ -26,7 +27,9 @@
 	const typeFilterItems = ['System Contract', 'ERC-20', 'DeFi', 'NFT'];
 	let selectedFilter = -1;
 	onMount(async () => {
+		$isLoading = true;
 		contracts = await getContracts();
+		$isLoading = false;
 	});
 </script>
 
