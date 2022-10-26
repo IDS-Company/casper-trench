@@ -92,9 +92,9 @@
 							)}`}</a
 						></td
 					>
-					<td>
+					<!-- <td>
 						<Validator hash={transaction.validator} />
-					</td>
+					</td> -->
 					<td class="time"
 						>{timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago</td
 					>
