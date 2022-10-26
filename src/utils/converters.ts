@@ -1,4 +1,3 @@
-import { browser } from '$app/env';
 import { getValidator } from './api';
 import type { ValidatorDetails } from './types/validator';
 
@@ -12,7 +11,8 @@ export const millisToFormat = (
 	months: number;
 	years: number;
 } => {
-	let seconds = Math.floor(diff / 1000),
+	const abs = Math.abs(diff);
+	let seconds = Math.floor(abs / 1000),
 		minutes = Math.floor(seconds / 60),
 		hours = Math.floor(minutes / 60),
 		days = Math.floor(hours / 24),
@@ -113,7 +113,6 @@ export const parseStringValue = (value: string): number => {
 export const getValidatorDetails = async (
 	address: string
 ): Promise<{ name: string; icon: string }> => {
-	const validators = browser && JSON.parse(window.localStorage.getItem('validatorsInfo'));
-	const validator = validators.find((validator) => validator.publicKey === address);
+	const validator: ValidatorDetails = await getValidator(address);
 	return validator && { name: validator.information?.name, icon: validator.information?.icon };
 };
