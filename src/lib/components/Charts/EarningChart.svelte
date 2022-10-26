@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { externalTooltipHandler } from '$utils/tooltip';
+	import { externalEarningTooltipHandler } from '$utils/tooltip';
 	import { onMount } from 'svelte';
 	import ChartToolbar from './ChartToolbar.svelte';
 
@@ -93,7 +93,7 @@
 					tooltip: {
 						enabled: false,
 						position: 'nearest',
-						external: externalTooltipHandler,
+						external: externalEarningTooltipHandler,
 						padding: 16
 					},
 					zoom: {
