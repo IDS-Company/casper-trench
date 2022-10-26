@@ -73,7 +73,7 @@
 	<table>
 		<tr>
 			<th class="blocky">Transaction</th>
-			<!-- <th>Validator</th> -->
+			<th>Validator</th>
 			<th class="right">TX Time</th>
 			<th class="right">Amount</th>
 			<th class="right">Status</th>
@@ -92,9 +92,9 @@
 							)}`}</a
 						></td
 					>
-					<!-- <td>
+					<td>
 						<Validator hash={transaction.validator} />
-					</td> -->
+					</td>
 					<td class="time"
 						>{timeAgo(millisToFormat(Date.now() - Date.parse(transaction.timestamp)))} ago</td
 					>
