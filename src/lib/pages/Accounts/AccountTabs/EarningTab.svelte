@@ -83,7 +83,7 @@
 			</div>
 		{/if}
 	</div>
-	<EarningChart {data} isLoading={$isLoading} />
+	<EarningChart {data} />
 </div>
 
 <style lang="postcss">
