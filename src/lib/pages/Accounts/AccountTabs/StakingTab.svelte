@@ -73,7 +73,7 @@
 	<table>
 		<tr>
 			<th class="blocky">Transaction</th>
-			<th>Validator</th>
+			<!-- <th>Validator</th> -->
 			<th class="right">TX Time</th>
 			<th class="right">Amount</th>
 			<th class="right">Status</th>
