@@ -47,7 +47,7 @@
 			<th
 				><div class="sorter">
 					<div class="text">30d Transactions</div>
-					<Tooltip text="Number of Contract calls in the past 30 Days" />
+					<Tooltip lefter text="Number of Contract calls in the past 30 Days" />
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 0 && sortingOptions.order === 'desc'}

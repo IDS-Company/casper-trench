@@ -79,6 +79,7 @@
 					<TableSorter
 						ascendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'asc'}
 						descendingSelected={sortingOptions.index === 4 && sortingOptions.order === 'desc'}
+						left
 						on:sort={(e) => sortValidators(e.detail?.direction, 'performance', 4)}
 					/>
 				</div>
