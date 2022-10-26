@@ -7,10 +7,11 @@
 	let chart;
 
 	export let data: [{ x?: Date; y?: number }];
+	export let isLoading = true;
 
-	onMount(() => {
+	$: if (!isLoading) {
 		data?.length > 0 && renderChart(data);
-	})
+	}
 
 	const renderChart = (chartData1: [{ x?: Date; y?: number }]) => {
 		// @ts-ignore

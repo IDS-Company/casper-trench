@@ -83,7 +83,9 @@
 			</div>
 		{/if}
 	</div>
-	<EarningChart {data} />
+	{#key data}
+		<EarningChart {data} bind:isLoading={$isLoading}/>
+	{/key}
 </div>
 
 <style lang="postcss">
