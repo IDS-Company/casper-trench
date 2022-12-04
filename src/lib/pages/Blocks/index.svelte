@@ -120,20 +120,7 @@
 					</td>
 					<td>
 						<div class="flex justify-end">
-							{#await getValidatorDetails(block.validatorPublicKey)}
-								<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} />
-							{:then validator}
-								{#if validator}
-									<Validator
-										imgUrl={validator.icon}
-										name={validator.name}
-										hash={block.validatorPublicKey}
-										variant="left"
-									/>
-								{:else}
-									<Validator imgUrl={''} name={''} hash={block.validatorPublicKey} variant="left" />
-								{/if}
-							{/await}
+							<Validator variant="left" hash={block?.validatorPublicKey} />
 						</div>
 					</td>
 				</tr>

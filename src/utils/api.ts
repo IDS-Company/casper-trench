@@ -330,7 +330,7 @@ export const getDeployVolumes = async (days: number) => {
 		const res = await axios.get(`${csprFyiBaseURL}/deploys/volumes/${days}`);
 		return res && res.data;
 	} catch (error) {
-		notifyError('Could not fetch volumes');
+		error?.message !== 'Request aborted' && notifyError('Could not fetch volumes');
 	}
 };
 export const getLatestChainState = async () => {
