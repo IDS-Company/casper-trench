@@ -11,6 +11,7 @@
 	import BalanceTransferrable from '$lib/components/TableData/BalanceTransferrable.svelte';
 	import TxHash from '$lib/components/TableData/TxHash.svelte';
 	import type { Transaction } from '$utils/types/transaction';
+	import { isLoading } from '$stores/loading';
 
 	let transactionsPerPage: number = 10;
 	let startIndex = 1;
@@ -20,7 +21,9 @@
 	});
 
 	const fetchTransactions = async () => {
+		$isLoading = true;
 		transactions = await getContractDeploys($page.params.hash, startIndex, transactionsPerPage);
+		$isLoading = false;
 	};
 </script>
 
