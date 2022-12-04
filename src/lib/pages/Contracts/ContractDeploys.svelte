@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation';
 	import Paginator from '$lib/components/Paginator/index.svelte';
 	import TableSorter from '$lib/components/Reusables/TableSorter.svelte';
-	import AmountCost from '$lib/components/TableData/AmountCost.svelte';
 	import Hash from '$lib/components/TableData/Hash.svelte';
 	import { getContractDeploys } from '$utils/api';
 	import { millisToFormat, timeAgo } from '$utils/converters';
@@ -17,8 +16,12 @@
 	let startIndex = 1;
 	let transactions: Transaction[];
 	onMount(async () => {
-		transactions = await getContractDeploys($page.params.hash, startIndex, transactionsPerPage);
+		await fetchTransactions();
 	});
+
+	const fetchTransactions = async () => {
+		transactions = await getContractDeploys($page.params.hash, startIndex, transactionsPerPage);
+	};
 </script>
 
 <div class="delegators-tab">
@@ -90,8 +93,10 @@
 	<Paginator
 		showTotalRows={false}
 		bind:itemsPerPage={transactionsPerPage}
+		bind:items={transactions}
 		apiPaginator
 		bind:startIndex
+		on:load-page={async () => await fetchTransactions()}
 	/>
 </div>
 
